@@ -346,10 +346,30 @@ function ofertaB(of){
 }
 function bbB(v){
   if(!v) return '—';
+  if(v==="Ganada")               return '<span class="b b-ok">Ganada</span>';
+  if(v==="La tiene Amazon (1P)") return '<span class="b b-cool">Amazon 1P</span>';
+  if(v==="La tiene un tercero")  return '<span class="b b-bad">Un tercero</span>';
+  if(v==="Sin oferta destacada") return '<span class="b b-warn">Sin destacar</span>';
   if(/^S[ií]$/i.test(v)) return '<span class="b b-ok">Sí</span>';
   if(/^No$/i.test(v)) return '<span class="b b-mute">No</span>';
-  if(/Perdida/i.test(v)) return '<span class="b b-bad">'+esc(v.replace("Perdida ante","Pierde ante"))+'</span>';
   return esc(v);
+}
+// Diagnóstico por referencia. Solo dice lo que los datos sostienen: si no hay oferta
+// publicada no se puede tener la oferta destacada, y si la tiene nuestro propio 1P la
+// venta no se pierde. Donde no se puede saber, lo dice en lugar de inventar una causa.
+function motivoBB(r){
+  var e = r[10], viva = String(r[6]||"").indexOf("Activa")===0, s = num(r[5]);
+  if(!e || e==="Ganada") return null;
+  if(e==="La tiene Amazon (1P)") return viva
+    ? ["cool","Vende Vendor","La tiene nuestro propio 1P. La venta se hace por Vendor: cambia el margen, no se pierde"]
+    : ["mute","Oferta cerrada","Nuestra oferta de Seller está cerrada y vende Vendor"];
+  if(e==="La tiene un tercero") return viva
+    ? ["bad","Competimos y la perdemos","Oferta viva y con stock, y aun así la tiene un tercero. Hay que mirarla una a una"]
+    : ["warn","No competimos","Nuestra oferta de Seller está cerrada: la ficha se la queda un tercero por defecto"];
+  if(e==="Sin oferta destacada") return (viva && s>0)
+    ? ["bad","Ficha sin botón de compra","Oferta publicada y con stock, pero la ficha no muestra ninguna oferta destacada: hoy nadie puede comprarla"]
+    : ["mute","Oferta cerrada","Ficha sin oferta destacada, con nuestra oferta cerrada"];
+  return null;
 }
 function stockC(s,of){
   var n=num(s);
@@ -613,6 +633,8 @@ function vResumen(){
   var alertas = [];
   SO.forEach(function(r){ if((r[6]||"").indexOf("Activa")===0 && num(r[5])===0)
     alertas.push(["Agotada con la oferta publicada", r[2], r[3], "bad"]); });
+  SO.forEach(function(r){ var m=motivoBB(r); if(m && m[0]==="bad")
+    alertas.push([m[2], r[2], r[3], "bad"]); });
   AS.forEach(function(r){ if(!/^Disponible/.test(String(r[10]||"")))
     alertas.push(["En Ads Q4 y no vende por Seller: "+txt(r[10]), r[0], r[1], /Sin stock/.test(String(r[10]))?"bad":"warn"]); });
   SO.forEach(function(r){ var s=num(r[12]); if(s!=null && s>0 && s<3.5)
@@ -704,16 +726,43 @@ function vCatalogo(){
 /* ======== PRECIO Y BUYBOX ======== */
 function vPrecio(){
   var w=document.createDocumentFragment();
-  var pierde=0, asins={}, vend={};
-  P3.forEach(function(r){ if(/s[ií]/i.test(String(r[18]))) pierde++; if(r[1])asins[r[1]]=1; if(r[7])vend[r[7]]=(vend[r[7]]||0)+1; });
-  var perdidas = {a:0,p:0,t:0};
-  SO.forEach(function(r){ var b=String(r[10]||"");
-    if(/Amazon \(1P\)/.test(b)) perdidas.a++; else if(/oferta propia/.test(b)) perdidas.p++; else if(/terceros/.test(b)) perdidas.t++; });
+  var asins={}, vend={};
+  P3.forEach(function(r){ if(r[1])asins[r[1]]=1; if(r[7])vend[r[7]]=(vend[r[7]]||0)+1; });
+  var E={}; SO.forEach(function(r){ if(r[10]) E[r[10]]=(E[r[10]]||0)+1; });
+  var gan=E["Ganada"]||0, am=E["La tiene Amazon (1P)"]||0,
+      ter=E["La tiene un tercero"]||0, sin=E["Sin oferta destacada"]||0;
+
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN afectados") +
-    kpi("Nos quitan la BuyBox", fm(pierde), "de "+fm(P3.length)+" ofertas", pierde?"is-bad":"") +
-    kpi("BuyBox perdida ante 1P", fm(perdidas.a), "Amazon vende el mismo ASIN") +
-    kpi("Ante oferta propia", fm(perdidas.p), "duplicidad Vendor/Seller", "is-cool") + '</div>'));
+    kpi("Oferta destacada ganada", fm(gan), "la tenemos, en FBM o en Flex", "is-ok") +
+    kpi("La tiene Amazon como 1P", fm(am), "es nuestra por Vendor", "is-cool") +
+    kpi("La tiene un tercero", fm(ter), ter?(SO.filter(function(r){return r[10]==="La tiene un tercero" && String(r[6]||"").indexOf("Activa")!==0;}).length+" con la oferta cerrada"):"", "is-bad") +
+    kpi("Ficha sin oferta destacada", fm(sin), "nadie puede comprar", "is-bad") +
+    kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN con competencia") + '</div>'));
+
+  // lo accionable de verdad
+  var urg = SO.filter(function(r){ var m=motivoBB(r); return m && m[0]==="bad"; })
+              .sort(function(a,b){ return (num(b[5])||0)-(num(a[5])||0); });
+  if(urg.length){
+    var uh='<div class="tw"><table><thead><tr><th>ASIN</th><th>Modelo</th><th>Producto</th><th>Oferta</th>'+
+      '<th class="r">Stock</th><th class="r">PVP</th><th>Qué pasa</th></tr></thead><tbody>'+
+      urg.map(function(r){ var m=motivoBB(r);
+        return '<tr><td>'+asinCell(r[2])+'</td><td class="sku">'+esc(txt(r[3]))+'</td>'+
+          '<td><div class="ti-1">'+esc(txt(r[4]))+'</div></td>'+
+          '<td>'+ofertaB(r[6])+'</td><td class="r num" style="white-space:nowrap">'+fm(r[5])+'</td>'+
+          '<td class="r num" style="white-space:nowrap">'+(r[8]==null?"—":eur(r[8],0))+'</td>'+
+          '<td style="min-width:230px"><span class="b b-'+m[0]+'">'+esc(m[1])+'</span>'+
+          '<div style="font-size:11.5px;color:var(--ink-2);margin-top:3px">'+esc(m[2])+'</div></td></tr>';
+      }).join("")+'</tbody></table></div>';
+    w.appendChild(el(card("Las que hay que mirar", urg.length+" referencias", uh,
+      'Son las únicas con la oferta publicada, con stock, y sin la oferta destacada. El resto de las pérdidas o son nuestras por Vendor, o tienen la oferta cerrada.')));
+  }
+
+  w.appendChild(el(card("Qué se puede concluir y qué no", "sobre por qué perdemos la oferta destacada",
+    '<div class="note" style="border-top:0;line-height:1.6">'+
+    '<b>Se puede descartar el score.</b> La mediana por estado es 4,0 en las ganadas y 4,3 en las que tiene Amazon y en las fichas sin oferta destacada: es más alta justo donde no la tenemos. Solo 13 referencias de todo el catálogo bajan de 3,5 y están repartidas por todos los grupos, incluida una que sí la gana. El score bloquea las <i>ofertas</i> de Amazon, no la oferta destacada.<br><br>'+
+    '<b>Se puede descartar la logística.</b> Ninguna de las '+fm(P3.length)+' ofertas de terceros es FBA, y solo 10 son Prime. No hay ventaja logística que explique nada.<br><br>'+
+    '<b>Lo que más pesa es el stock y el listing.</b> De las '+fm(am+ter+sin)+' referencias sin la oferta destacada, la gran mayoría tiene la oferta de Seller cerrada o el stock a cero. Sin oferta publicada no se puede tener la oferta destacada.<br><br>'+
+    '<b>Lo que NO se puede afirmar es que el precio dé igual.</b> El informe de BuyBox no trae nuestro precio justo en las ofertas cerradas, así que comparar ahí es comparar contra un precio que nadie puede pagar. Y hay competencia de precio activa: cinco terceros nos están poniendo exactamente un céntimo por debajo. Con esta foto no se puede medir el efecto del precio, y decir que no influye sería inventárselo.</div>','')));
 
   var vlist = Object.keys(vend).map(function(k){ return [k,vend[k]]; }).sort(function(a,b){return b[1]-a[1];});
   w.appendChild(el(card("Vendedores con más ofertas colgadas","sobre nuestras fichas",barras(vlist.slice(0,10)))));
@@ -722,8 +771,9 @@ function vPrecio(){
     title:"Vigilancia de precio de terceros", sub:"snapshot "+(P3[0]?P3[0][0]:""),
     ph:"ASIN, modelo o vendedor…", rows:P3, max:800,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[7]||"")).toLowerCase(); },
-    selects:[{key:"bb",label:"Sólo los que nos quitan la BuyBox",opts:["Sí"],
-      test:function(r){ return /s[ií]/i.test(String(r[18])); }}],
+    selects:[{key:"bb",label:"Oferta destacada",
+      opts:["Ganada","La tiene Amazon (1P)","La tiene un tercero","Sin oferta destacada"],
+      test:function(r,v){ var c=byAsin[r[1]]; return !!c && c[10]===v; }}],
     sort:5, dir:1,   // columna Gap de ESTA tabla, no del origen: es el índice dentro de cols
     cols:[
       {t:"ASIN",k:1,render:function(r){ return asinCell(r[1]); }},
@@ -734,7 +784,11 @@ function vPrecio(){
       {t:"Gap",k:12,r:1,render:function(r){ var g=num(r[12]); if(g==null)return "—";
         return '<span class="num" style="color:'+(g<0?"var(--bad)":"var(--ok)")+';font-weight:600">'+eur(g)+'</span>'; }},
       {t:"FBA",k:14,render:function(r){ return /s[ií]/i.test(String(r[14]))?'<span class="b b-cool">FBA</span>':'<span class="b b-mute">no</span>'; }},
-      {t:"BuyBox",k:18,render:function(r){ return /s[ií]/i.test(String(r[18]))?'<span class="b b-bad">nos la quita</span>':'<span class="b b-mute">no</span>'; }}
+      // El informe trae una marca de "nos quita la BuyBox", pero solo se enciende cuando
+      // falta nuestro precio, o sea solo en ofertas cerradas. No sirve para diagnosticar,
+      // así que se muestra el estado real de la ficha en su lugar.
+      {t:"Oferta destacada",k:18,sortv:function(r){ var c=byAsin[r[1]]; return c?c[10]:""; },
+       render:function(r){ var c=byAsin[r[1]]; return c&&c[10]?bbB(c[10]):'<span style="color:var(--ink-3)">—</span>'; }}
     ],
     note:'El gap es su precio total menos el nuestro: <b>en negativo, el tercero nos está bajando el precio</b>. El informe de BuyBox no trae nuestro PVP en '+p3Completadas+' de las '+P3.length+' ofertas; en esas se ha tomado del catálogo, que es el mismo dato (coincide al céntimo en las '+(P3.length-p3Completadas)+' que sí lo traen).'
   }));
