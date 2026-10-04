@@ -123,6 +123,14 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .kpi.is-bad .v{color:var(--bad)}
 .kpi.is-ok .v{color:var(--ok)}
 .kpi.is-cool .v{color:var(--cool)}
+/* los indicadores que llevan a algún sitio se comportan como un botón;
+   los que no, se quedan como una tarjeta y no fingen ser pulsables */
+.kpi.clic{cursor:pointer;position:relative;text-align:left;width:100%;display:block;font:inherit;color:inherit}
+.kpi.clic:hover{border-color:var(--accent-line);background:var(--accent-soft)}
+.kpi.clic .ver{position:absolute;top:12px;right:13px;font-size:10.5px;color:var(--ink-3);opacity:0;transition:opacity .12s}
+.kpi.clic:hover .ver,.kpi.clic:focus-visible .ver{opacity:1;color:var(--accent)}
+@media(prefers-reduced-motion:reduce){.kpi.clic .ver{transition:none}}
+.fb .quitar{font-size:11.5px;color:var(--accent);text-decoration:underline;padding:0 2px}
 
 /* chips y badges */
 .chips{display:flex;gap:6px;flex-wrap:wrap}
@@ -318,9 +326,15 @@ var FECHA = (SO[0] && SO[0][14]) || "04/10/2026";
 document.getElementById("stampd").textContent = FECHA;
 
 /* ---------- componentes ---------- */
-function kpi(lab,val,foot,cls){
-  return '<div class="kpi '+(cls||"")+'"><div class="lab">'+esc(lab)+'</div><div class="v">'+val+
-         '</div><div class="fo">'+(foot||"")+'</div></div>';
+// `ir` opcional: {tab, tabla, sel:{clave:valor}, chip:valor}. Si viene, la tarjeta
+// se convierte en un botón que lleva a esa tabla con el filtro ya puesto.
+function kpi(lab,val,foot,cls,ir){
+  var t = ir ? "button" : "div";
+  var at = ir ? ' class="kpi clic '+(cls||"")+'" type="button" data-ir=\''+esc(JSON.stringify(ir))+'\''
+              : ' class="kpi '+(cls||"")+'"';
+  return '<'+t+at+'><div class="lab">'+esc(lab)+'</div><div class="v">'+val+
+         '</div><div class="fo">'+(foot||"")+'</div>'+
+         (ir?'<span class="ver">ver detalle →</span>':'')+'</'+t+'>';
 }
 function card(title,sub,body,note){
   return '<section class="card sec"><div class="card-h"><h2>'+esc(title)+'</h2>'+
@@ -392,17 +406,21 @@ function tabla(cfg){
   fb.appendChild(inp);
   inp.addEventListener("input",function(){ state.q=inp.value.trim().toLowerCase(); draw(); });
 
+  var selEls = {};
   (cfg.selects||[]).forEach(function(sc){
     var s = el('<select aria-label="'+esc(sc.label)+'"><option value="">'+esc(sc.label)+'</option>'+
       sc.opts.map(function(o){ return '<option value="'+esc(o)+'">'+esc(o)+'</option>'; }).join("")+'</select>');
     fb.appendChild(s);
+    selEls[sc.key] = s;
     s.addEventListener("change",function(){ state.sel[sc.key]=s.value; draw(); });
   });
 
+  var chipEls = {};
   if(cfg.chips && cfg.chips.length){
     var cw = el('<span class="chips"></span>');
     cfg.chips.forEach(function(c){
       var b = el('<button class="chip" aria-pressed="false">'+esc(c.t)+'<span class="c">'+c.n+'</span></button>');
+      chipEls[c.v] = b;
       b.addEventListener("click",function(){
         var on = state.chip===c.v; state.chip = on?null:c.v;
         cw.querySelectorAll(".chip").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
@@ -413,7 +431,33 @@ function tabla(cfg){
     });
     fb.appendChild(cw);
   }
+  var quitar = el('<button class="quitar" hidden>quitar el filtro</button>');
+  fb.appendChild(quitar);
+  quitar.addEventListener("click",function(){
+    state.q=""; state.chip=null; state.sel={}; inp.value="";
+    Object.keys(selEls).forEach(function(k){ selEls[k].value=""; });
+    Object.keys(chipEls).forEach(function(k){ chipEls[k].setAttribute("aria-pressed","false"); });
+    draw();
+  });
   var cnt = el('<span class="cnt"></span>'); fb.appendChild(cnt);
+
+  // Filtro que llega desde un indicador pulsado en otra pestaña.
+  if(window.__pend && cfg.id && window.__pend.tabla === cfg.id){
+    var p = window.__pend; window.__pend = null;
+    if(p.sel) Object.keys(p.sel).forEach(function(k){
+      state.sel[k] = p.sel[k];
+      if(selEls[k]) selEls[k].value = p.sel[k];
+    });
+    if(p.chip != null){
+      state.chip = p.chip;
+      if(chipEls[p.chip]) chipEls[p.chip].setAttribute("aria-pressed","true");
+    }
+    setTimeout(function(){
+      var y = host.getBoundingClientRect().top + window.pageYOffset -
+              (document.getElementById("stick").offsetHeight + 8);
+      window.scrollTo({ top: Math.max(0,y), behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth" });
+    }, 30);
+  }
 
   function filtered(){
     var out = cfg.rows;
@@ -441,6 +485,8 @@ function tabla(cfg){
   }
   function draw(){
     var rows = filtered();
+    var hayFiltro = !!(state.q || state.chip!=null || Object.keys(state.sel).some(function(k){ return state.sel[k]; }));
+    quitar.hidden = !hayFiltro;
     cnt.textContent = rows.length===cfg.rows.length ? fm(rows.length)+" filas" : fm(rows.length)+" de "+fm(cfg.rows.length);
     if(!rows.length){ tw.innerHTML='<div class="empty">Ninguna fila cumple el filtro.</div>'; return; }
     var lim = Math.min(rows.length, cfg.max||1200);
@@ -596,7 +642,16 @@ window.verFicha = function(asin){
 
 document.addEventListener("click",function(e){
   var a=e.target.closest(".asin[data-a]");
-  if(a) verFicha(a.dataset.a);
+  if(a){ verFicha(a.dataset.a); return; }
+  var k=e.target.closest(".kpi.clic[data-ir]");
+  if(k){
+    var o; try{ o=JSON.parse(k.dataset.ir); }catch(err){ return; }
+    window.__pend = o;
+    if(o.tab && o.tab!==activa) ir(o.tab,true);
+    else { // misma pestaña: hay que repintarla para que la tabla recoja el filtro
+      var t=activa; activa=null; ir(t,false);
+    }
+  }
 });
 function asinCell(v){ return v?'<span class="asin" data-a="'+esc(v)+'" role="button" tabindex="0">'+esc(v)+'</span>':'—'; }
 
@@ -619,13 +674,14 @@ var TABS = [
 /* ======== RESUMEN ======== */
 function vResumen(){
   var w = document.createDocumentFragment();
+  var C=function(sel){ return {tab:"catalogo",tabla:"catalogo",sel:sel}; };
   var k = '<div class="kpis sec">'+
-    kpi("Referencias en catálogo", fm(M.total), M.viva+" con oferta viva en Seller") +
-    kpi("Agotadas con oferta viva", fm(M.rota), M.rota===1?"una sola: venta perdida hoy":"venta perdida hoy", M.rota>0?"is-bad":"is-ok") +
-    kpi("Stock Seller Flex", fm(M.udsFlex), M.flex+" referencias · recuento real", "is-cool") +
-    kpi("Stock Seller FBM", fm(M.udsFbm), M.fbm+" referencias · declarado") +
-    kpi("Stock Vendor", fm(M.vendorStock), M.vendor0+" referencias a cero") +
-    kpi("Devoluciones ventana", fm(DV.length), DH.length+" en nueve meses") +
+    kpi("Referencias en catálogo", fm(M.total), M.viva+" con oferta viva en Seller", "", C({})) +
+    kpi("Agotadas con oferta viva", fm(M.rota), M.rota===1?"una sola: venta perdida hoy":"venta perdida hoy", M.rota>0?"is-bad":"is-ok", C({st:"Agotada con oferta viva"})) +
+    kpi("Stock Seller Flex", fm(M.udsFlex), M.flex+" referencias · recuento real", "is-cool", C({of:"Activa Flex"})) +
+    kpi("Stock Seller FBM", fm(M.udsFbm), M.fbm+" referencias · declarado", "", C({of:"Activa FBM"})) +
+    kpi("Stock Vendor", fm(M.vendorStock), M.vendor0+" referencias a cero", "", C({})) +
+    kpi("Devoluciones ventana", fm(DV.length), fm(DH.length)+" en nueve meses", "", {tab:"devol",tabla:"devol"}) +
   '</div>';
   w.appendChild(el(k));
 
@@ -684,13 +740,15 @@ function vResumen(){
 /* ======== CATÁLOGO ======== */
 function vCatalogo(){
   var w=document.createDocumentFragment();
+  var C=function(sel){ return {tabla:"catalogo",sel:sel}; };
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("Con oferta viva", fm(M.viva), M.fbm+" FBM · "+M.flex+" Flex") +
-    kpi("Agotadas con oferta", fm(M.rota), "venta perdida", M.rota?"is-bad":"is-ok") +
-    kpi("Oferta cerrada", fm(M.dormido), "catálogo dormido") +
-    kpi("Sin oferta en Seller", fm(M.sinOf), "no publicadas") + '</div>'));
+    kpi("Con oferta viva", fm(M.viva), M.fbm+" FBM · "+M.flex+" Flex", "", C({st:"Con stock"})) +
+    kpi("Agotadas con oferta", fm(M.rota), "venta perdida", M.rota?"is-bad":"is-ok", C({st:"Agotada con oferta viva"})) +
+    kpi("Oferta cerrada", fm(M.dormido), "catálogo dormido", "", C({of:"Inactiva"})) +
+    kpi("Sin oferta en Seller", fm(M.sinOf), "no publicadas", "", C({of:"Sin oferta"})) + '</div>'));
 
   w.appendChild(tabla({
+    id:"catalogo",
     title:"Catálogo y stock", sub:"874 referencias · Vendor y Seller",
     ph:"ASIN, modelo o producto…",
     rows:SO, max:1000,
@@ -703,7 +761,10 @@ function vCatalogo(){
       {key:"st",label:"Estado de stock",opts:["Agotada con oferta viva","Con stock","Sin dato"],
        test:function(r,v){ var s=num(r[5]);
          if(v==="Agotada con oferta viva") return s===0 && (r[6]||"").indexOf("Activa")===0;
-         if(v==="Con stock") return s>0; return s===null; }}
+         if(v==="Con stock") return s>0; return s===null; }},
+      {key:"bb",label:"Oferta destacada",
+       opts:["Ganada","La tiene Amazon (1P)","La tiene un tercero","Sin oferta destacada"],
+       test:function(r,v){ return r[10]===v; }}
     ],
     cols:[
       {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
@@ -732,12 +793,13 @@ function vPrecio(){
   var gan=E["Ganada"]||0, am=E["La tiene Amazon (1P)"]||0,
       ter=E["La tiene un tercero"]||0, sin=E["Sin oferta destacada"]||0;
 
+  var B=function(v){ return {tab:"catalogo",tabla:"catalogo",sel:{bb:v}}; };
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("Oferta destacada ganada", fm(gan), "la tenemos, en FBM o en Flex", "is-ok") +
-    kpi("La tiene Amazon como 1P", fm(am), "es nuestra por Vendor", "is-cool") +
-    kpi("La tiene un tercero", fm(ter), ter?(SO.filter(function(r){return r[10]==="La tiene un tercero" && String(r[6]||"").indexOf("Activa")!==0;}).length+" con la oferta cerrada"):"", "is-bad") +
-    kpi("Ficha sin oferta destacada", fm(sin), "nadie puede comprar", "is-bad") +
-    kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN con competencia") + '</div>'));
+    kpi("Oferta destacada ganada", fm(gan), "la tenemos, en FBM o en Flex", "is-ok", B("Ganada")) +
+    kpi("La tiene Amazon como 1P", fm(am), "es nuestra por Vendor", "is-cool", B("La tiene Amazon (1P)")) +
+    kpi("La tiene un tercero", fm(ter), ter?(SO.filter(function(r){return r[10]==="La tiene un tercero" && String(r[6]||"").indexOf("Activa")!==0;}).length+" con la oferta cerrada"):"", "is-bad", B("La tiene un tercero")) +
+    kpi("Ficha sin oferta destacada", fm(sin), "nadie puede comprar", "is-bad", B("Sin oferta destacada")) +
+    kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN con competencia", "", {tabla:"p3"}) + '</div>'));
 
   // lo accionable de verdad
   var urg = SO.filter(function(r){ var m=motivoBB(r); return m && m[0]==="bad"; })
@@ -770,6 +832,7 @@ function vPrecio(){
   w.appendChild(el(card("Vendedores con más ofertas colgadas","sobre nuestras fichas",barras(vlist.slice(0,10)))));
 
   w.appendChild(tabla({
+    id:"p3",
     title:"Vigilancia de precio de terceros", sub:"snapshot "+(P3[0]?P3[0][0]:""),
     ph:"ASIN, modelo o vendedor…", rows:P3, max:800,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[7]||"")).toLowerCase(); },
@@ -815,10 +878,10 @@ function vAds(){
   AS.forEach(function(r){ if(/^Disponible/.test(String(r[10]||""))) ok++; else riesgo.push(r); });
   var tit = {}; AP.forEach(function(r){ if(r[0]) tit[r[0]]=1; });
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("ASIN en la selección", fm(AS.length), "elige la marca") +
-    kpi("Listos para vender", fm(ok), "con stock y oferta viva", ok===AS.length?"is-ok":"") +
-    kpi("Con problema de stock", fm(riesgo.length), "el presupuesto se pierde", riesgo.length?"is-bad":"is-ok") +
-    kpi("Suplentes preparados", fm(AP.length), Object.keys(tit).length+" titulares cubiertos") + '</div>'));
+    kpi("ASIN en la selección", fm(AS.length), "elige la marca", "", {tabla:"ads"}) +
+    kpi("Listos para vender", fm(ok), "con stock y oferta viva", ok===AS.length?"is-ok":"", {tabla:"ads",sel:{es:"Listos para vender"}}) +
+    kpi("Con problema de stock", fm(riesgo.length), "el presupuesto se pierde", riesgo.length?"is-bad":"is-ok", {tabla:"ads",sel:{es:"Con problema de stock"}}) +
+    kpi("Suplentes preparados", fm(AP.length), Object.keys(tit).length+" titulares cubiertos", "", {tabla:"suplentes"}) + '</div>'));
 
   if(riesgo.length){
     var rh='<div class="tw"><table><thead><tr><th>ASIN</th><th>Modelo</th><th>Familia</th><th class="r">Vendor</th><th class="r">Seller</th><th>Situación</th><th>Suplente</th></tr></thead><tbody>'+
@@ -834,9 +897,13 @@ function vAds(){
   }
 
   w.appendChild(tabla({
+    id:"ads",
     title:"Selección de Ads Q4", sub:"la marca decide, Roicos propone los relevos",
     ph:"ASIN, modelo o producto…", rows:AS,
     search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[4]||"")).toLowerCase(); },
+    selects:[{key:"es",label:"Situación",opts:["Listos para vender","Con problema de stock"],
+      test:function(r,v){ var ok=/^Disponible/.test(String(r[10]||""));
+        return v==="Listos para vender" ? ok : !ok; }}],
     cols:[
       {t:"ASIN",k:0,render:function(r){ return asinCell(r[0]); }},
       {t:"Modelo",k:1,render:function(r){ return '<span class="sku">'+esc(txt(r[1]))+'</span>'; }},
@@ -852,6 +919,7 @@ function vAds(){
   }));
 
   w.appendChild(tabla({
+    id:"suplentes",
     title:"Suplentes", sub:AP.length+" relevos preparados", ph:"ASIN titular o suplente…", rows:AP, max:200,
     search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[8]||"")+" "+(r[4]||"")).toLowerCase(); },
     cols:[
@@ -880,11 +948,11 @@ function vDevol(){
     var m=num(r[8]); if(m) imp+=m;
   });
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("Ventana viva", fm(DV.length), flexN+" Flex · "+fbmN+" FBM") +
-    kpi("Recuperadas revendibles", fm(rev), Math.round(rev/DV.length*100)+"% del total", "is-ok") +
-    kpi("Problema de entrega", fm(entrega), "última milla, no calidad", "is-cool") +
-    kpi("Importe registrado", eur(imp,0), "solo las FBM lo traen") +
-    kpi("Histórico de nueve meses", fm(DH.length), "desde el 02/01/2026") + '</div>'));
+    kpi("Ventana viva", fm(DV.length), flexN+" Flex · "+fbmN+" FBM", "", {tabla:"devol"}) +
+    kpi("Recuperadas revendibles", fm(rev), Math.round(rev/DV.length*100)+"% del total", "is-ok", {tabla:"devol",sel:{es:"Recuperado - revendible"}}) +
+    kpi("Problema de entrega", fm(entrega), "última milla, no calidad", "is-cool", {tabla:"devol",sel:{mo:"Solo problemas de entrega"}}) +
+    kpi("Importe registrado", eur(imp,0), "solo las FBM lo traen", "", {tabla:"devol",chip:"FBM"}) +
+    kpi("Histórico de nueve meses", fm(DH.length), "desde el 02/01/2026", "", {tabla:"devolHist"}) + '</div>'));
 
   var mot={}; DV.forEach(function(r){ if(r[6]) mot[r[6]]=(mot[r[6]]||0)+1; });
   var est={}; DV.forEach(function(r){ if(r[9]) est[r[9]]=(est[r[9]]||0)+1; });
@@ -908,11 +976,18 @@ function vDevol(){
     'El ranking a nueve meses no es el mismo que a dos. Las decisiones de suplentes de Ads se tomaron con la ventana corta.')));
 
   w.appendChild(tabla({
+    id:"devol",
     title:"Devoluciones", sub:"ventana viva: 03/08 a 02/10", ph:"ASIN, pedido, modelo o motivo…",
     rows:DV, max:600, sort:0, dir:-1,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")+" "+(r[4]||"")).toLowerCase(); },
     chips:[{t:"Seller Flex",v:"Seller Flex",n:flexN},{t:"FBM",v:"FBM",n:fbmN}],
     chipTest:function(r,v){ return r[5]===v; },
+    selects:[
+      {key:"es",label:"Estado",opts:["Recuperado - revendible","A stock no vendible - defectuoso","A stock no vendible - dañado por el cliente","Reembolsado por Amazon"],
+       test:function(r,v){ return r[9]===v; }},
+      {key:"mo",label:"Motivo",opts:["Solo problemas de entrega"],
+       test:function(r){ return /^No entregado|^Nunca lleg/.test(String(r[6]||"")); }}
+    ],
     cols:[
       {t:"Fecha",k:0,sortv:function(r){ var d=pdate(r[0]); return d?d.getTime():0; },
        render:function(r){ return '<span class="mono" style="font-size:11.5px">'+esc(dmy(r[0]))+'</span>'; }},
@@ -930,7 +1005,8 @@ function vDevol(){
   }));
 
   w.appendChild(tabla({
-    title:"Histórico de devoluciones", sub:"1.108 filas · 02/01 a 02/10", ph:"ASIN, pedido o motivo…",
+    id:"devolHist",
+    title:"Histórico de devoluciones", sub:fm(DH.length)+" filas · 02/01 a 02/10", ph:"ASIN, pedido o motivo…",
     rows:DH, max:400, sort:0, dir:-1,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")).toLowerCase(); },
     cols:[
@@ -954,12 +1030,15 @@ function vIncid(){
   var abiertas = todas.filter(function(x){ return x.r[8]!=="Cerrada"; }).length;
   var sinResp = todas.filter(function(x){ return !x.r[5]; }).length;
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("Incidencias registradas", fm(todas.length), IV.length+" Vendor · "+IS.length+" Seller") +
-    kpi("Abiertas", fm(abiertas), "pendientes de cierre", abiertas?"is-cool":"is-ok") +
-    kpi("Sin responsable", fm(sinResp), "hay que asignarlas", sinResp?"is-bad":"is-ok") + '</div>'));
+    kpi("Incidencias registradas", fm(todas.length), IV.length+" Vendor · "+IS.length+" Seller", "", {tabla:"incid"}) +
+    kpi("Abiertas", fm(abiertas), "pendientes de cierre", abiertas?"is-cool":"is-ok", {tabla:"incid",sel:{st:"Abiertas"}}) +
+    kpi("Sin responsable", fm(sinResp), "hay que asignarlas", sinResp?"is-bad":"is-ok", {tabla:"incid",sel:{st:"Sin responsable"}}) + '</div>'));
 
   w.appendChild(tabla({
+    id:"incid",
     title:"Incidencias", sub:"Vendor y Seller", ph:"ASIN, tipología o descripción…",
+    selects:[{key:"st",label:"Filtrar",opts:["Abiertas","Sin responsable"],
+      test:function(r,v){ return v==="Abiertas" ? r[8]!=="Cerrada" : !r[5]; }}],
     rows:todas.map(function(x){ var r=x.r.slice(); r.canal=x.c; return r; }),
     search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[2]||"")+" "+(r[4]||"")).toLowerCase(); },
     chips:[{t:"Vendor",v:"Vendor",n:IV.length},{t:"Seller",v:"Seller",n:IS.length}],
@@ -988,18 +1067,21 @@ function vTransp(){
   var vend=0; TR.forEach(function(r){ var v=num(r[4]); if(v) vend+=v; });
   var esc2=0; TR.forEach(function(r){ var v=num(r[10]); if(v) esc2+=v; });
   w.appendChild(el('<div class="kpis sec">'+
-    kpi("ASIN en el plan", fm(TR.length), Object.keys(blo).length+" bloques de prioridad") +
-    kpi("Venta 60 días", eur(vend,0), "de los ASIN protegidos") +
-    kpi("Unidades escaneadas", fm(esc2), "la OPR exige 10 por ASIN en 30 días", esc2?"is-cool":"is-bad") + '</div>'));
+    kpi("ASIN en el plan", fm(TR.length), Object.keys(blo).length+" bloques de prioridad", "", {tabla:"transp"}) +
+    kpi("Venta 60 días", eur(vend,0), "de los ASIN protegidos", "", {tabla:"transp"}) +
+    kpi("Unidades escaneadas", fm(esc2), "la OPR exige 10 por ASIN en 30 días", esc2?"is-cool":"is-bad", {tabla:"transp",sel:{op:"Por debajo de 10 escaneadas"}}) + '</div>'));
 
   w.appendChild(el(card("Reparto por bloque de prioridad","",
     barras(Object.keys(blo).sort().map(function(k){ return [k,blo[k]]; })))));
 
   w.appendChild(tabla({
+    id:"transp",
     title:"Transparency", sub:"plan OPR", ph:"ASIN, referencia o decisión…", rows:TR, max:300,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[11]||"")).toLowerCase(); },
     chips:Object.keys(blo).sort().map(function(k){ return {t:k,v:k,n:blo[k]}; }),
     chipTest:function(r,v){ return r[0]===v; },
+    selects:[{key:"op",label:"OPR",opts:["Por debajo de 10 escaneadas"],
+      test:function(r){ var v=num(r[10]); return v==null || v<10; }}],
     cols:[
       {t:"Bloque",k:0,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[0]))+'</span>'; }},
       {t:"ASIN",k:1,render:function(r){ return asinCell(r[1]); }},
@@ -1145,7 +1227,8 @@ function ir(id,push){
   }
   // el número de columnas de los KPI depende de cuántos haya en esa pestaña
   view.querySelectorAll(".kpis").forEach(function(k){ k.classList.add("n"+k.children.length); });
-  window.scrollTo(0,0);
+  // si venimos de pulsar un indicador, la tabla ya se encarga de traerse a la vista
+  if(!window.__pend) window.scrollTo(0,0);
   if(push){ try{ history.replaceState(null,"","#"+t.id); }catch(e){} }
   try{ localStorage.setItem("corbero-tab",t.id); }catch(e){}
 }
