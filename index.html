@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Seguimiento de la cuenta de Amazon de CorberÃ³. Uso interno de Roicos y de la marca.">
+<meta name="theme-color" content="#ffffff">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,-apple-system,sans-serif;background:#fff}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body><title>Corberó Seguimiento Q4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Panel de control: cabecera fija con buscador global, barra de pestañas por hoja,
+   y en cada pestaña una franja de filtros sobre una tabla densa. Ficha lateral al pulsar un ASIN.
+   Aspecto fijo por indicación de la marca: fondo blanco, texto negro y rojo Corberó.
+   El rojo es el color de marca Y el de alarma, así que la gravedad se distingue por la
+   FORMA: el rojo relleno con texto blanco grita, el rojo en texto solo señala. */
+:root{
+  color-scheme:light;
+  --ground:#ffffff; --panel:#ffffff; --panel-2:#f6f6f7; --line:#dcdcdf; --line-soft:#eeeef0;
+  --ink:#111113; --ink-2:#4a4a50; --ink-3:#85858e;
+  --accent:#d41920; --accent-deep:#a81218; --accent-soft:#fdeceb; --accent-line:#f0b5b3;
+  --ok:#1f7a46; --ok-soft:#e9f4ed; --warn:#9a6208; --warn-soft:#fcf3e1;
+  --bad:#d41920; --bad-soft:#fdeceb; --cool:#2c5c86; --cool-soft:#eaf1f7;
+  --shadow:0 1px 2px rgba(17,17,19,.05),0 3px 10px rgba(17,17,19,.04);
+  --f-ui:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-ui);font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-weight:600;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- cabecera ---------- */
+/* Cabecera y pestañas van dentro de un único contenedor fijo: así no hay que
+   acertar un desplazamiento a mano y la barra de pestañas nunca queda tapada. */
+.stick{position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
+.top{background:var(--panel);border-bottom:1px solid var(--line)}
+.top-in{max-width:1500px;margin:0 auto;padding:9px 16px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto}
+.mark{width:30px;height:30px;border-radius:7px;background:var(--accent);color:#fff;display:grid;place-items:center;
+  font-weight:700;font-size:15px;flex:none;letter-spacing:-.02em}
+.brand h1{font-size:15px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand p{margin:0;font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand>div{min-width:0}
+.top-sp{flex:1 1 0;min-width:0}
+.top-end{display:flex;align-items:center;gap:10px;flex:none}
+.stamp{font-size:11px;color:var(--ink-3);text-align:right;line-height:1.3;white-space:nowrap}
+.stamp b{display:block;color:var(--ink-2);font-weight:600;font-size:11.5px}
+.icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;
+  color:var(--ink-2);flex:none}
+.icon-btn:hover{background:var(--panel-2);color:var(--ink)}
+
+/* buscador global */
+.gs{position:relative;flex:1 1 150px;max-width:330px;min-width:0}
+.gs input{width:100%;padding:7px 11px 7px 30px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel-2);color:var(--ink);font-size:13px;font-family:var(--f-ui)}
+.gs input:focus{background:var(--panel);border-color:var(--accent-line)}
+.gs input::placeholder{color:var(--ink-3)}
+.gs svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-3);pointer-events:none}
+.gs-out{position:absolute;top:calc(100% + 5px);left:0;right:0;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow);max-height:330px;overflow:auto;z-index:60}
+.gs-out button{display:block;width:100%;text-align:left;padding:8px 11px;border-bottom:1px solid var(--line-soft)}
+.gs-out button:last-child{border-bottom:0}
+.gs-out button:hover{background:var(--accent-soft)}
+.gs-out .a{font-family:var(--f-mono);font-size:12px;color:var(--accent);font-weight:500}
+.gs-out .t{font-size:11.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.gs-none{padding:10px 11px;font-size:12px;color:var(--ink-3)}
+
+/* ---------- pestañas ---------- */
+.tabs{background:var(--panel);border-bottom:1px solid var(--line)}
+.tabs-in{max-width:1500px;margin:0 auto;padding:0 16px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin;
+  scrollbar-color:var(--line) transparent}
+.tabs-in::-webkit-scrollbar{height:3px}
+.tabs-in::-webkit-scrollbar-track{background:transparent}
+.tabs-in::-webkit-scrollbar-thumb{background:var(--line);border-radius:999px}
+.tab{padding:9px 13px;font-size:12.5px;font-weight:500;color:var(--ink-3);white-space:nowrap;
+  border-bottom:2px solid transparent;letter-spacing:.01em}
+.tab:hover{color:var(--ink-2)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .n{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-3);margin-left:5px}
+.tab[aria-selected="true"] .n{color:var(--accent)}
+
+/* ---------- lienzo ---------- */
+.wrap{max-width:1500px;margin:0 auto;padding:16px;padding-block:18px 56px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.card-h{padding:12px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-h h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600}
+.card-h .sub{font-size:11.5px;color:var(--ink-3);margin-left:auto}
+.grid{display:grid;gap:12px}
+.sec{margin-bottom:16px}
+
+/* KPI: el número de columnas se fija según cuántas tarjetas hay, para que
+   ninguna fila quede a medias con un hueco al lado. */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:620px){
+  .kpis.n3{grid-template-columns:repeat(3,1fr)}
+  .kpis.n4,.kpis.n6{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:900px){
+  .kpis.n4{grid-template-columns:repeat(4,1fr)}
+  .kpis.n5{grid-template-columns:repeat(5,1fr)}
+  .kpis.n6{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:1240px){ .kpis.n6{grid-template-columns:repeat(6,1fr)} }
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.kpi .lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600}
+.kpi .v{font-size:27px;font-weight:700;letter-spacing:-.025em;margin-top:3px;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .fo{font-size:11.5px;color:var(--ink-2);margin-top:3px}
+.kpi.is-bad{border-color:var(--bad)}
+.kpi.is-bad .v{color:var(--bad)}
+.kpi.is-ok .v{color:var(--ok)}
+.kpi.is-cool .v{color:var(--cool)}
+
+/* chips y badges */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:4px 10px;border-radius:999px;border:1px solid var(--line);font-size:11.5px;color:var(--ink-2);
+  background:var(--panel-2);font-weight:500;white-space:nowrap}
+.chip:hover{border-color:var(--accent-line);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.chip .c{font-family:var(--f-mono);font-size:10.5px;opacity:.75;margin-left:4px}
+.b{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:600;white-space:nowrap;
+  letter-spacing:.01em}
+.b-ok{background:var(--ok-soft);color:var(--ok)}
+/* el crítico va relleno: es la única forma de que destaque sobre un acento que ya es rojo */
+.b-bad{background:var(--bad);color:#fff}
+.b-warn{background:var(--warn-soft);color:var(--warn)}
+.b-cool{background:var(--cool-soft);color:var(--cool)}
+.b-mute{background:var(--panel-2);color:var(--ink-3);border:1px solid var(--line)}
+
+/* tablas */
+.tw{overflow-x:auto;border-radius:0 0 12px 12px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+/* La cabecera de la tabla se queda pegada justo debajo de la barra fija, cuya
+   altura real mide el script y publica en --stick. */
+th{text-align:left;padding:8px 11px;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);
+  font-weight:600;border-bottom:1px solid var(--line);background:var(--panel-2);white-space:nowrap;
+  position:sticky;top:var(--stick,0px);z-index:1}
+th.s{cursor:pointer;user-select:none}
+th.s:hover{color:var(--ink)}
+th .ar{opacity:.55;font-size:9px}
+td{padding:7px 11px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tbody tr:hover{background:var(--panel-2)}
+tbody tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+.asin{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);font-weight:500;cursor:pointer;white-space:nowrap}
+.asin:hover{text-decoration:underline}
+.sku{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2);white-space:nowrap}
+.ti{max-width:330px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ti-1{max-width:300px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.empty{padding:34px 16px;text-align:center;color:var(--ink-3);font-size:13px}
+
+/* barra de filtros */
+.fb{padding:10px 15px;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:center;flex-wrap:wrap;
+  background:var(--panel-2)}
+.fb input[type=search],.fb select{padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--panel);
+  color:var(--ink);font-size:12.5px;font-family:var(--f-ui);min-width:0}
+.fb input[type=search]{flex:1 1 180px;max-width:280px}
+.fb .cnt{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--f-mono);white-space:nowrap}
+
+/* barras y gráficos */
+.bars{display:grid;gap:7px;padding:13px 15px}
+.bar-row{display:grid;grid-template-columns:minmax(96px,auto) 1fr minmax(52px,auto);gap:10px;align-items:center;font-size:12px}
+.bar-row .nm{color:var(--ink-2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* display:block es obligatorio: sin él el span queda en línea, el alto no se
+   aplica y el ancho en porcentaje del relleno no tiene contra qué resolverse. */
+.bar-t{display:block;height:8px;border-radius:999px;background:var(--line-soft);overflow:hidden;min-width:0}
+.bar-f{display:block;height:100%;border-radius:999px;background:var(--accent)}
+.bar-row .vv{text-align:right;font-family:var(--f-mono);font-size:11.5px;color:var(--ink)}
+svg{display:block;max-width:100%}
+
+/* ficha lateral */
+.sheet{position:fixed;inset:0;z-index:90;display:none}
+.sheet[data-open="1"]{display:block}
+.scrim{position:absolute;inset:0;background:rgba(17,17,19,.34);backdrop-filter:blur(2px)}
+.panelr{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--panel-2);
+  border-left:1px solid var(--line);overflow-y:auto;box-shadow:-12px 0 36px rgba(17,17,19,.14);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pr-h{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--line);padding:13px 16px;z-index:2;
+  display:flex;gap:10px;align-items:flex-start}
+.pr-h .x{margin-left:auto;flex:none}
+.pr-b{padding:14px 16px 40px;display:grid;gap:12px}
+.fset{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fset h3{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);padding:9px 13px;
+  border-bottom:1px solid var(--line);background:var(--panel-2)}
+.kv{display:grid;grid-template-columns:minmax(104px,38%) 1fr;gap:1px;background:var(--line-soft)}
+.kv>div{background:var(--panel);padding:7px 13px;font-size:12.5px;min-width:0;overflow-wrap:anywhere}
+.kv .k{color:var(--ink-3);font-size:11.5px}
+.fnote{padding:10px 13px;font-size:12px;color:var(--ink-2)}
+
+.note{font-size:11.5px;color:var(--ink-3);padding:10px 15px;border-top:1px solid var(--line-soft);line-height:1.5}
+.note b{color:var(--ink-2);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:860px){.two{grid-template-columns:1fr}.ti{max-width:200px}}
+@media(max-width:820px){.stamp{display:none}}
+@media(max-width:620px){.brand p{display:none}.brand h1{font-size:14px}}
+@media(max-width:470px){.brand h1{display:none}}
+</style>
+
+<div class="stick" id="stick">
+  <header class="top">
+    <div class="top-in">
+      <div class="brand">
+        <div class="mark">C</div>
+        <div>
+          <h1>Corberó · Seguimiento Q4 2026</h1>
+          <p>Vendor 95KT9 + Seller TUELEKTRO · amazon.es · Roicos</p>
+        </div>
+      </div>
+      <div class="top-sp"></div>
+      <div class="gs">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar ASIN, modelo o producto…" autocomplete="off" aria-label="Buscar una referencia">
+        <div id="qout" class="gs-out" hidden></div>
+      </div>
+      <div class="top-end">
+        <div class="stamp"><b id="stampd">—</b>última actualización</div>
+      </div>
+    </div>
+  </header>
+  <nav class="tabs"><div class="tabs-in" id="tabs" role="tablist"></div></nav>
+</div>
+<main class="wrap" id="view"></main>
+
+<div class="sheet" id="sheet" data-open="0">
+  <div class="scrim" id="scrim"></div>
+  <aside class="panelr" role="dialog" aria-modal="true" aria-label="Ficha de la referencia">
+    <div class="pr-h" id="prh"></div>
+    <div class="pr-b" id="prb"></div>
+  </aside>
+</div>
+
+<script src="datos.js"></script>
+<script>
+(function(){
+"use strict";
+var D = window.DATOS || {};
+var S = function(n){ return D[n] || {cols:[],filas:[]}; };
+var F = function(n){ return (D[n]||{filas:[]}).filas || []; };
+
+/* ---------- utilidades ---------- */
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]; }); }
+function num(v){ if(v==null||v==="")return null; var n=typeof v==="number"?v:parseFloat(String(v).replace(/\./g,"").replace(",",".")); return isNaN(n)?null:n; }
+function fm(v,d){ var n=num(v); if(n===null)return "—"; return n.toLocaleString("es-ES",{minimumFractionDigits:d||0,maximumFractionDigits:d||0}); }
+function eur(v,d){ var n=num(v); if(n===null)return "—"; return n.toLocaleString("es-ES",{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d})+" €"; }
+function txt(v){ return (v==null||v==="")?"—":String(v); }
+function dmy(s){ return s?String(s):"—"; }
+function pdate(s){ if(!s)return null; var m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(s)); return m?new Date(+m[3],+m[2]-1,+m[1]):null; }
+function el(h){ var d=document.createElement("div"); d.innerHTML=h.trim(); return d.firstElementChild; }
+
+/* ---------- índices ---------- */
+var SO = F("STOCK Y OPERATIVA");            // 0cat 1fam 2asin 3sku 4tit 5stkS 6oferta 7stkV 8pvpS 9pvpV 10bbS 11bbV 12score 13res 14fecha 15origen
+var P3 = F("VIGILANCIA PRECIO 3P");
+var DV = F("DEVOLUCIONES");
+var DH = F("HISTÓRICO DEVOLUCIONES");
+var TR = F("TRANSPARENCY");
+var IV = F("INCIDENCIAS VENDOR");
+var IS = F("INCIDENCIAS SELLER");
+var AS = F("ADS Q4 SELECCIÓN");
+var AP = F("ADS Q4 SUPLENTES");
+var CA = F("CALENDARIO Q4");
+var VE = F("VENDEDORES");
+var EC = F("ESTRUCTURA CATEGORÍA");
+var FC = F("FLUCTUACIÓN CATEGORÍA");
+var PC = F("PALABRAS CLAVE");
+var PK = F("POSICIÓN COMPETITIVA");
+var CE = F("COMPARATIVA ESTACIONALIDAD");
+
+var byAsin = {};
+SO.forEach(function(r){ if(r[2] && !byAsin[r[2]]) byAsin[r[2]] = r; });
+function idx(rows, col){ var m={}; rows.forEach(function(r){ var k=r[col]; if(!k)return; (m[k]=m[k]||[]).push(r); }); return m; }
+var p3By = idx(P3,1), dvBy = idx(DV,2), dhBy = idx(DH,2), trBy = idx(TR,1),
+    asBy = idx(AS,0), apBy = idx(AP,0), apSub = idx(AP,8),
+    ivBy = idx(IV,2), isBy = idx(IS,2);
+
+/* ---------- métricas ---------- */
+var M = (function(){
+  var viva=0, rota=0, dormido=0, sinOf=0, fbm=0, flex=0, udsFbm=0, udsFlex=0, vendor0=0, vendorStock=0;
+  SO.forEach(function(r){
+    var of=r[6]||"", s=num(r[5]), v=num(r[7]);
+    if(of.indexOf("Activa")===0){ viva++; if(s===0) rota++; if(of.indexOf("FBM")>-1){fbm++; udsFbm+=s||0;} else {flex++; udsFlex+=s||0;} }
+    else if(of==="Inactiva") dormido++; else sinOf++;
+    if(v===0) vendor0++; if(v>0) vendorStock+=v;
+  });
+  return {total:SO.length, viva:viva, rota:rota, dormido:dormido, sinOf:sinOf, fbm:fbm, flex:flex,
+          udsFbm:udsFbm, udsFlex:udsFlex, vendor0:vendor0, vendorStock:vendorStock};
+})();
+var FECHA = (SO[0] && SO[0][14]) || "04/10/2026";
+document.getElementById("stampd").textContent = FECHA;
+
+/* ---------- componentes ---------- */
+function kpi(lab,val,foot,cls){
+  return '<div class="kpi '+(cls||"")+'"><div class="lab">'+esc(lab)+'</div><div class="v">'+val+
+         '</div><div class="fo">'+(foot||"")+'</div></div>';
+}
+function card(title,sub,body,note){
+  return '<section class="card sec"><div class="card-h"><h2>'+esc(title)+'</h2>'+
+    (sub?'<span class="sub">'+esc(sub)+'</span>':'')+'</div>'+body+
+    (note?'<div class="note">'+note+'</div>':'')+'</section>';
+}
+function barras(items,fmtv){
+  var max=0; items.forEach(function(i){ if(i[1]>max) max=i[1]; });
+  if(!max) max=1;
+  return '<div class="bars">'+items.map(function(i){
+    var col = i[2]?('background:'+i[2]):'';
+    return '<div class="bar-row"><span class="nm" title="'+esc(i[0])+'">'+esc(i[0])+'</span>'+
+      '<span class="bar-t"><span class="bar-f" style="width:'+Math.max(1.5,i[1]/max*100)+'%;'+col+'"></span></span>'+
+      '<span class="vv">'+(fmtv?fmtv(i[1]):fm(i[1]))+'</span></div>';
+  }).join("")+'</div>';
+}
+function ofertaB(of){
+  if(!of) return '<span class="b b-mute">—</span>';
+  if(of.indexOf("Activa Flex")===0) return '<span class="b b-cool">Flex</span>';
+  if(of.indexOf("Activa FBM")===0) return '<span class="b b-ok">FBM</span>';
+  if(of==="Inactiva") return '<span class="b b-mute">Inactiva</span>';
+  return '<span class="b b-mute">Sin oferta</span>';
+}
+function bbB(v){
+  if(!v) return '—';
+  if(/^S[ií]$/i.test(v)) return '<span class="b b-ok">Sí</span>';
+  if(/^No$/i.test(v)) return '<span class="b b-mute">No</span>';
+  if(/Perdida/i.test(v)) return '<span class="b b-bad">'+esc(v.replace("Perdida ante","Pierde ante"))+'</span>';
+  return esc(v);
+}
+function stockC(s,of){
+  var n=num(s);
+  if(n===null) return '<span style="color:var(--ink-3)">—</span>';
+  if(n===0 && of && of.indexOf("Activa")===0) return '<b style="color:var(--bad)">0</b>';
+  if(n===0) return '<span style="color:var(--ink-3)">0</span>';
+  return '<span class="num">'+fm(n)+'</span>';
+}
+
+/* tabla genérica con orden y filtro */
+function tabla(cfg){
+  // cfg: {cols:[{t,k,cls,r,w,render,sort}], rows, search:fn, chips, selects, id}
+  var host = el('<section class="card sec"><div class="card-h"><h2>'+esc(cfg.title)+'</h2>'+
+    (cfg.sub?'<span class="sub">'+esc(cfg.sub)+'</span>':'')+'</div>'+
+    '<div class="fb"></div><div class="tw"></div>'+(cfg.note?'<div class="note">'+cfg.note+'</div>':'')+'</section>');
+  var fb = host.querySelector(".fb"), tw = host.querySelector(".tw");
+  var state = {q:"", chip:null, sel:{}, sort:cfg.sort==null?-1:cfg.sort, dir:cfg.dir||1};
+
+  var inp = el('<input type="search" placeholder="'+esc(cfg.ph||"Filtrar…")+'" aria-label="Filtrar la tabla">');
+  fb.appendChild(inp);
+  inp.addEventListener("input",function(){ state.q=inp.value.trim().toLowerCase(); draw(); });
+
+  (cfg.selects||[]).forEach(function(sc){
+    var s = el('<select aria-label="'+esc(sc.label)+'"><option value="">'+esc(sc.label)+'</option>'+
+      sc.opts.map(function(o){ return '<option value="'+esc(o)+'">'+esc(o)+'</option>'; }).join("")+'</select>');
+    fb.appendChild(s);
+    s.addEventListener("change",function(){ state.sel[sc.key]=s.value; draw(); });
+  });
+
+  if(cfg.chips && cfg.chips.length){
+    var cw = el('<span class="chips"></span>');
+    cfg.chips.forEach(function(c){
+      var b = el('<button class="chip" aria-pressed="false">'+esc(c.t)+'<span class="c">'+c.n+'</span></button>');
+      b.addEventListener("click",function(){
+        var on = state.chip===c.v; state.chip = on?null:c.v;
+        cw.querySelectorAll(".chip").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+        if(!on) b.setAttribute("aria-pressed","true");
+        draw();
+      });
+      cw.appendChild(b);
+    });
+    fb.appendChild(cw);
+  }
+  var cnt = el('<span class="cnt"></span>'); fb.appendChild(cnt);
+
+  function filtered(){
+    var out = cfg.rows;
+    if(state.chip!=null && cfg.chipTest) out = out.filter(function(r){ return cfg.chipTest(r,state.chip); });
+    Object.keys(state.sel).forEach(function(k){
+      var v=state.sel[k]; if(!v) return;
+      var sc = (cfg.selects||[]).filter(function(x){return x.key===k;})[0];
+      if(sc) out = out.filter(function(r){ return sc.test(r,v); });
+    });
+    if(state.q) out = out.filter(function(r){ return cfg.search(r).indexOf(state.q)>-1; });
+    if(state.sort>-1){
+      var c = cfg.cols[state.sort];
+      out = out.slice().sort(function(a,b){
+        var va = c.sortv?c.sortv(a):a[c.k], vb = c.sortv?c.sortv(b):b[c.k];
+        var na = num(va), nb = num(vb);
+        if(na!==null && nb!==null) return (na-nb)*state.dir;
+        if(na!==null) return -1*state.dir; if(nb!==null) return 1*state.dir;
+        return String(va==null?"":va).localeCompare(String(vb==null?"":vb),"es")*state.dir;
+      });
+    }
+    return out;
+  }
+  function draw(){
+    var rows = filtered();
+    cnt.textContent = rows.length===cfg.rows.length ? fm(rows.length)+" filas" : fm(rows.length)+" de "+fm(cfg.rows.length);
+    if(!rows.length){ tw.innerHTML='<div class="empty">Ninguna fila cumple el filtro.</div>'; return; }
+    var lim = Math.min(rows.length, cfg.max||1200);
+    var h = '<table><thead><tr>'+cfg.cols.map(function(c,i){
+      var ar = state.sort===i ? '<span class="ar">'+(state.dir>0?"▲":"▼")+'</span>' : '';
+      return '<th class="s'+(c.r?" r":"")+'" data-i="'+i+'"'+(c.w?' style="width:'+c.w+'"':'')+'>'+esc(c.t)+' '+ar+'</th>';
+    }).join("")+'</tr></thead><tbody>';
+    for(var i=0;i<lim;i++){
+      var r=rows[i];
+      h += '<tr>'+cfg.cols.map(function(c){
+        return '<td'+(c.r?' class="r"':'')+'>'+(c.render?c.render(r):esc(txt(r[c.k])))+'</td>';
+      }).join("")+'</tr>';
+    }
+    h += '</tbody></table>';
+    if(lim<rows.length) h += '<div class="empty">Se muestran las primeras '+fm(lim)+' de '+fm(rows.length)+'. Afina el filtro para ver el resto.</div>';
+    tw.innerHTML = h;
+    tw.querySelectorAll("th.s").forEach(function(th){
+      th.addEventListener("click",function(){
+        var i=+th.dataset.i;
+        if(state.sort===i) state.dir=-state.dir; else { state.sort=i; state.dir=1; }
+        draw();
+      });
+    });
+  }
+  draw();
+  return host;
+}
+
+/* ---------- ficha de una referencia ---------- */
+var sheet=document.getElementById("sheet"), prh=document.getElementById("prh"), prb=document.getElementById("prb");
+document.getElementById("scrim").addEventListener("click",cerrarFicha);
+document.addEventListener("keydown",function(e){ if(e.key==="Escape") cerrarFicha(); });
+function cerrarFicha(){ sheet.setAttribute("data-open","0"); }
+function kvs(pairs){
+  var p = pairs.filter(function(x){ return x[1]!=null && x[1]!=="" && x[1]!=="—"; });
+  if(!p.length) return '<div class="fnote" style="color:var(--ink-3)">Sin datos en esta hoja.</div>';
+  return '<div class="kv">'+p.map(function(x){
+    return '<div class="k">'+esc(x[0])+'</div><div>'+x[1]+'</div>'; }).join("")+'</div>';
+}
+function fset(t,b){ return '<div class="fset"><h3>'+esc(t)+'</h3>'+b+'</div>'; }
+
+window.verFicha = function(asin){
+  var r = byAsin[asin];
+  prh.innerHTML = '<div style="min-width:0">'+
+    '<div class="asin" style="font-size:14px;cursor:default">'+esc(asin)+'</div>'+
+    '<div style="font-size:12.5px;color:var(--ink-2);margin-top:2px">'+esc(r?txt(r[3]):"")+
+    (r&&r[0]?' · '+esc(r[0])+(r[1]?' / '+esc(r[1]):''):'')+'</div></div>'+
+    '<button class="icon-btn x" aria-label="Cerrar">✕</button>';
+  prh.querySelector(".x").addEventListener("click",cerrarFicha);
+
+  var h = "";
+  if(r){
+    h += '<div style="font-size:12.5px;color:var(--ink-2);padding:0 2px">'+esc(txt(r[4]))+'</div>';
+    h += fset("Stock y oferta", kvs([
+      ["Oferta en Seller", ofertaB(r[6])+(/^Activa/.test(String(r[6]||""))?' <span style="color:var(--ink-3);font-size:11.5px">'+esc(r[6])+'</span>':'')],
+      ["Stock Seller", stockC(r[5],r[6]) + (r[6]&&r[6].indexOf("FBM")>-1?' <span style="color:var(--ink-3);font-size:11px">declarado, techo 100</span>':'')],
+      ["Stock Vendor", r[7]==null?"—":'<span class="num">'+fm(r[7])+'</span>'],
+      ["PVP Seller", r[8]==null?null:eur(r[8])],
+      ["PVP Vendor", r[9]==null?null:eur(r[9])],
+      ["BuyBox Seller", bbB(r[10])],
+      ["BuyBox Vendor", bbB(r[11])],
+      ["Score", r[12]==null?null:'<span class="num">'+fm(r[12],1)+'</span> ★'+(num(r[12])<3.5?' <span class="b b-bad">bloquea ofertas</span>':'')],
+      ["Reseñas", r[13]==null?null:fm(r[13])],
+      ["Fecha del dato", dmy(r[14])]
+    ]));
+  } else {
+    h += '<div class="fnote">Esta referencia no está en el catálogo consolidado.</div>';
+  }
+
+  var c3 = p3By[asin]||[];
+  if(c3.length){
+    h += fset("Terceros en la ficha ("+c3.length+")",
+      '<div class="tw"><table><thead><tr><th>Vendedor</th><th class="r">Precio</th><th class="r">Gap</th><th>BuyBox</th></tr></thead><tbody>'+
+      c3.map(function(x){
+        var g=num(x[12]);
+        return '<tr><td>'+esc(txt(x[7]||x[6]))+'<div style="font-size:10.5px;color:var(--ink-3)">'+esc(txt(x[8]))+'</div></td>'+
+          '<td class="r num">'+eur(x[11])+'</td>'+
+          '<td class="r num" style="color:'+(g!=null&&g<0?'var(--bad)':'var(--ok)')+'">'+(g==null?"—":eur(g))+'</td>'+
+          '<td>'+(/s[ií]/i.test(String(x[18]))?'<span class="b b-bad">nos la quita</span>':'<span class="b b-mute">no</span>')+'</td></tr>';
+      }).join("")+'</tbody></table></div>');
+  }
+
+  var dv=dvBy[asin]||[], dh=dhBy[asin]||[];
+  if(dh.length||dv.length){
+    var mot={}; dh.forEach(function(x){ mot[x[6]]=(mot[x[6]]||0)+1; });
+    var top = Object.keys(mot).sort(function(a,b){return mot[b]-mot[a];}).slice(0,4);
+    h += fset("Devoluciones", kvs([
+      ["En la ventana viva", '<b class="num">'+dv.length+'</b> <span style="color:var(--ink-3);font-size:11.5px">(03/08 a 02/10)</span>'],
+      ["En nueve meses", '<b class="num">'+dh.length+'</b>'],
+      ["Motivos más frecuentes", top.map(function(m){ return esc(m)+' <span class="mono" style="color:var(--ink-3)">'+mot[m]+'</span>'; }).join("<br>")]
+    ]));
+  }
+
+  var tr=(trBy[asin]||[])[0];
+  if(tr) h += fset("Transparency", kvs([
+    ["Bloque", esc(txt(tr[0]))],["Venta 60 días", tr[4]==null?null:eur(tr[4])],
+    ["Canal", esc(txt(tr[6]))],["Decisión", esc(txt(tr[11]))],["Qué hacer", esc(txt(tr[12]))]
+  ]));
+
+  var as=(asBy[asin]||[])[0];
+  var sup=apBy[asin]||[], comoSup=apSub[asin]||[];
+  if(as||sup.length||comoSup.length){
+    var b = "";
+    if(as) b += kvs([["En la selección Q4", '<span class="b b-ok">sí</span>'],
+      ["Estado de stock", /ROTURA|Sin stock|Solo Vendor/.test(String(as[10]))?'<span class="b b-bad">'+esc(txt(as[10]))+'</span>':esc(txt(as[10]))],
+      ["Suplentes asignados", sup.length?String(new Set(sup.map(function(x){return x[8];})).size):"ninguno"]]);
+    if(comoSup.length) b += '<div class="fnote">Actúa como suplente de '+
+      comoSup.map(function(x){ return '<span class="asin" onclick="verFicha(\''+esc(x[0])+'\')">'+esc(x[0])+'</span>'; }).join(", ")+'.</div>';
+    h += fset("Ads Q4", b||'<div class="fnote">—</div>');
+  }
+
+  var inc = (ivBy[asin]||[]).map(function(x){return ["Vendor",x];}).concat((isBy[asin]||[]).map(function(x){return ["Seller",x];}));
+  if(inc.length) h += fset("Incidencias ("+inc.length+")",
+    inc.map(function(p){ var x=p[1];
+      return '<div class="fnote" style="border-bottom:1px solid var(--line-soft)"><b>'+esc(x[0])+'</b> · '+esc(p[0])+' · '+esc(txt(x[1]))+
+        '<div style="color:var(--ink-3);margin-top:3px">'+esc(txt(x[4]))+'</div>'+
+        '<div style="margin-top:4px"><span class="b b-warn">'+esc(txt(x[8]))+'</span></div></div>';
+    }).join(""));
+
+  prb.innerHTML = h;
+  sheet.setAttribute("data-open","1");
+  prb.parentElement.scrollTop = 0;
+};
+
+/* ---------- buscador global ---------- */
+(function(){
+  var q=document.getElementById("q"), out=document.getElementById("qout");
+  function run(){
+    var v=q.value.trim().toLowerCase();
+    if(v.length<2){ out.hidden=true; out.innerHTML=""; return; }
+    var hits=[];
+    for(var i=0;i<SO.length && hits.length<40;i++){
+      var r=SO[i];
+      if((String(r[2]||"")+" "+String(r[3]||"")+" "+String(r[4]||"")).toLowerCase().indexOf(v)>-1) hits.push(r);
+    }
+    if(!hits.length){ out.innerHTML='<div class="gs-none">Ninguna referencia coincide.</div>'; out.hidden=false; return; }
+    out.innerHTML = hits.map(function(r){
+      return '<button data-a="'+esc(r[2])+'"><span class="a">'+esc(r[2])+'</span> '+
+        '<span class="sku">'+esc(txt(r[3]))+'</span><div class="t">'+esc(txt(r[4]))+'</div></button>';
+    }).join("");
+    out.hidden=false;
+    out.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click",function(){ verFicha(b.dataset.a); out.hidden=true; q.value=""; });
+    });
+  }
+  q.addEventListener("input",run);
+  q.addEventListener("focus",run);
+  document.addEventListener("click",function(e){ if(!e.target.closest(".gs")) out.hidden=true; });
+})();
+
+document.addEventListener("click",function(e){
+  var a=e.target.closest(".asin[data-a]");
+  if(a) verFicha(a.dataset.a);
+});
+function asinCell(v){ return v?'<span class="asin" data-a="'+esc(v)+'" role="button" tabindex="0">'+esc(v)+'</span>':'—'; }
+
+/* ---------- pestañas ---------- */
+var cats = {};
+SO.forEach(function(r){ if(r[0]) cats[r[0]]=(cats[r[0]]||0)+1; });
+
+var TABS = [
+  {id:"resumen",   t:"Resumen",      n:"",                build:vResumen},
+  {id:"catalogo",  t:"Catálogo",     n:SO.length,         build:vCatalogo},
+  {id:"precio",    t:"Precio y BuyBox", n:P3.length,      build:vPrecio},
+  {id:"ads",       t:"Ads Q4",       n:AS.length,         build:vAds},
+  {id:"devol",     t:"Devoluciones", n:DV.length,         build:vDevol},
+  {id:"incid",     t:"Incidencias",  n:IV.length+IS.length, build:vIncid},
+  {id:"transp",    t:"Transparency", n:TR.length,         build:vTransp},
+  {id:"mercado",   t:"Mercado",      n:EC.length,         build:vMercado},
+  {id:"calend",    t:"Calendario",   n:CA.length,         build:vCalend}
+];
+
+/* ======== RESUMEN ======== */
+function vResumen(){
+  var w = document.createDocumentFragment();
+  var k = '<div class="kpis sec">'+
+    kpi("Referencias en catálogo", fm(M.total), M.viva+" con oferta viva en Seller") +
+    kpi("Agotadas con oferta viva", fm(M.rota), M.rota===1?"una sola: venta perdida hoy":"venta perdida hoy", M.rota>0?"is-bad":"is-ok") +
+    kpi("Stock Seller Flex", fm(M.udsFlex), M.flex+" referencias · recuento real", "is-cool") +
+    kpi("Stock Seller FBM", fm(M.udsFbm), M.fbm+" referencias · declarado") +
+    kpi("Stock Vendor", fm(M.vendorStock), M.vendor0+" referencias a cero") +
+    kpi("Devoluciones ventana", fm(DV.length), DH.length+" en nueve meses") +
+  '</div>';
+  w.appendChild(el(k));
+
+  // alertas
+  var alertas = [];
+  SO.forEach(function(r){ if((r[6]||"").indexOf("Activa")===0 && num(r[5])===0)
+    alertas.push(["Agotada con la oferta publicada", r[2], r[3], "bad"]); });
+  AS.forEach(function(r){ if(!/^Disponible/.test(String(r[10]||"")))
+    alertas.push(["En Ads Q4 y no vende por Seller: "+txt(r[10]), r[0], r[1], /Sin stock/.test(String(r[10]))?"bad":"warn"]); });
+  SO.forEach(function(r){ var s=num(r[12]); if(s!=null && s>0 && s<3.5)
+    alertas.push(["Score "+fm(s,1)+": bloquea ofertas de Amazon", r[2], r[3], "warn"]); });
+
+  var al = '<div class="tw"><table><tbody>'+alertas.slice(0,40).map(function(a){
+    return '<tr><td style="width:1%"><span class="b b-'+a[3]+'">'+(a[3]==="bad"?"crítico":"aviso")+'</span></td>'+
+      '<td>'+asinCell(a[1])+'</td><td class="sku">'+esc(txt(a[2]))+'</td><td>'+esc(a[0])+'</td></tr>';
+  }).join("")+'</tbody></table></div>';
+  w.appendChild(el(card("Lo que hay que mirar hoy", alertas.length+" avisos", al,
+    'Un cero solo es rotura si la oferta sigue publicada. Las referencias con la oferta cerrada no cuentan.')));
+
+  // dos columnas: reparto de oferta + categorías
+  var ofs = [["Activa Flex",M.flex,"var(--cool)"],["Activa FBM",M.fbm,"var(--ok)"],
+             ["Inactiva",M.dormido,"var(--ink-3)"],["Sin oferta",M.sinOf,"#c3c3c9"]];
+  var catA = Object.keys(cats).filter(function(c){return c;}).map(function(c){ return [c,cats[c]]; })
+    .sort(function(a,b){return b[1]-a[1];});
+  var two = el('<div class="two sec"></div>');
+  two.appendChild(el(card("Situación de la oferta en Seller","874 referencias",barras(ofs),
+    '<b>Flex</b> es el FBA de esta cuenta: Amazon entrega, el stock sigue en el almacén de la marca. Ninguna referencia está activa en los dos a la vez.')));
+  two.appendChild(el(card("Catálogo por categoría","",barras(catA))));
+  w.appendChild(two);
+
+  // devoluciones por mes
+  var mes={};
+  DH.forEach(function(r){ var d=pdate(r[0]); if(!d)return; var k=("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();
+    mes[k]=(mes[k]||0)+1; });
+  var ord = Object.keys(mes).sort(function(a,b){ return (a.slice(3)+a.slice(0,2)).localeCompare(b.slice(3)+b.slice(0,2)); });
+  w.appendChild(el(card("Devoluciones Seller Flex por mes","1.108 en nueve meses",
+    barras(ord.map(function(m){ return [m,mes[m]]; })),
+    'Julio y agosto concentran el pico. La ventana ampliada de Navidad hará que enero suba: no será un problema de calidad.')));
+
+  // próximos hitos
+  var hoy = new Date(2026,9,4);
+  var prox = CA.map(function(r){ return {d:pdate(r[0]), r:r}; }).filter(function(x){ return x.d && x.d>=hoy; })
+    .sort(function(a,b){ return a.d-b.d; }).slice(0,6);
+  var ph = '<div class="tw"><table><tbody>'+prox.map(function(x){
+    var dias = Math.round((x.d-hoy)/86400000);
+    return '<tr><td style="width:1%"><span class="mono" style="color:var(--accent);font-weight:600">'+esc(x.r[0])+'</span></td>'+
+      '<td style="width:1%"><span class="b b-mute">'+(dias===0?"hoy":"en "+dias+" d")+'</span></td>'+
+      '<td>'+esc(x.r[1])+'</td><td style="width:1%"><span class="b b-cool">'+esc(x.r[3])+'</span></td></tr>';
+  }).join("")+'</tbody></table></div>';
+  w.appendChild(el(card("Próximos hitos de Q4","",ph)));
+  return w;
+}
+
+/* ======== CATÁLOGO ======== */
+function vCatalogo(){
+  var w=document.createDocumentFragment();
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Con oferta viva", fm(M.viva), M.fbm+" FBM · "+M.flex+" Flex") +
+    kpi("Agotadas con oferta", fm(M.rota), "venta perdida", M.rota?"is-bad":"is-ok") +
+    kpi("Oferta cerrada", fm(M.dormido), "catálogo dormido") +
+    kpi("Sin oferta en Seller", fm(M.sinOf), "no publicadas") + '</div>'));
+
+  w.appendChild(tabla({
+    title:"Catálogo y stock", sub:"874 referencias · Vendor y Seller",
+    ph:"ASIN, modelo o producto…",
+    rows:SO, max:1000,
+    search:function(r){ return ((r[2]||"")+" "+(r[3]||"")+" "+(r[4]||"")+" "+(r[1]||"")).toLowerCase(); },
+    chips:Object.keys(cats).filter(function(c){return c;}).sort().map(function(c){ return {t:c,v:c,n:cats[c]}; }),
+    chipTest:function(r,v){ return r[0]===v; },
+    selects:[
+      {key:"of",label:"Oferta Seller",opts:["Activa FBM","Activa Flex","Inactiva","Sin oferta"],
+       test:function(r,v){ return r[6]===v; }},
+      {key:"st",label:"Estado de stock",opts:["Agotada con oferta viva","Con stock","Sin dato"],
+       test:function(r,v){ var s=num(r[5]);
+         if(v==="Agotada con oferta viva") return s===0 && (r[6]||"").indexOf("Activa")===0;
+         if(v==="Con stock") return s>0; return s===null; }}
+    ],
+    cols:[
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
+      {t:"Producto",k:4,render:function(r){ return '<div class="ti">'+esc(txt(r[4]))+'</div>'; }},
+      {t:"Familia",k:1,render:function(r){ return '<span style="color:var(--ink-3);font-size:11.5px">'+esc(txt(r[1]))+'</span>'; }},
+      {t:"Oferta",k:6,render:function(r){ return ofertaB(r[6]); }},
+      {t:"Stock S.",k:5,r:1,render:function(r){ return stockC(r[5],r[6]); }},
+      {t:"Stock V.",k:7,r:1,render:function(r){ return r[7]==null?'<span style="color:var(--ink-3)">—</span>':'<span class="num">'+fm(r[7])+'</span>'; }},
+      {t:"PVP S.",k:8,r:1,render:function(r){ return '<span class="num">'+(r[8]==null?"—":eur(r[8]))+'</span>'; }},
+      {t:"BuyBox S.",k:10,render:function(r){ return bbB(r[10]); }},
+      {t:"Score",k:12,r:1,render:function(r){ var s=num(r[12]); if(s==null)return '<span style="color:var(--ink-3)">—</span>';
+        return '<span class="num" style="'+(s<3.5?'color:var(--bad);font-weight:600':'')+'">'+fm(s,1)+'</span>'; }}
+    ],
+    note:'El número de <b>FBM</b> es la disponibilidad declarada por el vendedor, con techo en 100 y descontando ventas. El de <b>Flex</b> es el recuento real de Amazon. No son sumables entre sí. Pulsa cualquier ASIN para abrir su ficha completa.'
+  }));
+  return w;
+}
+
+/* ======== PRECIO Y BUYBOX ======== */
+function vPrecio(){
+  var w=document.createDocumentFragment();
+  var pierde=0, asins={}, vend={};
+  P3.forEach(function(r){ if(/s[ií]/i.test(String(r[18]))) pierde++; if(r[1])asins[r[1]]=1; if(r[7])vend[r[7]]=(vend[r[7]]||0)+1; });
+  var perdidas = {a:0,p:0,t:0};
+  SO.forEach(function(r){ var b=String(r[10]||"");
+    if(/Amazon \(1P\)/.test(b)) perdidas.a++; else if(/oferta propia/.test(b)) perdidas.p++; else if(/terceros/.test(b)) perdidas.t++; });
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN afectados") +
+    kpi("Nos quitan la BuyBox", fm(pierde), "de "+fm(P3.length)+" ofertas", pierde?"is-bad":"") +
+    kpi("BuyBox perdida ante 1P", fm(perdidas.a), "Amazon vende el mismo ASIN") +
+    kpi("Ante oferta propia", fm(perdidas.p), "duplicidad Vendor/Seller", "is-cool") + '</div>'));
+
+  var vlist = Object.keys(vend).map(function(k){ return [k,vend[k]]; }).sort(function(a,b){return b[1]-a[1];});
+  w.appendChild(el(card("Vendedores con más ofertas colgadas","sobre nuestras fichas",barras(vlist.slice(0,10)))));
+
+  w.appendChild(tabla({
+    title:"Vigilancia de precio de terceros", sub:"snapshot "+(P3[0]?P3[0][0]:""),
+    ph:"ASIN, modelo o vendedor…", rows:P3, max:800,
+    search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[7]||"")).toLowerCase(); },
+    selects:[{key:"bb",label:"Sólo los que nos quitan la BuyBox",opts:["Sí"],
+      test:function(r){ return /s[ií]/i.test(String(r[18])); }}],
+    sort:12, dir:1,
+    cols:[
+      {t:"ASIN",k:1,render:function(r){ return asinCell(r[1]); }},
+      {t:"Modelo",k:2,render:function(r){ return '<span class="sku">'+esc(txt(r[2]))+'</span>'; }},
+      {t:"Vendedor",k:7,render:function(r){ return esc(txt(r[7]||r[6]))+'<div style="font-size:10.5px;color:var(--ink-3)">'+esc(txt(r[8]))+'</div>'; }},
+      {t:"Nuestro PVP",k:4,r:1,render:function(r){ return '<span class="num">'+eur(r[4])+'</span>'; }},
+      {t:"Su total",k:11,r:1,render:function(r){ return '<span class="num">'+eur(r[11])+'</span>'; }},
+      {t:"Gap",k:12,r:1,render:function(r){ var g=num(r[12]); if(g==null)return "—";
+        return '<span class="num" style="color:'+(g<0?"var(--bad)":"var(--ok)")+';font-weight:600">'+eur(g)+'</span>'; }},
+      {t:"FBA",k:14,render:function(r){ return /s[ií]/i.test(String(r[14]))?'<span class="b b-cool">FBA</span>':'<span class="b b-mute">no</span>'; }},
+      {t:"BuyBox",k:18,render:function(r){ return /s[ií]/i.test(String(r[18]))?'<span class="b b-bad">nos la quita</span>':'<span class="b b-mute">no</span>'; }}
+    ],
+    note:'Un gap negativo significa que el tercero es más barato que nosotros.'
+  }));
+
+  w.appendChild(tabla({
+    title:"Maestro de vendedores", sub:VE.length+" identificados", ph:"Nombre o ID…", rows:VE,
+    search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[4]||"")).toLowerCase(); },
+    cols:[
+      {t:"ID",k:0,render:function(r){ return '<span class="sku">'+esc(txt(r[0]))+'</span>'; }},
+      {t:"Nombre",k:1},{t:"Tipo",k:2,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[2]))+'</span>'; }},
+      {t:"ASINs",k:3,r:1},{t:"Verificado",k:5,render:function(r){ return /s[ií]/i.test(String(r[5]))?'<span class="b b-ok">sí</span>':'<span class="b b-warn">no</span>'; }},
+      {t:"Notas",k:7,render:function(r){ return '<div class="ti">'+esc(txt(r[7]))+'</div>'; }}
+    ]
+  }));
+  return w;
+}
+
+/* ======== ADS Q4 ======== */
+function vAds(){
+  var w=document.createDocumentFragment();
+  var ok=0, riesgo=[];
+  AS.forEach(function(r){ if(/^Disponible/.test(String(r[10]||""))) ok++; else riesgo.push(r); });
+  var tit = {}; AP.forEach(function(r){ if(r[0]) tit[r[0]]=1; });
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("ASIN en la selección", fm(AS.length), "elige la marca") +
+    kpi("Listos para vender", fm(ok), "con stock y oferta viva", ok===AS.length?"is-ok":"") +
+    kpi("Con problema de stock", fm(riesgo.length), "el presupuesto se pierde", riesgo.length?"is-bad":"is-ok") +
+    kpi("Suplentes preparados", fm(AP.length), Object.keys(tit).length+" titulares cubiertos") + '</div>'));
+
+  if(riesgo.length){
+    var rh='<div class="tw"><table><thead><tr><th>ASIN</th><th>Modelo</th><th>Familia</th><th class="r">Vendor</th><th class="r">Seller</th><th>Situación</th><th>Suplente</th></tr></thead><tbody>'+
+      riesgo.map(function(r){
+        var sup = (apBy[r[0]]||[]).filter(function(x){ return num(x[7])===1; })[0];
+        return '<tr><td>'+asinCell(r[0])+'</td><td class="sku">'+esc(txt(r[1]))+'</td><td style="color:var(--ink-3)">'+esc(txt(r[3]))+'</td>'+
+          '<td class="r num">'+(r[8]==null?"—":fm(r[8]))+'</td><td class="r num">'+(r[9]==null?"—":fm(r[9]))+'</td>'+
+          '<td><span class="b b-'+(/Sin stock/.test(String(r[10]))?"bad":"warn")+'">'+esc(txt(r[10]))+'</span></td>'+
+          '<td>'+(sup?asinCell(sup[8]):'<span style="color:var(--ink-3)">sin suplente</span>')+'</td></tr>';
+      }).join("")+'</tbody></table></div>';
+    w.appendChild(el(card("Presupuesto en riesgo", riesgo.length+" de "+AS.length+" ASIN", rh,
+      'Estas fichas reciben inversión y no pueden vender por Seller. O se activa el suplente, o se reparte su presupuesto.')));
+  }
+
+  w.appendChild(tabla({
+    title:"Selección de Ads Q4", sub:"la marca decide, Roicos propone los relevos",
+    ph:"ASIN, modelo o producto…", rows:AS,
+    search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[4]||"")).toLowerCase(); },
+    cols:[
+      {t:"ASIN",k:0,render:function(r){ return asinCell(r[0]); }},
+      {t:"Modelo",k:1,render:function(r){ return '<span class="sku">'+esc(txt(r[1]))+'</span>'; }},
+      {t:"Producto",k:4,render:function(r){ return '<div class="ti-1">'+esc(txt(r[4]))+'</div>'; }},
+      {t:"Categoría",k:2},
+      {t:"Canal",k:6,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[6]))+'</span>'; }},
+      {t:"Vendor",k:8,r:1,render:function(r){ return '<span class="num">'+(r[8]==null?"—":fm(r[8]))+'</span>'; }},
+      {t:"Seller",k:9,r:1,render:function(r){ return '<span class="num">'+(r[9]==null?"—":fm(r[9]))+'</span>'; }},
+      {t:"Situación",k:10,render:function(r){ var v=String(r[10]||"");
+        var c = /^Disponible/.test(v)?"ok":(/Sin stock/.test(v)?"bad":"warn");
+        return '<span class="b b-'+c+'">'+esc(txt(v))+'</span>'; }}
+    ]
+  }));
+
+  w.appendChild(tabla({
+    title:"Suplentes", sub:AP.length+" relevos preparados", ph:"ASIN titular o suplente…", rows:AP, max:200,
+    search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[8]||"")+" "+(r[4]||"")).toLowerCase(); },
+    cols:[
+      {t:"Titular",k:0,render:function(r){ return asinCell(r[0])+'<div class="sku">'+esc(txt(r[1]))+'</div>'; }},
+      {t:"Familia",k:3,render:function(r){ return '<span style="color:var(--ink-3)">'+esc(txt(r[3]))+'</span>'; }},
+      {t:"Stock titular",k:6,r:1,render:function(r){ return '<span class="num">V '+(r[5]==null?"—":fm(r[5]))+' · S '+(r[6]==null?"—":fm(r[6]))+'</span>'; }},
+      {t:"Orden",k:7,r:1,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[7]))+'</span>'; }},
+      {t:"Suplente",k:8,render:function(r){ return asinCell(r[8]); }},
+      {t:"Stock supl.",k:9,r:1,render:function(r){ return '<span class="num">'+(r[9]==null?"—":fm(r[9]))+'</span>'; }},
+      {t:"Uds 3m",k:10,r:1,render:function(r){ return '<span class="num">'+(r[10]==null?"—":fm(r[10]))+'</span>'; }},
+      {t:"Facturación 3m",k:11,r:1,render:function(r){ return '<span class="num">'+(r[11]==null?"—":eur(r[11],0))+'</span>'; }},
+      {t:"Activado",k:13,render:function(r){ return /^s/i.test(String(r[13]||""))?'<span class="b b-ok">sí</span>':'<span class="b b-mute">no</span>'; }}
+    ]
+  }));
+  return w;
+}
+
+/* ======== DEVOLUCIONES ======== */
+function vDevol(){
+  var w=document.createDocumentFragment();
+  var rev=0, entrega=0, flexN=0, fbmN=0, imp=0;
+  DV.forEach(function(r){
+    if(r[9]==="Recuperado - revendible") rev++;
+    if(/^No entregado|^Nunca lleg/.test(String(r[6]||""))) entrega++;
+    if(r[5]==="FBM") fbmN++; else flexN++;
+    var m=num(r[8]); if(m) imp+=m;
+  });
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Ventana viva", fm(DV.length), flexN+" Flex · "+fbmN+" FBM") +
+    kpi("Recuperadas revendibles", fm(rev), Math.round(rev/DV.length*100)+"% del total", "is-ok") +
+    kpi("Problema de entrega", fm(entrega), "última milla, no calidad", "is-cool") +
+    kpi("Importe registrado", eur(imp,0), "solo las FBM lo traen") +
+    kpi("Histórico de nueve meses", fm(DH.length), "desde el 02/01/2026") + '</div>'));
+
+  var mot={}; DV.forEach(function(r){ if(r[6]) mot[r[6]]=(mot[r[6]]||0)+1; });
+  var est={}; DV.forEach(function(r){ if(r[9]) est[r[9]]=(est[r[9]]||0)+1; });
+  var two=el('<div class="two sec"></div>');
+  two.appendChild(el(card("Motivo de la devolución","ventana viva",
+    barras(Object.keys(mot).map(function(k){return [k,mot[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,10)))));
+  two.appendChild(el(card("En qué acaba la unidad","ventana viva",
+    barras(Object.keys(est).map(function(k){return [k,est[k]];}).sort(function(a,b){return b[1]-a[1];})))));
+  w.appendChild(two);
+
+  var topA={}; DH.forEach(function(r){ if(r[2]) topA[r[2]]=(topA[r[2]]||0)+1; });
+  var ta = Object.keys(topA).sort(function(a,b){return topA[b]-topA[a];}).slice(0,12);
+  var th='<div class="tw"><table><thead><tr><th>ASIN</th><th>Modelo</th><th>Producto</th><th class="r">9 meses</th><th class="r">Ventana</th></tr></thead><tbody>'+
+    ta.map(function(a){
+      var r=byAsin[a]||[], n9=topA[a], nv=(dvBy[a]||[]).length;
+      return '<tr><td>'+asinCell(a)+'</td><td class="sku">'+esc(txt(r[3]))+'</td>'+
+        '<td><div class="ti-1">'+esc(txt(r[4]))+'</div></td>'+
+        '<td class="r num" style="font-weight:600">'+n9+'</td><td class="r num">'+nv+'</td></tr>';
+    }).join("")+'</tbody></table></div>';
+  w.appendChild(el(card("Los más devueltos","sobre los nueve meses",th,
+    'El ranking a nueve meses no es el mismo que a dos. Las decisiones de suplentes de Ads se tomaron con la ventana corta.')));
+
+  w.appendChild(tabla({
+    title:"Devoluciones", sub:"ventana viva: 03/08 a 02/10", ph:"ASIN, pedido, modelo o motivo…",
+    rows:DV, max:600, sort:0, dir:-1,
+    search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")+" "+(r[4]||"")).toLowerCase(); },
+    chips:[{t:"Seller Flex",v:"Seller Flex",n:flexN},{t:"FBM",v:"FBM",n:fbmN}],
+    chipTest:function(r,v){ return r[5]===v; },
+    cols:[
+      {t:"Fecha",k:0,sortv:function(r){ var d=pdate(r[0]); return d?d.getTime():0; },
+       render:function(r){ return '<span class="mono" style="font-size:11.5px">'+esc(dmy(r[0]))+'</span>'; }},
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
+      {t:"Tipo",k:5,render:function(r){ return r[5]==="FBM"?'<span class="b b-mute">FBM</span>':'<span class="b b-cool">Flex</span>'; }},
+      {t:"Motivo",k:6},
+      {t:"Estado",k:9,render:function(r){ var v=String(r[9]||"");
+        var c = /Recuperado|Reacondicionado/.test(v)?"ok":(/Reembolsado/.test(v)?"cool":"warn");
+        return '<span class="b b-'+c+'">'+esc(txt(v))+'</span>'; }},
+      {t:"Importe",k:8,r:1,render:function(r){ return '<span class="num">'+(r[8]==null?"—":eur(r[8]))+'</span>'; }},
+      {t:"Pedido",k:1,render:function(r){ return '<span class="sku" style="font-size:11px">'+esc(txt(r[1]))+'</span>'; }}
+    ],
+    note:'El importe solo viene en las devoluciones FBM. El informe de Amazon para Flex no lo trae, así que el 95 % de las filas lo tiene vacío a propósito.'
+  }));
+
+  w.appendChild(tabla({
+    title:"Histórico de devoluciones", sub:"1.108 filas · 02/01 a 02/10", ph:"ASIN, pedido o motivo…",
+    rows:DH, max:400, sort:0, dir:-1,
+    search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")).toLowerCase(); },
+    cols:[
+      {t:"Fecha",k:0,sortv:function(r){ var d=pdate(r[0]); return d?d.getTime():0; },
+       render:function(r){ return '<span class="mono" style="font-size:11.5px">'+esc(dmy(r[0]))+'</span>'; }},
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
+      {t:"Motivo",k:6},
+      {t:"Estado",k:9,render:function(r){ var v=String(r[9]||"");
+        var c = /Recuperado|Reacondicionado/.test(v)?"ok":(/Reembolsado/.test(v)?"cool":"warn");
+        return '<span class="b b-'+c+'">'+esc(txt(v))+'</span>'; }}
+    ]
+  }));
+  return w;
+}
+
+/* ======== INCIDENCIAS ======== */
+function vIncid(){
+  var w=document.createDocumentFragment();
+  var todas = IV.map(function(r){ return {c:"Vendor",r:r}; }).concat(IS.map(function(r){ return {c:"Seller",r:r}; }));
+  var abiertas = todas.filter(function(x){ return x.r[8]!=="Cerrada"; }).length;
+  var sinResp = todas.filter(function(x){ return !x.r[5]; }).length;
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Incidencias registradas", fm(todas.length), IV.length+" Vendor · "+IS.length+" Seller") +
+    kpi("Abiertas", fm(abiertas), "pendientes de cierre", abiertas?"is-cool":"is-ok") +
+    kpi("Sin responsable", fm(sinResp), "hay que asignarlas", sinResp?"is-bad":"is-ok") + '</div>'));
+
+  w.appendChild(tabla({
+    title:"Incidencias", sub:"Vendor y Seller", ph:"ASIN, tipología o descripción…",
+    rows:todas.map(function(x){ var r=x.r.slice(); r.canal=x.c; return r; }),
+    search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[2]||"")+" "+(r[4]||"")).toLowerCase(); },
+    chips:[{t:"Vendor",v:"Vendor",n:IV.length},{t:"Seller",v:"Seller",n:IS.length}],
+    chipTest:function(r,v){ return r.canal===v; },
+    cols:[
+      {t:"ID",k:0,render:function(r){ return '<span class="sku">'+esc(txt(r[0]))+'</span>'; }},
+      {t:"Canal",k:"canal",render:function(r){ return '<span class="b b-mute">'+esc(r.canal)+'</span>'; }},
+      {t:"Tipología",k:1},
+      {t:"ASIN",k:2,render:function(r){ return r[2]?asinCell(r[2]):'<span style="color:var(--ink-3)">—</span>'; }},
+      {t:"Descripción",k:4,render:function(r){ return '<div class="ti">'+esc(txt(r[4]))+'</div>'; }},
+      {t:"Necesidad",k:7,render:function(r){ return '<div class="ti">'+esc(txt(r[7]))+'</div>'; }},
+      {t:"Responsable",k:5,render:function(r){ return r[5]?esc(r[5]):'<span class="b b-bad">sin asignar</span>'; }},
+      {t:"Status",k:8,render:function(r){ var v=String(r[8]||"");
+        return '<span class="b b-'+(v==="Cerrada"?"ok":"warn")+'">'+esc(txt(v))+'</span>'; }},
+      {t:"Objetivo",k:10,render:function(r){ return r[10]?esc(r[10]):'<span style="color:var(--ink-3)">sin fecha</span>'; }}
+    ],
+    note:'Esta hoja es editable en el Excel: las filas nuevas se añaden debajo y el panel las recoge en la siguiente actualización.'
+  }));
+  return w;
+}
+
+/* ======== TRANSPARENCY ======== */
+function vTransp(){
+  var w=document.createDocumentFragment();
+  var blo={}; TR.forEach(function(r){ if(r[0]) blo[r[0]]=(blo[r[0]]||0)+1; });
+  var vend=0; TR.forEach(function(r){ var v=num(r[4]); if(v) vend+=v; });
+  var esc2=0; TR.forEach(function(r){ var v=num(r[10]); if(v) esc2+=v; });
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("ASIN en el plan", fm(TR.length), Object.keys(blo).length+" bloques de prioridad") +
+    kpi("Venta 60 días", eur(vend,0), "de los ASIN protegidos") +
+    kpi("Unidades escaneadas", fm(esc2), "la OPR exige 10 por ASIN en 30 días", esc2?"is-cool":"is-bad") + '</div>'));
+
+  w.appendChild(el(card("Reparto por bloque de prioridad","",
+    barras(Object.keys(blo).sort().map(function(k){ return [k,blo[k]]; })))));
+
+  w.appendChild(tabla({
+    title:"Transparency", sub:"plan OPR", ph:"ASIN, referencia o decisión…", rows:TR, max:300,
+    search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[11]||"")).toLowerCase(); },
+    chips:Object.keys(blo).sort().map(function(k){ return {t:k,v:k,n:blo[k]}; }),
+    chipTest:function(r,v){ return r[0]===v; },
+    cols:[
+      {t:"Bloque",k:0,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[0]))+'</span>'; }},
+      {t:"ASIN",k:1,render:function(r){ return asinCell(r[1]); }},
+      {t:"Referencia",k:2,render:function(r){ return '<span class="sku">'+esc(txt(r[2]))+'</span>'; }},
+      {t:"Venta 60d",k:4,r:1,render:function(r){ return '<span class="num">'+(r[4]==null?"—":eur(r[4],0))+'</span>'; }},
+      {t:"Stock hoy",k:5,r:1,render:function(r){ return '<span class="num">'+(r[5]==null?"—":fm(r[5]))+'</span>'; }},
+      {t:"Canal",k:6},
+      {t:"Uds escaneadas",k:10,r:1,render:function(r){ var v=num(r[10]);
+        return '<span class="num" style="'+(v!=null&&v<10?'color:var(--bad)':'')+'">'+(v==null?"—":fm(v))+'</span>'; }},
+      {t:"Decisión",k:11},
+      {t:"Qué hacer",k:12,render:function(r){ return '<div class="ti">'+esc(txt(r[12]))+'</div>'; }}
+    ],
+    note:'La OPR solo se activa con <b>10 unidades escaneadas en 30 días</b> por ASIN. Por debajo de ese umbral la protección no entra.'
+  }));
+  return w;
+}
+
+/* ======== MERCADO ======== */
+function vMercado(){
+  var w=document.createDocumentFragment();
+  var busq=0; PC.forEach(function(r){ var v=num(r[3]); if(v) busq+=v; });
+  var cuota=0, nk=0; PK.forEach(function(r){ var v=num(r[5]); if(v!=null){ cuota+=v; nk++; } });
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Familias mapeadas", fm(EC.length), "contra el tipo de producto de Amazon") +
+    kpi("Mercados medidos", fm(FC.length), "con estacionalidad y tendencia") +
+    kpi("Búsquedas 12 meses", fm(busq), PC.length+" términos seguidos") +
+    kpi("Cuota de clics media", (nk?fm(cuota/nk,1):"—")+" %", "sobre "+nk+" palabras clave", "is-cool") + '</div>'));
+
+  w.appendChild(tabla({
+    title:"Fluctuación de categoría", sub:"forma de la curva y tendencia", ph:"Mercado…", rows:FC,
+    search:function(r){ return ((r[1]||"")+" "+(r[2]||"")).toLowerCase(); },
+    cols:[
+      {t:"Mercado",k:1,render:function(r){ return '<b>'+esc(txt(r[1]))+'</b>'; }},
+      {t:"ASIN propios",k:3,r:1},
+      {t:"Pico de ventas",k:4},{t:"Valle",k:5},{t:"Pico de búsqueda",k:6},
+      {t:"Interanual",k:7,render:function(r){ var v=String(r[7]||"");
+        return '<span class="b b-'+(/alza|crec/i.test(v)?"ok":(/baja|cae/i.test(v)?"bad":"mute"))+'">'+esc(txt(v))+'</span>'; }}
+    ],
+    note:'Las cifras absolutas de esa herramienta son de una <b>selección</b> de ASIN, no de la categoría completa. Lo fiable es la forma de la curva, la dirección interanual y los volúmenes de búsqueda.'
+  }));
+
+  w.appendChild(tabla({
+    title:"Posición competitiva", sub:"cuota de clics por palabra clave", ph:"Palabra clave o marca…", rows:PK,
+    sort:1, dir:-1,
+    search:function(r){ return ((r[0]||"")+" "+(r[9]||"")).toLowerCase(); },
+    cols:[
+      {t:"Palabra clave",k:0,render:function(r){ return '<b>'+esc(txt(r[0]))+'</b>'; }},
+      {t:"Clics top",k:1,r:1,render:function(r){ return '<span class="num">'+fm(r[1])+'</span>'; }},
+      {t:"ASIN propios",k:3,r:1},
+      {t:"Cuota",k:5,r:1,render:function(r){ var v=num(r[5]);
+        return '<span class="num" style="font-weight:600;color:'+(v>=1?"var(--ok)":"var(--ink-2)")+'">'+(v==null?"—":fm(v,2)+" %")+'</span>'; }},
+      {t:"Mejor posición",k:6,r:1},
+      {t:"Marca líder",k:9,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[9]))+'</span>'; }},
+      {t:"PVP medio líder",k:12,r:1,render:function(r){ return '<span class="num">'+(r[12]==null?"—":eur(r[12],0))+'</span>'; }},
+      {t:"PVP medio propio",k:14,r:1,render:function(r){ return '<span class="num">'+(r[14]==null?"—":eur(r[14],0))+'</span>'; }}
+    ]
+  }));
+
+  w.appendChild(tabla({
+    title:"Palabras clave del mercado", sub:PC.length+" términos", ph:"Término o familia…", rows:PC, sort:3, dir:-1,
+    search:function(r){ return ((r[2]||"")+" "+(r[5]||"")+" "+(r[6]||"")).toLowerCase(); },
+    cols:[
+      {t:"Término",k:2,render:function(r){ return '<b>'+esc(txt(r[2]))+'</b>'; }},
+      {t:"Mercado",k:1,render:function(r){ return '<span style="color:var(--ink-3)">'+esc(txt(r[1]))+'</span>'; }},
+      {t:"Búsquedas 12m",k:3,r:1,render:function(r){ return '<span class="num">'+fm(r[3])+'</span>'; }},
+      {t:"Tipo",k:4,render:function(r){ return '<span class="b b-mute">'+esc(txt(r[4]))+'</span>'; }},
+      {t:"Marca",k:5},
+      {t:"Familias Corberó",k:6,render:function(r){ return '<div class="ti">'+esc(txt(r[6]))+'</div>'; }}
+    ]
+  }));
+
+  w.appendChild(tabla({
+    title:"Estructura de la categoría", sub:EC.length+" familias", ph:"Familia o tipo de producto…", rows:EC,
+    search:function(r){ return ((r[0]||"")+" "+(r[1]||"")+" "+(r[2]||"")).toLowerCase(); },
+    cols:[
+      {t:"Categoría",k:0},{t:"Familia",k:1,render:function(r){ return '<b>'+esc(txt(r[1]))+'</b>'; }},
+      {t:"Tipo de producto Amazon",k:2},
+      {t:"ASIN",k:5,r:1},
+      {t:"Equivalente en bestsellers",k:6,render:function(r){ return '<div class="ti-1">'+esc(txt(r[6]))+'</div>'; }}
+    ]
+  }));
+  return w;
+}
+
+/* ======== CALENDARIO ======== */
+function vCalend(){
+  var w=document.createDocumentFragment();
+  var hoy=new Date(2026,9,4);
+  var fut = CA.filter(function(r){ var d=pdate(r[0]); return d && d>=hoy; });
+  var sig = fut.map(function(r){ return {d:pdate(r[0]),r:r}; }).sort(function(a,b){return a.d-b.d;})[0];
+  var dias = sig?Math.round((sig.d-hoy)/86400000):null;
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Hitos del trimestre", fm(CA.length), fut.length+" todavía por delante") +
+    kpi("Siguiente hito", dias===0?"hoy":("en "+dias+" días"), sig?esc(sig.r[0])+" · "+esc(sig.r[1]).slice(0,48):"", "is-cool") +
+    kpi("Cortes de stock", fm(CA.filter(function(r){return r[2]==="Stock";}).length), "el del 21/10 es el que queda") + '</div>'));
+
+  var rows = CA.map(function(r){ var d=pdate(r[0]); return {r:r,d:d,pas:d&&d<hoy}; });
+  var h='<div class="tw"><table><thead><tr><th>Fecha</th><th>Hito</th><th>Tipo</th><th>Canal</th><th>Status</th><th>Notas</th></tr></thead><tbody>'+
+    rows.map(function(x){
+      var r=x.r, dd = x.d?Math.round((x.d-hoy)/86400000):null;
+      var fia = /^\[([^\]]+)\]/.exec(String(r[6]||""));
+      var nota = String(r[6]||"").replace(/^\[[^\]]+\]\s*/,"");
+      var fc = fia ? (/Oficial de Amazon$/.test(fia[1])?"ok":(/calendario/i.test(fia[1])?"cool":"warn")) : "mute";
+      return '<tr style="'+(x.pas?"opacity:.52":"")+'">'+
+        '<td style="white-space:nowrap"><span class="mono" style="font-weight:600;color:'+(x.pas?"var(--ink-3)":"var(--accent)")+'">'+esc(r[0])+'</span>'+
+          (dd!=null&&dd>=0?'<div style="font-size:10.5px;color:var(--ink-3)">'+(dd===0?"hoy":"en "+dd+" d")+'</div>':'<div style="font-size:10.5px;color:var(--ink-3)">vencido</div>')+'</td>'+
+        '<td style="min-width:200px"><b>'+esc(r[1])+'</b></td>'+
+        '<td><span class="b b-mute">'+esc(txt(r[2]))+'</span></td>'+
+        '<td><span class="b b-cool">'+esc(txt(r[3]))+'</span></td>'+
+        '<td>'+(r[5]?'<span class="b b-warn">'+esc(r[5])+'</span>':'<span class="b b-mute">—</span>')+'</td>'+
+        '<td style="max-width:420px;font-size:11.5px;color:var(--ink-2)">'+
+          (fia?'<span class="b b-'+fc+'" style="margin-right:5px">'+esc(fia[1])+'</span>':'')+esc(nota)+'</td></tr>';
+    }).join("")+'</tbody></table></div>';
+  w.appendChild(el(card("Calendario Q4 2026","22 hitos",h,
+    'Cada hito lleva marcada su <b>fiabilidad</b>. El 23/09 y el 18/11 no son eventos de venta: son los plazos para <i>enviar</i> ofertas. Y los cortes de stock del 09/09 y el 21/10 son de llegada a un centro de Amazon, algo que con Seller Flex no aplica literalmente porque el almacén es de la marca.')));
+  return w;
+}
+
+/* ---------- montaje ---------- */
+var tabsEl=document.getElementById("tabs"), view=document.getElementById("view");
+var activa=null;
+TABS.forEach(function(t){
+  var b = el('<button class="tab" role="tab" aria-selected="false" id="tab-'+t.id+'">'+esc(t.t)+
+    (t.n?'<span class="n">'+fm(t.n)+'</span>':'')+'</button>');
+  b.addEventListener("click",function(){ ir(t.id,true); });
+  tabsEl.appendChild(b);
+});
+function ir(id,push){
+  var t = TABS.filter(function(x){return x.id===id;})[0] || TABS[0];
+  if(activa===t.id) return;
+  activa=t.id;
+  TABS.forEach(function(x){ document.getElementById("tab-"+x.id).setAttribute("aria-selected", x.id===t.id?"true":"false"); });
+  view.innerHTML="";
+  view.appendChild(t.build());
+  // el número de columnas de los KPI depende de cuántos haya en esa pestaña
+  view.querySelectorAll(".kpis").forEach(function(k){ k.classList.add("n"+k.children.length); });
+  window.scrollTo(0,0);
+  if(push){ try{ history.replaceState(null,"","#"+t.id); }catch(e){} }
+  try{ localStorage.setItem("corbero-tab",t.id); }catch(e){}
+}
+/* altura real de la barra fija, para que las cabeceras de tabla se peguen debajo */
+(function(){
+  var st=document.getElementById("stick");
+  function medir(){ document.documentElement.style.setProperty("--stick", st.offsetHeight+"px"); }
+  medir();
+  if(window.ResizeObserver) new ResizeObserver(medir).observe(st);
+  window.addEventListener("resize",medir);
+})();
+
+var inicial = (location.hash||"").replace("#","");
+if(!TABS.some(function(x){return x.id===inicial;})){
+  try{ inicial = localStorage.getItem("corbero-tab")||"resumen"; }catch(e){ inicial="resumen"; }
+}
+ir(TABS.some(function(x){return x.id===inicial;})?inicial:"resumen");
+})();
+</script>
+
+</body>
+</html>
