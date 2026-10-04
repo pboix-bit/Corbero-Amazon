@@ -142,12 +142,14 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 
 /* tablas */
 .tw{overflow-x:auto;border-radius:0 0 12px 12px}
+/* Las tablas largas se desplazan dentro de su propia caja. Así la cabecera se queda
+   pegada a SU contenedor y no flota sobre las filas, que es lo que pasaba cuando iba
+   pegada a la ventana con un desplazamiento calculado a mano. */
+.tw.scroll{max-height:min(68vh,720px);overflow:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-/* La cabecera de la tabla se queda pegada justo debajo de la barra fija, cuya
-   altura real mide el script y publica en --stick. */
 th{text-align:left;padding:8px 11px;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);
-  font-weight:600;border-bottom:1px solid var(--line);background:var(--panel-2);white-space:nowrap;
-  position:sticky;top:var(--stick,0px);z-index:1}
+  font-weight:600;border-bottom:1px solid var(--line);background:var(--panel-2);white-space:nowrap}
+.tw.scroll th{position:sticky;top:0;z-index:1}
 th.s{cursor:pointer;user-select:none}
 th.s:hover{color:var(--ink)}
 th .ar{opacity:.55;font-size:9px}
@@ -281,6 +283,20 @@ var CE = F("COMPARATIVA ESTACIONALIDAD");
 
 var byAsin = {};
 SO.forEach(function(r){ if(r[2] && !byAsin[r[2]]) byAsin[r[2]] = r; });
+
+// El informe de BuyBox no trae nuestro precio en 188 de las 352 ofertas, y sin él tampoco
+// hay diferencia que enseñar. No es un dato distinto: en las 164 que sí lo traen coincide
+// al céntimo con el PVP del catálogo, así que se completa desde ahí y se recalcula el gap.
+// El gap es el precio del competidor menos el nuestro: negativo = nos está bajando el precio.
+var p3Completadas = 0;
+P3.forEach(function(r){
+  if(r[4]!=null && r[4]!=="") return;
+  var c = byAsin[r[1]];
+  if(!c || c[8]==null || c[8]==="") return;
+  r[4] = c[8];
+  if((r[12]==null || r[12]==="") && r[11]!=null) r[12] = Math.round((r[11]-r[4])*100)/100;
+  p3Completadas++;
+});
 function idx(rows, col){ var m={}; rows.forEach(function(r){ var k=r[col]; if(!k)return; (m[k]=m[k]||[]).push(r); }); return m; }
 var p3By = idx(P3,1), dvBy = idx(DV,2), dhBy = idx(DH,2), trBy = idx(TR,1),
     asBy = idx(AS,0), apBy = idx(AP,0), apSub = idx(AP,8),
@@ -421,6 +437,9 @@ function tabla(cfg){
     h += '</tbody></table>';
     if(lim<rows.length) h += '<div class="empty">Se muestran las primeras '+fm(lim)+' de '+fm(rows.length)+'. Afina el filtro para ver el resto.</div>';
     tw.innerHTML = h;
+    // sólo las tablas largas se desplazan por dentro; las cortas se leen de una vez
+    if(lim > 18) tw.classList.add("scroll"); else tw.classList.remove("scroll");
+    tw.scrollTop = 0;
     tw.querySelectorAll("th.s").forEach(function(th){
       th.addEventListener("click",function(){
         var i=+th.dataset.i;
@@ -717,7 +736,7 @@ function vPrecio(){
       {t:"FBA",k:14,render:function(r){ return /s[ií]/i.test(String(r[14]))?'<span class="b b-cool">FBA</span>':'<span class="b b-mute">no</span>'; }},
       {t:"BuyBox",k:18,render:function(r){ return /s[ií]/i.test(String(r[18]))?'<span class="b b-bad">nos la quita</span>':'<span class="b b-mute">no</span>'; }}
     ],
-    note:'Un gap negativo significa que el tercero es más barato que nosotros.'
+    note:'El gap es su precio total menos el nuestro: <b>en negativo, el tercero nos está bajando el precio</b>. El informe de BuyBox no trae nuestro PVP en '+p3Completadas+' de las '+P3.length+' ofertas; en esas se ha tomado del catálogo, que es el mismo dato (coincide al céntimo en las '+(P3.length-p3Completadas)+' que sí lo traen).'
   }));
 
   w.appendChild(tabla({
@@ -1074,15 +1093,6 @@ function ir(id,push){
   if(push){ try{ history.replaceState(null,"","#"+t.id); }catch(e){} }
   try{ localStorage.setItem("corbero-tab",t.id); }catch(e){}
 }
-/* altura real de la barra fija, para que las cabeceras de tabla se peguen debajo */
-(function(){
-  var st=document.getElementById("stick");
-  function medir(){ document.documentElement.style.setProperty("--stick", st.offsetHeight+"px"); }
-  medir();
-  if(window.ResizeObserver) new ResizeObserver(medir).observe(st);
-  window.addEventListener("resize",medir);
-})();
-
 var inicial = (location.hash||"").replace("#","");
 if(!TABS.some(function(x){return x.id===inicial;})){
   try{ inicial = localStorage.getItem("corbero-tab")||"resumen"; }catch(e){ inicial="resumen"; }
