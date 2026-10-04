@@ -367,7 +367,7 @@ function motivoBB(r){
     ? ["bad","Competimos y la perdemos","Oferta viva y con stock, y aun así la tiene un tercero. Hay que mirarla una a una"]
     : ["warn","No competimos","Nuestra oferta de Seller está cerrada: la ficha se la queda un tercero por defecto"];
   if(e==="Sin oferta destacada") return (viva && s>0)
-    ? ["bad","Ficha sin botón de compra","Oferta publicada y con stock, pero la ficha no muestra ninguna oferta destacada: hoy nadie puede comprarla"]
+    ? ["bad","Suprimida por precio","Comprobado en la ficha: Amazon muestra «Precio más alto de lo habitual» y no hay botón de compra. Nuestro PVP está por encima de su precio de referencia, que se consulta en Seller Central"]
     : ["mute","Oferta cerrada","Ficha sin oferta destacada, con nuestra oferta cerrada"];
   return null;
 }
@@ -762,7 +762,9 @@ function vPrecio(){
     '<b>Se puede descartar el score.</b> La mediana por estado es 4,0 en las ganadas y 4,3 en las que tiene Amazon y en las fichas sin oferta destacada: es más alta justo donde no la tenemos. Solo 13 referencias de todo el catálogo bajan de 3,5 y están repartidas por todos los grupos, incluida una que sí la gana. El score bloquea las <i>ofertas</i> de Amazon, no la oferta destacada.<br><br>'+
     '<b>Se puede descartar la logística.</b> Ninguna de las '+fm(P3.length)+' ofertas de terceros es FBA, y solo 10 son Prime. No hay ventaja logística que explique nada.<br><br>'+
     '<b>Lo que más pesa es el stock y el listing.</b> De las '+fm(am+ter+sin)+' referencias sin la oferta destacada, la gran mayoría tiene la oferta de Seller cerrada o el stock a cero. Sin oferta publicada no se puede tener la oferta destacada.<br><br>'+
-    '<b>Lo que NO se puede afirmar es que el precio dé igual.</b> El informe de BuyBox no trae nuestro precio justo en las ofertas cerradas, así que comparar ahí es comparar contra un precio que nadie puede pagar. Y hay competencia de precio activa: cinco terceros nos están poniendo exactamente un céntimo por debajo. Con esta foto no se puede medir el efecto del precio, y decir que no influye sería inventárselo.</div>','')));
+    '<b>Y sí es el precio, pero no contra los terceros: contra la referencia de Amazon.</b> Comprobado el 04/10 abriendo las fichas una a una. Las cinco referencias con oferta viva, con stock y sin oferta destacada llevan las cinco el cartel «Precio más alto de lo habitual» donde debería ir el precio, y en su lugar sale «Ver todas las opciones de compra». Como control, una que sí tenemos ganada muestra su botón de compra y no lleva el cartel.<br><br>'+
+    'Amazon compara nuestro PVP con una referencia externa suya, no con las ofertas de la ficha: cuatro de las cinco tienen un precio perfectamente coherente con su gama y dos son <i>más baratas</i> que el tercero más barato, y aun así están suprimidas. Esa referencia solo se ve en Seller Central, en «Ver precios de referencia». En la lavadora de 6 kg son 251,70 € frente a nuestros 299 €.<br><br>'+
+    '<b>Y la ficha suprimida no se queda quieta.</b> Al no haber oferta destacada, Amazon rellena la página con alternativas: en esa misma lavadora propone una Nilson a 239,90 €, una VOK a 269 € y nuestra propia lavadora de 7 kg a 256,43 €.</div>','')));
 
   var vlist = Object.keys(vend).map(function(k){ return [k,vend[k]]; }).sort(function(a,b){return b[1]-a[1];});
   w.appendChild(el(card("Vendedores con más ofertas colgadas","sobre nuestras fichas",barras(vlist.slice(0,10)))));
