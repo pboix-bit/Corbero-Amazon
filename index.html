@@ -388,8 +388,11 @@ function tabla(cfg){
       if(sc) out = out.filter(function(r){ return sc.test(r,v); });
     });
     if(state.q) out = out.filter(function(r){ return cfg.search(r).indexOf(state.q)>-1; });
-    if(state.sort>-1){
-      var c = cfg.cols[state.sort];
+    // si el índice de orden no apunta a ninguna columna, no se ordena y ya está:
+    // antes esto tiraba la pestaña entera
+    var c = state.sort > -1 ? cfg.cols[state.sort] : null;
+    if(!c) state.sort = -1;
+    if(c){
       out = out.slice().sort(function(a,b){
         var va = c.sortv?c.sortv(a):a[c.k], vb = c.sortv?c.sortv(b):b[c.k];
         var na = num(va), nb = num(vb);
@@ -702,7 +705,7 @@ function vPrecio(){
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[7]||"")).toLowerCase(); },
     selects:[{key:"bb",label:"Sólo los que nos quitan la BuyBox",opts:["Sí"],
       test:function(r){ return /s[ií]/i.test(String(r[18])); }}],
-    sort:12, dir:1,
+    sort:5, dir:1,   // columna Gap de ESTA tabla, no del origen: es el índice dentro de cols
     cols:[
       {t:"ASIN",k:1,render:function(r){ return asinCell(r[1]); }},
       {t:"Modelo",k:2,render:function(r){ return '<span class="sku">'+esc(txt(r[2]))+'</span>'; }},
@@ -1055,7 +1058,16 @@ function ir(id,push){
   activa=t.id;
   TABS.forEach(function(x){ document.getElementById("tab-"+x.id).setAttribute("aria-selected", x.id===t.id?"true":"false"); });
   view.innerHTML="";
-  view.appendChild(t.build());
+  // Si una pestaña falla, que se vea el fallo. Una página en blanco no dice nada
+  // y el que la mira no sabe si es que no hay datos o es que se ha roto.
+  try {
+    view.appendChild(t.build());
+  } catch(err) {
+    view.appendChild(el('<section class="card sec"><div class="card-h"><h2>No se ha podido pintar esta pestaña</h2></div>'+
+      '<div class="note">Los datos están, pero algo ha fallado al montarla. Avisa a Roicos con este detalle:<br>'+
+      '<span class="mono" style="color:var(--bad)">'+esc(String(err && err.message || err))+'</span></div></section>'));
+    if(window.console) console.error(err);
+  }
   // el número de columnas de los KPI depende de cuántos haya en esa pestaña
   view.querySelectorAll(".kpis").forEach(function(k){ k.classList.add("n"+k.children.length); });
   window.scrollTo(0,0);
