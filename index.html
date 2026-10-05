@@ -724,7 +724,9 @@ function vResumen(){
     'Julio y agosto concentran el pico. La ventana ampliada de Navidad hará que enero suba: no será un problema de calidad.')));
 
   // próximos hitos
-  var hoy = new Date(2026,9,4);
+  // la cuenta atras es contra el dia en que se mira la pagina, no contra la fecha
+  // en que se genero: con una fecha fija el calendario envejece y dice un dia de mas
+  var hoy = (function(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); })();
   var prox = CA.map(function(r){ return {d:pdate(r[0]), r:r}; }).filter(function(x){ return x.d && x.d>=hoy; })
     .sort(function(a,b){ return a.d-b.d; }).slice(0,6);
   var ph = '<div class="tw"><table><tbody>'+prox.map(function(x){
@@ -1169,7 +1171,7 @@ function vMercado(){
 /* ======== CALENDARIO ======== */
 function vCalend(){
   var w=document.createDocumentFragment();
-  var hoy=new Date(2026,9,4);
+  var hoy=(function(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); })();
   var fut = CA.filter(function(r){ var d=pdate(r[0]); return d && d>=hoy; });
   var sig = fut.map(function(r){ return {d:pdate(r[0]),r:r}; }).sort(function(a,b){return a.d-b.d;})[0];
   var dias = sig?Math.round((sig.d-hoy)/86400000):null;
