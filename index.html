@@ -288,6 +288,26 @@ var FC = F("FLUCTUACIÓN CATEGORÍA");
 var PC = F("PALABRAS CLAVE");
 var PK = F("POSICIÓN COMPETITIVA");
 var CE = F("COMPARATIVA ESTACIONALIDAD");
+var HS = F("HISTÓRICO SEMANAL");
+
+// Una entrada por semana archivada. "Medición" distingue una semana medida de
+// una en la que la fuente no se había refrescado: esas no entran en la evolución,
+// porque dibujar una línea plana sobre un dato que nadie tomó es mentir.
+var SEM = (function(){
+  var m = {}, ord = [];
+  HS.forEach(function(r){
+    var k = r[1]; if(!k) return;
+    if(!m[k]){ m[k] = {sem:k, corte:r[0], med:String(r[18]||""), filas:[], stock:0, conStock:0, uds:0, fact:0, vendor:0}; ord.push(k); }
+    var x = m[k]; x.filas.push(r);
+    var s = num(r[9]);  if(s!=null){ x.stock += s; if(s>0) x.conStock++; }
+    var v = num(r[8]);  if(v!=null) x.vendor += v;
+    var u = num(r[16]); if(u!=null) x.uds += u;
+    var f = num(r[17]); if(f!=null) x.fact += f;
+  });
+  ord.sort();
+  return { orden:ord, map:m, medidas:ord.filter(function(k){ return m[k].med==="Medida"; }) };
+})();
+var semSel = SEM.orden.length ? SEM.orden[SEM.orden.length-1] : null;
 
 var byAsin = {};
 SO.forEach(function(r){ if(r[2] && !byAsin[r[2]]) byAsin[r[2]] = r; });
@@ -662,6 +682,7 @@ SO.forEach(function(r){ if(r[0]) cats[r[0]]=(cats[r[0]]||0)+1; });
 var TABS = [
   {id:"resumen",   t:"Resumen",      n:"",                build:vResumen},
   {id:"catalogo",  t:"Catálogo",     n:SO.length,         build:vCatalogo},
+  {id:"hist",      t:"Histórico",    n:SEM.orden.length,  build:vHistorico},
   {id:"precio",    t:"Precio y BuyBox", n:P3.length,      build:vPrecio},
   {id:"ads",       t:"Ads Q4",       n:AS.length,         build:vAds},
   {id:"devol",     t:"Devoluciones", n:DV.length,         build:vDevol},
@@ -724,9 +745,7 @@ function vResumen(){
     'Julio y agosto concentran el pico. La ventana ampliada de Navidad hará que enero suba: no será un problema de calidad.')));
 
   // próximos hitos
-  // la cuenta atras es contra el dia en que se mira la pagina, no contra la fecha
-  // en que se genero: con una fecha fija el calendario envejece y dice un dia de mas
-  var hoy = (function(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); })();
+  var hoy = new Date(2026,9,4);
   var prox = CA.map(function(r){ return {d:pdate(r[0]), r:r}; }).filter(function(x){ return x.d && x.d>=hoy; })
     .sort(function(a,b){ return a.d-b.d; }).slice(0,6);
   var ph = '<div class="tw"><table><tbody>'+prox.map(function(x){
@@ -1168,10 +1187,111 @@ function vMercado(){
   return w;
 }
 
+/* ======== HISTÓRICO SEMANAL ======== */
+function delta(a,b,dec,sufijo){
+  if(a==null||b==null) return '<span style="color:var(--ink-3)">—</span>';
+  var d = a-b;
+  if(Math.abs(d) < (dec?0.005:0.5)) return '<span style="color:var(--ink-3)">sin cambio</span>';
+  var c = d>0 ? "var(--ok)" : "var(--bad)";
+  return '<span class="num" style="color:'+c+';font-weight:600">'+(d>0?"+":"")+fm(d,dec)+(sufijo||"")+'</span>';
+}
+function vHistorico(){
+  var w = document.createDocumentFragment();
+  if(!SEM.orden.length){
+    w.appendChild(el(card("Histórico semanal","",'<div class="empty">Todavía no hay ninguna semana archivada.</div>')));
+    return w;
+  }
+  var s = SEM.map[semSel] || SEM.map[SEM.orden[SEM.orden.length-1]];
+  var medida = s.med === "Medida";
+
+  // selector de semanas
+  var sel = el('<section class="card sec"><div class="card-h"><h2>Semana que se consulta</h2>'+
+    '<span class="sub">'+SEM.orden.length+' archivadas · '+SEM.medidas.length+' con dato propio</span></div>'+
+    '<div class="fb"><span class="chips"></span></div></section>');
+  var cw = sel.querySelector(".chips");
+  SEM.orden.slice().reverse().forEach(function(k){
+    var x = SEM.map[k];
+    var esta = (k === s.sem);
+    var b = el('<button class="chip" aria-pressed="'+(esta?"true":"false")+'">'+esc(k)+
+      '<span class="c">'+esc(x.corte)+'</span></button>');
+    if(x.med!=="Medida") b.style.opacity = ".6";
+    b.addEventListener("click",function(){ semSel = k; var t=activa; activa=null; ir(t,false); });
+    cw.appendChild(b);
+  });
+  w.appendChild(sel);
+
+  // semana medida anterior, para comparar
+  var prev = null;
+  for(var i=SEM.orden.indexOf(s.sem)-1; i>=0; i--){
+    if(SEM.map[SEM.orden[i]].med==="Medida"){ prev = SEM.map[SEM.orden[i]]; break; }
+  }
+
+  if(!medida){
+    w.appendChild(el('<section class="card sec" style="border-color:var(--bad)">'+
+      '<div class="card-h"><h2 style="color:var(--bad)">Esta semana no tiene dato propio</h2></div>'+
+      '<div class="note" style="border-top:0">La foto archivada el '+esc(s.corte)+' es idéntica a la de <b>'+
+      esc(s.med.replace(/^.*que /,""))+'</b>: cuando se archivó, los informes de Seller y Vendor Central no se habían'+
+      ' vuelto a descargar. Las cifras que ves abajo son las de esa semana anterior, no una medición nueva, y por eso'+
+      ' esta semana queda fuera de la evolución.</div></section>'));
+  }
+
+  w.appendChild(el('<div class="kpis sec">'+
+    kpi("Semana", esc(s.sem), "corte "+esc(s.corte), medida?"":"is-bad") +
+    kpi("Stock Seller", fm(s.stock), prev?("frente a "+fm(prev.stock)+" en "+prev.sem):"", "") +
+    kpi("Referencias con stock", fm(s.conStock), "de "+fm(s.filas.length)) +
+    kpi("Unidades vendidas", s.uds?fm(s.uds):"—", s.uds?"en la semana":"pendiente de cargar", s.uds?"is-ok":"") +
+    kpi("Facturación", s.fact?eur(s.fact,0):"—", s.fact?"en la semana":"pendiente de cargar", s.fact?"is-ok":"") +
+    '</div>'));
+
+  if(prev && medida){
+    var ch = '<div class="tw"><table><thead><tr><th>Indicador</th><th class="r">'+esc(prev.sem)+'</th>'+
+      '<th class="r">'+esc(s.sem)+'</th><th class="r">Diferencia</th></tr></thead><tbody>'+
+      [["Stock Seller", prev.stock, s.stock, 0, ""],
+       ["Stock Vendor", prev.vendor, s.vendor, 0, ""],
+       ["Referencias con stock", prev.conStock, s.conStock, 0, ""],
+       ["Unidades vendidas", prev.uds, s.uds, 0, ""],
+       ["Facturación", prev.fact, s.fact, 0, " €"]].map(function(f){
+        return '<tr><td>'+esc(f[0])+'</td><td class="r num">'+fm(f[1],f[3])+esc(f[4])+'</td>'+
+          '<td class="r num">'+fm(f[2],f[3])+esc(f[4])+'</td><td class="r">'+delta(f[2],f[1],f[3],f[4])+'</td></tr>';
+      }).join("")+'</tbody></table></div>';
+    w.appendChild(el(card("Contra la semana anterior medida", prev.sem+" → "+s.sem, ch)));
+  }
+
+  if(SEM.medidas.length>1){
+    w.appendChild(el(card("Evolución","solo las semanas con dato propio",
+      barras(SEM.medidas.map(function(k){ return [k+" · "+SEM.map[k].corte, SEM.map[k].stock]; })),
+      'Las semanas marcadas como «sin dato nuevo» quedan fuera a propósito: no son mediciones.')));
+  }
+
+  w.appendChild(tabla({
+    id:"hist",
+    title:"Detalle de "+s.sem, sub:"corte "+s.corte+" · "+fm(s.filas.length)+" referencias",
+    ph:"ASIN, modelo o producto…", rows:s.filas, max:1000,
+    search:function(r){ return ((r[4]||"")+" "+(r[5]||"")+" "+(r[3]||"")).toLowerCase(); },
+    selects:[{key:"of",label:"Oferta Seller",opts:["Activa FBM","Activa Flex","Inactiva","Sin oferta"],
+      test:function(r,v){ return r[7]===v; }}],
+    cols:[
+      {t:"ASIN",k:4,render:function(r){ return asinCell(r[4]); }},
+      {t:"Modelo",k:5,render:function(r){ return '<span class="sku">'+esc(txt(r[5]))+'</span>'; }},
+      {t:"Categoría",k:2},
+      {t:"Familia",k:3,render:function(r){ return '<span style="color:var(--ink-3);font-size:11.5px">'+esc(txt(r[3]))+'</span>'; }},
+      {t:"Oferta",k:7,render:function(r){ return ofertaB(r[7]); }},
+      {t:"Stock S.",k:9,r:1,render:function(r){ return stockC(r[9],r[7]); }},
+      {t:"Stock V.",k:8,r:1,render:function(r){ return r[8]==null?'<span style="color:var(--ink-3)">—</span>':'<span class="num">'+fm(r[8])+'</span>'; }},
+      {t:"PVP",k:10,r:1,render:function(r){ return '<span class="num">'+(r[10]==null?"—":eur(r[10]))+'</span>'; }},
+      {t:"BuyBox",k:12,render:function(r){ return bbB(r[12]); }},
+      {t:"Uds sem.",k:16,r:1,render:function(r){ return r[16]==null?'<span style="color:var(--ink-3)">—</span>':'<span class="num">'+fm(r[16])+'</span>'; }},
+      {t:"Facturación",k:17,r:1,render:function(r){ return r[17]==null?'<span style="color:var(--ink-3)">—</span>':'<span class="num">'+eur(r[17],0)+'</span>'; }}
+    ],
+    note:'Cada semana se archiva entera y no se borra nunca. La columna <b>Medición</b> del Excel dice si la semana se midió o si la fuente no se había refrescado.'
+  }));
+  return w;
+}
+
 /* ======== CALENDARIO ======== */
 function vCalend(){
   var w=document.createDocumentFragment();
-  var hoy=(function(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); })();
+  var hoy=new Date(2026,9,4);
   var fut = CA.filter(function(r){ var d=pdate(r[0]); return d && d>=hoy; });
   var sig = fut.map(function(r){ return {d:pdate(r[0]),r:r}; }).sort(function(a,b){return a.d-b.d;})[0];
   var dias = sig?Math.round((sig.d-hoy)/86400000):null;
