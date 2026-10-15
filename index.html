@@ -238,8 +238,130 @@ svg{display:block;max-width:100%}
 </div>
 
 <script src="datos.js"></script>
-<script src="verificacion.js"></script>
-<script src="avisos.js"></script>
+<script>
+/* Verificación en ficha pública de amazon.es — barrido completo de las 282 referencias
+   con estado de BuyBox. Hecho el 15/10/2026 sobre la ficha real, no sobre el informe.
+   Códigos: N = la tenemos (TUELEKTRO) · A = la tiene Amazon · T = la tiene un tercero
+            S = suprimida por precio (sin botón + «Precio más alto de lo habitual»)
+            X = no disponible · O = sin botón por otro motivo
+   Señales leídas por referencia: #add-to-cart-button / #buy-now-button,
+   el texto «más alto de lo habitual» y el vendedor de #merchantInfoFeature_feature_div.
+   Validado con dos controles: una ficha abierta en vivo coincidió con la sonda,
+   y una ficha ganada conocida salió con botón y sin cartel. */
+window.VERIF = { fecha: "15/10/2026", n: 282, ref: {
+  "B0DHGTGQL8":["A"], "B0DHGSR9B8":["X"], "B0CPYD8FQ4":["T","muyelectro"], "B0DHVJHL1T":["N"],
+  "B0CPYDBQQM":["N"], "B0DDKT6LH5":["A"], "B0DDKWXGFX":["A"], "B0CP9DQFVS":["A"],
+  "B0GZWQCCPZ":["N"], "B0GZWL126L":["N"], "B0DDKW4Q9R":["N"], "B0DDKVXLNF":["N"],
+  "B0DDKV42DZ":["N"], "B0DH8LJ9RH":["N"], "B0DH8LGK48":["N"], "B0DDKTMB15":["N"],
+  "B0DDKT9YK9":["N"], "B0CP9FSSQ1":["X"], "B0DDKVCF9T":["N"], "B0DDKV9SCP":["S"],
+  "B0CP9FYP66":["N"], "B0CP9FPQ35":["N"], "B0DDKV9SCL":["N"], "B0DJ91TCSH":["N"],
+  "B0CP9R1WST":["N"], "B0F54GL2PW":["T","muyelectro"], "B0CP9LM15Q":["N"], "B0CP9L1KGY":["N"],
+  "B0CP9M3JPJ":["A"], "B0CP9L5ZBF":["A"], "B0F54HJFY3":["X"], "B0CP9L7NJL":["N"],
+  "B0CP9KXVJ6":["N"], "B0CP9KL87X":["N"], "B0CP9KB1YN":["N"], "B0CP9KLQSH":["N"],
+  "B0CP9JWV58":["N"], "B0CP9JLM1F":["N"], "B0CP9KFWZQ":["N"], "B0CP9KH4K3":["A"],
+  "B0DDKWRRW7":["A"], "B0DDKV9HBZ":["A"], "B0CQ2KBGXC":["N"], "B0GHZ9565R":["N"],
+  "B0CQ2LD42X":["N"], "B0CQ2KX5TQ":["X"], "B0CQ2KKJ56":["N"], "B0GWMKCBLL":["A"],
+  "B0GWN6XR16":["A"], "B0GWMS3K9P":["A"], "B0752WF3CY":["N"], "B076H9MF4B":["N"],
+  "B0779JHF5H":["S"], "B0GRJYGP3Q":["A"], "B0GQJZ3526":["A"], "B08C4X8KXQ":["A"],
+  "B08DDFX68F":["N"], "B0B8MV2B2K":["N"], "B0B8MXZFQK":["S"], "B0H2VWRGD4":["N"],
+  "B0B8MYX75L":["N"], "B08JVB1GZN":["N"], "B08JJ6J3LN":["N"], "B0H29V3L35":["A"],
+  "B0BG8MHLCQ":["S"], "B08P4XKMNF":["N"], "B084C4MN1M":["A"], "B0DHVM4L6H":["N"],
+  "B0DHVKXSGQ":["N"], "B0BG8NX9KH":["S"], "B0H36W3NR6":["S"], "B0CL7C2PVC":["S"],
+  "B0CGM4GKSF":["A"], "B09Z38TV83":["S"], "B0H6FX2DG9":["A"], "B0GZW1WL54":["A"],
+  "B0H6G3VQJN":["A"], "B0FD3J1BG6":["A"], "B0FV8YDJ9W":["X"], "B0FD3L37T8":["N"],
+  "B0H6FZQ4HH":["A"], "B0C828CLLC":["A"], "B0C828T2K2":["N"], "B0C829N37F":["N"],
+  "B0FD3J3H5P":["N"], "B0FD3J4F3M":["N"], "B0CLGHTT9S":["N"], "B0GZWH38W4":["A"],
+  "B0CLGHG3PZ":["A"], "B00BIHLC60":["N"], "B00UFKKCNA":["N"], "B0CLGHRZHK":["A"],
+  "B09CGMGN33":["A"], "B0H298K6PD":["A"], "B0CLGFWS2N":["A"], "B0GZWRCZRQ":["T","eTendencias"],
+  "B09XDY8MJ8":["A"], "B09XDY915P":["X"], "B09XDZPRVZ":["A"], "B0B4B12YHB":["A"],
+  "B0GJT6251L":["A"], "B0BG66WWBX":["N"], "B0DJNYML5L":["S"], "B0GSH84LW9":["A"],
+  "B0GY9JB3WM":["N"], "B0FCYGRCXL":["N"], "B0H7JX24BN":["X"], "B0FKGN1HC6":["S"],
+  "B0H7JWW3WF":["N"], "B0FJS4C6NF":["X"], "B0GHNWWZ34":["N"], "B0DDKQ19HS":["X"],
+  "B0HKS7MFMV":["A"], "B0FRG5JJ13":["N"], "B0FD3X21TS":["N"], "B0F54G2DCV":["T","muyelectro"],
+  "B0DDKTJPGM":["A"], "B0HFK6NJDS":["N"], "B0FW538BXV":["N"], "B0FW55KFB4":["N"],
+  "B0FW56ZN5J":["A"], "B0FW549X6B":["A"], "B0FW53HB3R":["N"], "B0FW57WLZ9":["A"],
+  "B0GSGFM9XS":["N"], "B0G613R4JL":["A"], "B0DDPY3WBF":["A"], "B0DDPXWGSY":["N"],
+  "B0F9WZPWPJ":["O"], "B0GFN32GDB":["A"], "B0G613QCGP":["N"], "B0DDPTDXQF":["N"],
+  "B0G5ZTLXJ5":["N"], "B0DDPTH6ZP":["A"], "B0DDPWN6WP":["O"], "B0DDPTSGHC":["N"],
+  "B0GMKZL93N":["N"], "B0GZWF7H1D":["A"], "B0GZWN1BQ1":["A"], "B0H2VP64G2":["A"],
+  "B0DDPWFPC7":["T","Electro Wifi"], "B0DDPWMJ7G":["T","muyelectro"], "B0DDPWL6TK":["N"], "B0DDPY3MG8":["T","muyelectro"],
+  "B0DDPXJ2YN":["N"], "B0GY9HCMFZ":["S"], "B0GY9C8SQK":["S"], "B0CGXCPY4D":["T","CiberElectro"],
+  "B0CGX9NK7Y":["T","CiberElectro"], "B0GZWJQDHC":["A"], "B0DDPV717N":["T","CiberElectro"], "B0DFMH9P5S":["X"],
+  "B0DDPWJZ36":["T","ELECTRO-OFERTAS-IBT"], "B0FCYKRB1L":["T","muyelectro"], "B0DDPTCBL9":["A"], "B0FD3LVL31":["T","muyelectro"],
+  "B099S51GPM":["X"], "B0H2WKZ1XS":["A"], "B0H2WGQZB6":["A"], "B0H2VYZSXF":["N"],
+  "B0DDPQ326Q":["T","CiberElectro"], "B0FV92TPXP":["N"], "B0DDPSQD5D":["T","CiberElectro"], "B0DDPRH227":["S"],
+  "B0DDPPWKLJ":["S"], "B0DDPPT9GX":["T","CiberElectro"], "B0GTWTH81Q":["N"], "B0FV8Z1GZ6":["N"],
+  "B0GTWTSBMR":["A"], "B0FV8Z3HHD":["A"], "B0DFMJNBKH":["T","TielON"], "B0DHGSCGT7":["N"],
+  "B0C7W7D829":["S"], "B0DDPMVK9V":["N"], "B0C7W7FC5H":["N"], "B0DDPRLM41":["T","muyelectro"],
+  "B0DDPP4MMG":["A"], "B0DDPPQJ25":["N"], "B0DDPRBPMR":["N"], "B0DDPV96DV":["N"],
+  "B0FD3X4V77":["A"], "B0DDPX4JTC":["N"], "B0C866SZXZ":["N"], "B0DDPW2KGK":["A"],
+  "B0C864QZPK":["N"], "B0DDPY32KD":["A"], "B0DDPV716D":["N"], "B0BZWLVH8K":["N"],
+  "B0CNTHTLYX":["N"], "B0DDPWDRN5":["A"], "B0F54H6RZD":["N"], "B099S59MLV":["N"],
+  "B09BCLWWM3":["T","CiberElectro"], "B0DDPXGT9F":["N"], "B0DJ8XWQ4L":["T","CiberElectro"], "B0DJ8ZHYPY":["S"],
+  "B0DDPWC54L":["N"], "B0DDPWMY7D":["T","muyelectro"], "B0DDPTDG7Z":["N"], "B0DDPSTDP8":["N"],
+  "B0BFWS98XJ":["T","CiberElectro"], "B0DHGTVQ7T":["N"], "B0DDQ3JQL8":["S"], "B0FV8WWW6P":["N"],
+  "B098PDG2CR":["T","muyelectro"], "B0FV8Z6NMH":["N"], "B0G7LJW8RD":["A"], "B0FV8ZM742":["N"],
+  "B0FV92DKK4":["N"], "B0FV8YHJC8":["N"], "B09CG9JHDR":["N"], "B0CGZVX4K8":["T","CiberElectro"],
+  "B0DDQ5XZ5N":["N"], "B0DDQ4H256":["N"], "B0CKSRR4NX":["T","muyelectro"], "B0FC2PJVL3":["A"],
+  "B0FBX3KZ7C":["N"], "B0C86SLDYC":["N"], "B0C8775WLR":["N"], "B0GML473G1":["N"],
+  "B0FD3YNHBN":["S"], "B09CG9JGK1":["A"], "B0FV8ZMXHR":["N"], "B0GQB1J7XV":["N"],
+  "B0GQB8P88L":["A"], "B0FW544NMJ":["S"], "B0GVPGS9LX":["A"], "B0GSWQ7FZ1":["A"],
+  "B0GWMSQZFW":["A"], "B0FJS2N6XB":["T","eTendencias"], "B0GSHDKV32":["N"], "B0DFMGPKZC":["T","Electro Wifi"],
+  "B0FJS484RB":["T","Electro Wifi"], "B0FHQPDZLC":["N"], "B0GSW5SJDR":["N"], "B0FHQR5WK8":["T","CiberElectro"],
+  "B0FHQLSPQ5":["N"], "B0FHQRYDNJ":["A"], "B0C7V9X9QJ":["A"], "B0DDKWVL5G":["S"],
+  "B0FHQPTS8Y":["A"], "B0GZVV1RFB":["N"], "B0GZVXPMS1":["N"], "B0GZVZ77LZ":["A"],
+  "B0GZW7Y52N":["A"], "B0F2J532J3":["A"], "B0DDKZ5523":["S"], "B0DDKZB81B":["N"],
+  "B0DFMJVB24":["N"], "B0GYFT285S":["A"], "B0C7VMPPKV":["N"], "B0GYFVKKPB":["N"],
+  "B0GYFRWDRF":["A"], "B0C7VLFQVR":["T","Electro Wifi"], "B0HFK3N8ZZ":["A"], "B0GYFXPCN7":["N"],
+  "B0GXCGJJTK":["N"], "B0DH8NBLZD":["N"], "B0GXBXF6YR":["N"], "B0DH8LPTK8":["N"],
+  "B0GXC7F75N":["A"], "B0GXC46Y85":["A"], "B0GXC255NW":["A"], "B0GXC3ZW9L":["A"],
+  "B0FD3LZ3G2":["T","Electro Wifi"], "B0FD3NBM6W":["T","muyelectro"], "B0DHGT78DS":["T","CiberElectro"], "B0GFDWTZ6G":["A"],
+  "B0FJS2266F":["T","CiberElectro"], "B0FJRVWSN8":["T","CiberElectro"], "B0B4B6QJW1":["T","Electro Wifi"], "B0DDL23BWF":["N"],
+  "B0F54DMTWV":["N"], "B0GV51H6S2":["N"], "B0DDKYFZ5M":["A"], "B0GMS4P6QL":["A"],
+  "B0F54D148V":["A"], "B0FD3Z275C":["N"], "B0FW5477GQ":["S"], "B0FV8W2YD1":["N"],
+  "B0FV912GV7":["A"], "B0FV8XBQQR":["N"]
+}};
+</script>
+<script>
+/* Las advertencias que viven al pie de varias hojas del Excel y que el panel
+   estaba tirando a la basura al quedarse solo con las filas de datos.
+   Sin ellas las cifras se leen como si fueran lo que no son. Extraídas del
+   libro el 15/10/2026. */
+window.AVISOS = {
+  fechas: [
+    "Seller Central (catálogo, stock FBM y Flex, estado de las ofertas): 14/10/2026.",
+    "Vendor Central (stock e inventario): 01/10/2026. Trece días antes: tenerlo en cuenta al comparar stock entre canales.",
+    "Devoluciones: los dos canales hasta el 14/10/2026. Transparency: plan OPR de 16/09/2026. Selección de Ads: fija para Q4.",
+    "Posición competitiva y palabras clave: extraídas el 04/10/2026 del Analizador de oportunidades, no el día del corte."
+  ],
+  generales: [
+    "De las 874 referencias, 864 tienen familia y canal asignados. Las 10 restantes se dejan en blanco a propósito: no hay dato suficiente para clasificarlas sin inventarlo.",
+    "Unidades y facturación de Vendor son sell-in (órdenes de compra) y las de Seller son sell-out. NO son sumables ni comparables entre sí.",
+    "La columna Stock Seller se lee fila a fila, pero NO se suma ni se promedia sin separar por origen: en FBM es una disponibilidad declarada con techo en 100, y en Flex es el recuento real del inventario.",
+    "Un cero en una referencia Inactiva NO es rotura de stock: no hay nada publicado que se pueda vender."
+  ],
+  hojas: {
+    "mercado": [
+      "Las cifras absolutas de unidades y ventas de la herramienta de categoría corresponden a una SELECCIÓN de ASIN, no a la categoría completa, y por eso no se recogen. Lo que sí es fiable es la FORMA de la curva (pico, valle, estacionalidad), la dirección interanual y los volúmenes de búsqueda.",
+      "Esa herramienta NO da cuota de mercado. Para eso hace falta Market Tracker de Helium 10, que está contratado con un mercado creado desde el 14/10/2025, pendiente de corregir la atribución de productos propios.",
+      "«clics_totales_top» es la suma de los productos que Amazon lista en esa búsqueda, NO el volumen total de la palabra clave. No es tamaño de mercado.",
+      "Los clics son por palabra clave: un mismo ASIN aparece en varias y sus clics NO son sumables entre búsquedas.",
+      "El índice de estacionalidad normaliza las unidades de cada mes sobre el mejor mes del año de esa familia (0-100): compara la FORMA de la curva, no el tamaño.",
+      "Los meses de oct-25 a ene-26 están contaminados por el arranque de Ads (0 € en octubre, 24.903 € en enero). Para juzgar fase, los meses limpios son de febrero-26 en adelante.",
+      "Septiembre-26 cerró hace pocos días y MerchantSpring reexpresa al alza lo recién cerrado: parte de esa caída puede ser dato sin madurar.",
+      "Las cifras de crecimiento son semestre contra semestre DENTRO del mismo año. En un mercado estacional eso vuelve a medir estacionalidad, no tendencia.",
+      "No hay cuota de mercado y no se puede calcular con estas fuentes. Lo que sí se mide es la DIRECCIÓN de la cuota: si la categoría crece y nosotros crecemos menos, la perdemos."
+    ],
+    "hist": [
+      "Cada fila es un ASIN en una semana. Las semanas marcadas «sin dato nuevo» no son mediciones: son una copia de la anterior y quedan fuera de la evolución.",
+      "Las unidades y la facturación de la semana en curso no están hasta que cierra la semana ISO. Un cero ahí es «pendiente de cargar», no una caída."
+    ],
+    "precio": [
+      "El informe de BuyBox llega con retraso. El 15/10/2026 se contrastaron sus 282 referencias contra la ficha pública y 79 no coincidían, el 28 %."
+    ]
+  }
+};
+</script>
 <script>
 (function(){
 "use strict";
