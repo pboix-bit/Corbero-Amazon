@@ -274,6 +274,21 @@ var FC = F("FLUCTUACIÓN CATEGORÍA");
 var PC = F("PALABRAS CLAVE");
 var PK = F("POSICIÓN COMPETITIVA");
 var CE = F("COMPARATIVA ESTACIONALIDAD");
+
+/* Rango real de fechas de una hoja, en texto. Nunca escribir un rango a mano:
+   el 15/10/2026 había tres rangos congelados en «02/10» cuando el dato ya
+   llegaba al 14/10, y el lector creía que le faltaban filas. */
+function rango(filas, col){
+  var min=null, max=null;
+  filas.forEach(function(r){ var d=pdate(r[col]); if(!d) return;
+    if(!min||d<min) min=d; if(!max||d>max) max=d; });
+  function f(d){ return d ? ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2) : "—"; }
+  return min ? f(min)+" a "+f(max) : "—";
+}
+function mesesEntre(filas, col){
+  var s={}; filas.forEach(function(r){ var d=pdate(r[col]); if(d) s[d.getFullYear()+"-"+d.getMonth()]=1; });
+  return Object.keys(s).length;
+}
 var HS = F("HISTÓRICO SEMANAL");
 // Informe de gestión de inventario FBA. Trae `featuredoffer-price`, que es el precio
 // que Amazon usa de referencia: si el nuestro lo supera, suprime la oferta destacada.
@@ -601,14 +616,14 @@ window.verFicha = function(asin){
     h += fset("Stock y oferta", kvs([
       ["Oferta en Seller", ofertaB(r[6])+(/^Activa/.test(String(r[6]||""))?' <span style="color:var(--ink-3);font-size:11.5px">'+esc(r[6])+'</span>':'')],
       ["Stock Seller", stockC(r[5],r[6]) + (r[6]&&r[6].indexOf("FBM")>-1?' <span style="color:var(--ink-3);font-size:11px">declarado, techo 100</span>':'')],
-      ["Stock Vendor", r[7]==null?"—":'<span class="num">'+fm(r[7])+'</span>'],
+      ["Stock Vendor", r[7]==null?"—":'<span class="num">'+fm(r[7])+'</span> <span style="color:var(--ink-3);font-size:11px">foto del 01/10, no del día del corte</span>'],
       ["PVP Seller", r[8]==null?null:eur(r[8])],
       ["PVP Vendor", r[9]==null?null:eur(r[9])],
       ["BuyBox Seller", bbB(r[10])],
       ["BuyBox Vendor", bbB(r[11])],
       ["Score", r[12]==null?null:'<span class="num">'+fm(r[12],1)+'</span> ★'+(num(r[12])<3.5?' <span class="b b-bad">bloquea ofertas</span>':'')],
       ["Reseñas", r[13]==null?null:fm(r[13])],
-      ["Fecha del dato", dmy(r[14])]
+      ["Fecha del dato", dmy(r[14])+' <span style="color:var(--ink-3);font-size:11px">(Seller; el Stock Vendor es del 01/10)</span>']
     ]));
   } else {
     h += '<div class="fnote">Esta referencia no está en el catálogo consolidado.</div>';
@@ -616,14 +631,26 @@ window.verFicha = function(asin){
 
   var c3 = p3By[asin]||[];
   if(c3.length){
+    /* La columna 18 del informe («Nos quita BuyBox») NO sirve para esto: se enciende
+       sobre todo cuando falta nuestro precio, llega a marcar varias ofertas del mismo
+       ASIN a la vez, y marcaba fichas que en realidad ganamos. En su lugar se dice,
+       una sola vez y para toda la ficha, quién tiene la oferta destacada de verdad. */
+    var vf = (window.VERIF && window.VERIF.ref) ? window.VERIF.ref[asin] : null;
+    var quienBB = !vf ? '<span class="b b-mute">sin comprobar en la ficha</span>'
+      : vf[0]==="N" ? '<span class="b b-ok">la tenemos nosotros</span>'
+      : vf[0]==="A" ? '<span class="b b-cool">la tiene Amazon</span>'
+      : vf[0]==="T" ? '<span class="b b-bad">la tiene '+esc(vf[1]||"un tercero")+'</span>'
+      : vf[0]==="S" ? '<span class="b b-bad">ficha suprimida, no hay botón</span>'
+      : '<span class="b b-mute">sin oferta de compra</span>';
     h += fset("Terceros en la ficha ("+c3.length+")",
-      '<div class="tw"><table><thead><tr><th>Vendedor</th><th class="r">Precio</th><th class="r">Gap</th><th>BuyBox</th></tr></thead><tbody>'+
+      '<div style="font-size:11.5px;color:var(--ink-2);margin-bottom:6px">Oferta destacada '+
+        (window.VERIF?('comprobada en la ficha el '+window.VERIF.fecha+': '):'')+quienBB+'</div>'+
+      '<div class="tw"><table><thead><tr><th>Vendedor</th><th class="r">Precio</th><th class="r">Gap</th></tr></thead><tbody>'+
       c3.map(function(x){
         var g=num(x[12]);
         return '<tr><td>'+esc(txt(x[7]||x[6]))+'<div style="font-size:10.5px;color:var(--ink-3)">'+esc(txt(x[8]))+'</div></td>'+
           '<td class="r num">'+eur(x[11])+'</td>'+
-          '<td class="r num" style="color:'+(g!=null&&g<0?'var(--bad)':'var(--ok)')+'">'+(g==null?"—":eur(g))+'</td>'+
-          '<td>'+(/s[ií]/i.test(String(x[18]))?'<span class="b b-bad">nos la quita</span>':'<span class="b b-mute">no</span>')+'</td></tr>';
+          '<td class="r num" style="color:'+(g!=null&&g<0?'var(--bad)':'var(--ok)')+'">'+(g==null?"—":eur(g))+'</td></tr>';
       }).join("")+'</tbody></table></div>');
   }
 
@@ -632,7 +659,7 @@ window.verFicha = function(asin){
     var mot={}; dh.forEach(function(x){ mot[x[6]]=(mot[x[6]]||0)+1; });
     var top = Object.keys(mot).sort(function(a,b){return mot[b]-mot[a];}).slice(0,4);
     h += fset("Devoluciones", kvs([
-      ["En la ventana viva", '<b class="num">'+dv.length+'</b> <span style="color:var(--ink-3);font-size:11.5px">(03/08 a 02/10)</span>'],
+      ["En la ventana viva", '<b class="num">'+dv.length+'</b> <span style="color:var(--ink-3);font-size:11.5px">('+rango(DV,0)+')</span>'],
       ["En nueve meses", '<b class="num">'+dh.length+'</b>'],
       ["Motivos más frecuentes", top.map(function(m){ return esc(m)+' <span class="mono" style="color:var(--ink-3)">'+mot[m]+'</span>'; }).join("<br>")]
     ]));
@@ -736,7 +763,7 @@ function vResumen(){
     kpi("Agotadas con oferta viva", fm(M.rota), M.rota===1?"una sola: venta perdida hoy":"venta perdida hoy", M.rota>0?"is-bad":"is-ok", C({st:"Agotada con oferta viva"})) +
     kpi("Stock Seller Flex", fm(M.udsFlex), M.flex+" referencias · recuento real", "is-cool", C({of:"Activa Flex"})) +
     kpi("Stock Seller FBM", fm(M.udsFbm), M.fbm+" referencias · declarado", "", C({of:"Activa FBM"})) +
-    kpi("Stock Vendor", fm(M.vendorStock), M.vendor0+" referencias a cero", "", C({})) +
+    kpi("Stock Vendor", fm(M.vendorStock), "foto del 01/10 · "+M.vendor0+" a cero", "", C({})) +
     kpi("Devoluciones ventana", fm(DV.length), fm(DH.length)+" en nueve meses", "", {tab:"devol",tabla:"devol"}) +
   '</div>';
   w.appendChild(el(k));
@@ -775,7 +802,7 @@ function vResumen(){
   DH.forEach(function(r){ var d=pdate(r[0]); if(!d)return; var k=("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();
     mes[k]=(mes[k]||0)+1; });
   var ord = Object.keys(mes).sort(function(a,b){ return (a.slice(3)+a.slice(0,2)).localeCompare(b.slice(3)+b.slice(0,2)); });
-  w.appendChild(el(card("Devoluciones Seller Flex por mes","1.108 en nueve meses",
+  w.appendChild(el(card("Devoluciones Seller Flex por mes",fm(DH.length)+" en "+mesesEntre(DH,0)+" meses",
     barras(ord.map(function(m){ return [m,mes[m]]; })),
     'Julio y agosto concentran el pico. La ventana ampliada de Navidad hará que enero suba: no será un problema de calidad.')));
 
@@ -856,7 +883,7 @@ function vPrecio(){
     kpi("Oferta destacada ganada", fm(gan), "la tenemos, en FBM o en Flex", "is-ok", B("Ganada")) +
     kpi("La tiene Amazon como 1P", fm(am), "es nuestra por Vendor", "is-cool", B("La tiene Amazon (1P)")) +
     kpi("La tiene un tercero", fm(ter), ter?(SO.filter(function(r){return r[10]==="La tiene un tercero" && String(r[6]||"").indexOf("Activa")!==0;}).length+" con la oferta cerrada"):"", "is-bad", B("La tiene un tercero")) +
-    kpi("Ficha sin oferta destacada", fm(sin), "nadie puede comprar", "is-bad", B("Sin oferta destacada")) +
+    kpi("Ficha sin oferta destacada", fm(sin), "según el informe; comprobar en la ficha", "is-bad", B("Sin oferta destacada")) +
     kpi("Por encima de la referencia", fm(PCOB.filter(function(r){ return num(r[11])>0.01; }).length),
         "de "+fm(PCOB.length)+" con stock FBA", "is-bad") +
     kpi("Ofertas de terceros", fm(P3.length), Object.keys(asins).length+" ASIN con competencia", "", {tabla:"p3"}) + '</div>'));
@@ -892,18 +919,36 @@ function vPrecio(){
         vivasSupr.push(r); uds += num(r[5]);
       }
     });
+    /* ¿El precio explica las supresiones? Se contrasta con la única fuente que mide
+       la referencia de Amazon (featuredoffer-price, hoja PRECIO Y COBERTURA). */
+    var pcBy={}; PCOB.forEach(function(r){ pcBy[r[0]]=r; });   // 0 ASIN · 11 Diferencia
+    var sMed=0, sEncima=0, sIgual=0, encTot=0, encConBoton=0;
+    Object.keys(V).forEach(function(a){
+      if(V[a][0]!=="S") return;
+      var r=pcBy[a]; if(!r) return;
+      var d=num(r[11]); if(d==null) return;
+      sMed++; if(d>0.01) sEncima++; else if(Math.abs(d)<=0.01) sIgual++;
+    });
+    PCOB.forEach(function(r){
+      var d=num(r[11]); if(d==null||d<=0.01) return;
+      var v=V[r[0]]; if(!v) return;
+      encTot++; if(v[0]==="N"||v[0]==="A"||v[0]==="T") encConBoton++;
+    });
     return {n:n, total:total, coincide:coincide, discrepa:total-coincide,
-            vivas:vivasSupr, uds:uds, fecha:(window.VERIF&&window.VERIF.fecha)||"—"};
+            vivas:vivasSupr, uds:uds, fecha:(window.VERIF&&window.VERIF.fecha)||"—",
+            sMed:sMed, sEncima:sEncima, sIgual:sIgual, encTot:encTot, encConBoton:encConBoton};
   })();
   var pcDisc = VC.total ? Math.round(100*VC.discrepa/VC.total) : 0;
+  var bajoPorEstado = (function(){ var o={}; SO.forEach(function(r){ var s=num(r[12]);
+    if(s!=null && s>0 && s<3.5){ var k=r[10]||"(sin estado)"; o[k]=(o[k]||0)+1; } }); return o; })();
 
   w.appendChild(el(card("Qué se puede concluir y qué no", "sobre por qué perdemos la oferta destacada",
     '<div class="note" style="border-top:0;line-height:1.6">'+
     '<b style="color:var(--bad)">Lo primero: el informe no es la ficha.</b> El '+VC.fecha+' se abrieron una a una las '+fm(VC.total)+' fichas públicas con estado de BuyBox y se compararon con lo que decía el informe. <b>'+fm(VC.discrepa)+' no coincidían, el '+pcDisc+' %.</b> El informe llega con retraso, así que en este panel lo que viene sólo de él se etiqueta «según el informe» y únicamente se da por cierto lo que se ha abierto en la ficha.<br><br>'+
     '<b>Lo que hay de verdad en la ficha, a '+VC.fecha+':</b> '+fm(VC.n.N)+' la tenemos nosotros, '+fm(VC.n.A)+' las tiene Amazon, '+fm(VC.n.T)+' un tercero, '+fm(VC.n.S)+' están suprimidas por precio, '+fm(VC.n.X)+' no están disponibles y '+fm(VC.n.O)+' no tienen botón por otro motivo.<br><br>'+
-    '<b>Se puede descartar el score.</b> La mediana por estado es 4,0 en las ganadas y 4,3 en las que tiene Amazon y en las fichas sin oferta destacada: es más alta justo donde no la tenemos. Solo 13 referencias de todo el catálogo bajan de 3,5 y están repartidas por todos los grupos, incluida una que sí la gana. El score bloquea las <i>ofertas</i> de Amazon, no la oferta destacada.<br><br>'+
-    '<b>Se puede descartar la logística.</b> Ninguna de las '+fm(P3.length)+' ofertas de terceros es FBA, y solo 10 son Prime. No hay ventaja logística que explique nada.<br><br>'+
-    '<b>Y sí es el precio, pero no contra los terceros: contra la referencia de Amazon.</b> Las '+fm(VC.n.S)+' suprimidas llevan todas el cartel «Precio más alto de lo habitual» donde debería ir el precio, y en su lugar sale «Ver todas las opciones de compra». Amazon compara nuestro PVP con una referencia externa suya, no con las ofertas de la ficha, y esa referencia solo se ve en Seller Central, en «Ver precios de referencia». En la lavadora de 6 kg son 251,70 € frente a nuestros 299 €.<br><br>'+
+    '<b>Se puede descartar el score.</b> La mediana por estado es 4,0 en las ganadas y 4,3 en las que tiene Amazon y en las fichas sin oferta destacada: es más alta justo donde no la tenemos. Las que bajan de 3,5 no se concentran donde perdemos: '+fm(bajoPorEstado.Ganada||0)+' de ellas tienen la oferta destacada ganada y en el grupo «sin oferta destacada» no hay ninguna. El score bloquea las <i>ofertas</i> de Amazon, no la oferta destacada.<br><br>'+
+    '<b>Y la logística tampoco.</b> Las '+fm(P3.length)+' ofertas de terceros traen «Es FBA» = No sin una sola excepción, y Prime son '+fm(P3.filter(function(x){return /^s[ií]$/i.test(String(x[15]||""));}).length)+'. Aviso: una columna que no varía nunca no descarta nada por sí sola, sólo dice que este informe no distingue.<br><br>'+
+    '<b>Qué dice Amazon y qué podemos demostrar.</b> Las '+fm(VC.n.S)+' suprimidas llevan el cartel «Precio más alto de lo habitual» donde debería ir el precio, y en su lugar sale «Ver todas las opciones de compra». Es Amazon quien dice que el motivo es el precio. <b>Lo que no podemos sostener es contra qué precio.</b> El único precio de referencia que tenemos medido es el <span class="mono">featuredoffer-price</span> del informe de inventario FBA, y sólo cubre '+fm(VC.sMed)+' de las '+fm(VC.n.S)+' suprimidas (el resto son FBM o Flex y no salen en ese informe). De esas '+fm(VC.sMed)+', <b>'+fm(VC.sIgual)+' están exactamente en la referencia y aun así están suprimidas</b> y sólo '+fm(VC.sEncima)+' por encima. Y al revés: de las '+fm(VC.encTot)+' referencias que sí están por encima de la referencia, <b>'+fm(VC.encConBoton)+' tienen su botón de compra con normalidad</b>. Así que ese campo no explica quién pierde el botón: la referencia que usa Amazon para suprimir es otra, y sólo se ve ficha a ficha en Seller Central, en «Ver precios de referencia».<br><br>'+
     '<b>Lo que cuesta dinero hoy son '+fm(VC.vivas.length)+' referencias</b>, no las '+fm(VC.n.S)+': las demás están suprimidas pero con la oferta cerrada o el stock a cero, así que no se pierde una venta que fuera a producirse. Estas sí tienen oferta viva y stock, y suman <b>'+fm(VC.uds)+' unidades paradas</b>: '+
       (VC.vivas.length ? VC.vivas.map(function(r){ return esc(txt(r[3]))+' ('+fm(num(r[5]))+')'; }).join(' · ') : '—')+'.<br><br>'+
     '<b>Y la ficha suprimida no se queda quieta.</b> Al no haber oferta destacada, Amazon rellena la página con alternativas, incluidas las de la competencia y modelos nuestros, así que además canibaliza.</div>','')));
@@ -927,7 +972,7 @@ function vPrecio(){
       }).join("")+'</tbody></table></div>';
     w.appendChild(el(card("Por encima del precio de referencia de Amazon",
       caras.length+" de "+PCOB.length+" referencias · "+fm(udsParadas)+" unidades", ch,
-      '<b>«Oferta destacada» es el precio que Amazon toma como referencia</b> (el campo <span class="mono">featuredoffer-price</span> de su informe de inventario). Cuando el nuestro lo supera, la ficha pierde el botón de compra y Amazon rellena la página con alternativas. Es lo que vimos en la lavadora de 6 kg: 299 € contra 251,70 € de referencia. Antes de igualar, ten en cuenta que la tarifa de Amazon ronda los 63 € por unidad y el coste de producto no está en este documento.')));
+      '<b>«Oferta destacada» es el precio que Amazon toma como referencia</b> (el campo <span class="mono">featuredoffer-price</span> de su informe de inventario FBA). Estar por encima <b>no implica perder el botón de compra</b>: comprobado en la ficha el '+VC.fecha+', de las '+fm(VC.encTot)+' referencias por encima de esa referencia, '+fm(VC.encConBoton)+' se compran con normalidad. Y al revés, hay suprimidas que están justo en la referencia. Sirve para ver dónde estamos caros, no para explicar quién pierde el botón. Antes de tocar precio, mirar el margen: ni la tarifa de Amazon ni el coste de producto están en este documento.')));
   }
 
   var vlist = Object.keys(vend).map(function(k){ return [k,vend[k]]; }).sort(function(a,b){return b[1]-a[1];});
@@ -957,7 +1002,7 @@ function vPrecio(){
       {t:"Oferta destacada",k:18,sortv:function(r){ var c=byAsin[r[1]]; return c?c[10]:""; },
        render:function(r){ var c=byAsin[r[1]]; return c&&c[10]?bbB(c[10]):'<span style="color:var(--ink-3)">—</span>'; }}
     ],
-    note:'El gap es su precio total menos el nuestro: <b>en negativo, el tercero nos está bajando el precio</b>. El informe de BuyBox no trae nuestro PVP en '+p3Completadas+' de las '+P3.length+' ofertas; en esas se ha tomado del catálogo, que es el mismo dato (coincide al céntimo en las '+(P3.length-p3Completadas)+' que sí lo traen).'
+    note:'El gap es su precio total menos el nuestro: <b>en negativo, el tercero nos está bajando el precio</b>. El informe de BuyBox no trae nuestro PVP en '+p3Completadas+' de las '+P3.length+' ofertas; en esas se ha tomado del catálogo. <b>Ojo:</b> de las '+(P3.length-p3Completadas)+' que sí lo traen, '+fm(P3.filter(function(x){ var a=num(x[4]), b=byAsin[x[1]]?num(byAsin[x[1]][8]):null; return a!=null&&b!=null&&Math.abs(a-b)>0.01; }).length)+' no coinciden con el catálogo, así que en las rellenadas el gap puede estar desplazado.'
   }));
 
   w.appendChild(tabla({
@@ -1079,7 +1124,7 @@ function vDevol(){
 
   w.appendChild(tabla({
     id:"devol",
-    title:"Devoluciones", sub:"ventana viva: 03/08 a 02/10", ph:"ASIN, pedido, modelo o motivo…",
+    title:"Devoluciones", sub:"ventana viva: "+rango(DV,0), ph:"ASIN, pedido, modelo o motivo…",
     rows:DV, max:600, sort:0, dir:-1,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")+" "+(r[4]||"")).toLowerCase(); },
     chips:[{t:"Seller Flex",v:"Seller Flex",n:flexN},{t:"FBM",v:"FBM",n:fbmN}],
@@ -1108,7 +1153,7 @@ function vDevol(){
 
   w.appendChild(tabla({
     id:"devolHist",
-    title:"Histórico de devoluciones", sub:fm(DH.length)+" filas · 02/01 a 02/10", ph:"ASIN, pedido o motivo…",
+    title:"Histórico de devoluciones", sub:fm(DH.length)+" filas · "+rango(DH,0), ph:"ASIN, pedido o motivo…",
     rows:DH, max:400, sort:0, dir:-1,
     search:function(r){ return ((r[1]||"")+" "+(r[2]||"")+" "+(r[3]||"")+" "+(r[6]||"")).toLowerCase(); },
     cols:[
@@ -1332,8 +1377,12 @@ function vHistorico(){
        ["Referencias con stock", prev.conStock, s.conStock, 0, ""],
        ["Unidades vendidas", prev.uds, s.uds, 0, ""],
        ["Facturación", prev.fact, s.fact, 0, " €"]].map(function(f){
+        /* Un cero que es «todavía no cargado» no se resta: daría un −100 % inventado.
+           Las ventas de la semana en curso no están hasta que cierra la semana ISO. */
+        var falta = (f[2]==null || f[2]===0 || f[2]==="") && f[1];
         return '<tr><td>'+esc(f[0])+'</td><td class="r num">'+fm(f[1],f[3])+esc(f[4])+'</td>'+
-          '<td class="r num">'+fm(f[2],f[3])+esc(f[4])+'</td><td class="r">'+delta(f[2],f[1],f[3],f[4])+'</td></tr>';
+          '<td class="r num">'+(falta?'<span style="color:var(--ink-3)">—</span>':fm(f[2],f[3])+esc(f[4]))+'</td>'+
+          '<td class="r">'+(falta?'<span style="color:var(--ink-3);font-size:11.5px">pendiente de cargar</span>':delta(f[2],f[1],f[3],f[4]))+'</td></tr>';
       }).join("")+'</tbody></table></div>';
     w.appendChild(el(card("Contra la semana anterior medida", prev.sem+" → "+s.sem, ch)));
   }
