@@ -239,6 +239,7 @@ svg{display:block;max-width:100%}
 
 <script src="datos.js"></script>
 <script src="verificacion.js"></script>
+<script src="avisos.js"></script>
 <script>
 (function(){
 "use strict";
@@ -414,6 +415,19 @@ function tokInforme(e){
       como "según el informe" y nunca como comprobado.
    2. La ficha pública de amazon.es, abierta una a una (window.VERIF). Eso sí es un hecho,
       y se cita siempre con su fecha. */
+
+/* Pinta las advertencias de una pestaña. Vienen de avisos.js, que las saca del
+   Excel: el panel se quedaba solo con las filas de datos y tiraba las notas que
+   dicen como leerlas. */
+function avisosDe(clave){
+  var A=window.AVISOS; if(!A) return '';
+  var l=(A.hojas&&A.hojas[clave])||[];
+  if(!l.length) return '';
+  return card('Cómo leer esta pestaña', l.length+(l.length===1?' advertencia':' advertencias'),
+    '<div class="note" style="border-top:0;line-height:1.55"><ul style="margin:0;padding-left:18px">'+
+    l.map(function(t){ return '<li style="margin-bottom:6px">'+esc(t)+'</li>'; }).join('')+'</ul></div>','');
+}
+
 function motivoBB(r){
   var e = r[10], viva = String(r[6]||"").indexOf("Activa")===0, s = num(r[5]);
   if(!e) return null;
@@ -820,6 +834,16 @@ function vResumen(){
   }).join("")+'</tbody></table></div>';
   w.appendChild(el(card("Próximos hitos de Q4","",ph)));
   return w;
+  /* Las fechas de corte y los limites de lectura. Estaban solo en la hoja LEEME del
+     Excel, que el panel no publica: quien miraba el panel no los veia. */
+  if(window.AVISOS){
+    w.appendChild(el(card("No todo el documento es del mismo dia", "fechas de corte y limites",
+      '<div class="note" style="border-top:0;line-height:1.55">'+
+      '<b>De cuando es cada cosa</b><ul style="margin:4px 0 10px;padding-left:18px">'+
+      window.AVISOS.fechas.map(function(t){return '<li style="margin-bottom:4px">'+esc(t)+'</li>';}).join('')+'</ul>'+
+      '<b>Como se leen estas cifras</b><ul style="margin:4px 0 0;padding-left:18px">'+
+      window.AVISOS.generales.map(function(t){return '<li style="margin-bottom:4px">'+esc(t)+'</li>';}).join('')+'</ul></div>','')));
+  }
 }
 
 /* ======== CATÁLOGO ======== */
@@ -1016,6 +1040,7 @@ function vPrecio(){
     ]
   }));
   return w;
+  var _av=avisosDe("precio"); if(_av) w.appendChild(el(_av));
 }
 
 /* ======== ADS Q4 ======== */
@@ -1311,6 +1336,7 @@ function vMercado(){
     ]
   }));
   return w;
+  var _av=avisosDe("mercado"); if(_av) w.appendChild(el(_av));
 }
 
 /* ======== HISTÓRICO SEMANAL ======== */
@@ -1416,6 +1442,7 @@ function vHistorico(){
     note:'Cada semana se archiva entera y no se borra nunca. La columna <b>Medición</b> del Excel dice si la semana se midió o si la fuente no se había refrescado.'
   }));
   return w;
+  var _av=avisosDe("hist"); if(_av) w.appendChild(el(_av));
 }
 
 /* ======== CALENDARIO ======== */
