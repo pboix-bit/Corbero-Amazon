@@ -833,7 +833,6 @@ function vResumen(){
       '<td>'+esc(x.r[1])+'</td><td style="width:1%"><span class="b b-cool">'+esc(x.r[3])+'</span></td></tr>';
   }).join("")+'</tbody></table></div>';
   w.appendChild(el(card("Próximos hitos de Q4","",ph)));
-  return w;
   /* Las fechas de corte y los limites de lectura. Estaban solo en la hoja LEEME del
      Excel, que el panel no publica: quien miraba el panel no los veia. */
   if(window.AVISOS){
@@ -844,6 +843,7 @@ function vResumen(){
       '<b>Como se leen estas cifras</b><ul style="margin:4px 0 0;padding-left:18px">'+
       window.AVISOS.generales.map(function(t){return '<li style="margin-bottom:4px">'+esc(t)+'</li>';}).join('')+'</ul></div>','')));
   }
+  return w;
 }
 
 /* ======== CATÁLOGO ======== */
@@ -1039,8 +1039,8 @@ function vPrecio(){
       {t:"Notas",k:7,render:function(r){ return '<div class="ti">'+esc(txt(r[7]))+'</div>'; }}
     ]
   }));
-  return w;
   var _av=avisosDe("precio"); if(_av) w.appendChild(el(_av));
+  return w;
 }
 
 /* ======== ADS Q4 ======== */
@@ -1335,8 +1335,8 @@ function vMercado(){
       {t:"Equivalente en bestsellers",k:6,render:function(r){ return '<div class="ti-1">'+esc(txt(r[6]))+'</div>'; }}
     ]
   }));
-  return w;
   var _av=avisosDe("mercado"); if(_av) w.appendChild(el(_av));
+  return w;
 }
 
 /* ======== HISTÓRICO SEMANAL ======== */
@@ -1441,8 +1441,8 @@ function vHistorico(){
     ],
     note:'Cada semana se archiva entera y no se borra nunca. La columna <b>Medición</b> del Excel dice si la semana se midió o si la fuente no se había refrescado.'
   }));
-  return w;
   var _av=avisosDe("hist"); if(_av) w.appendChild(el(_av));
+  return w;
 }
 
 /* ======== CALENDARIO ======== */
