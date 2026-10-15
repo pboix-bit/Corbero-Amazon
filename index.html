@@ -407,19 +407,23 @@ function motivoBB(r){
 
   if(V){
     var c = V[0], quien = V[1] || "", disc = (c !== tokInforme(e));
-    var nota = disc ? ' <i>El informe decía «'+esc(e)+'»: no coincide con la ficha.</i>' : '';
-    if(c==="S") return ["bad","Suprimida por precio",
-      "Comprobado en la ficha el "+F+": no hay botón de compra y Amazon muestra «Precio más alto de lo habitual». Nuestro PVP está por encima de su precio de referencia, que se consulta en Seller Central."+nota];
+    /* Sólo es crítico si hoy se pierde una venta que iba a producirse: oferta publicada
+       y stock. Con la oferta cerrada o el stock a cero es catálogo dormido, no urgencia. */
+    var duele = (viva && s > 0);
+    var nota = disc ? ' El informe decía «'+esc(e)+'»: no coincide con la ficha.' : '';
+    var dorm = duele ? '' : ' Nuestra oferta está cerrada o sin stock, así que hoy no se pierde una venta por esto.';
+    if(c==="S") return [duele?"bad":"mute", duele?"Suprimida por precio":"Suprimida (dormida)",
+      "Comprobado en la ficha el "+F+": no hay botón de compra y Amazon muestra «Precio más alto de lo habitual». Nuestro PVP está por encima de su precio de referencia, que se consulta en Seller Central."+dorm+nota];
     if(c==="N") return disc
       ? ["ok","La tenemos","Comprobado en la ficha el "+F+": la oferta destacada es nuestra, vendida por TUELEKTRO."+nota]
       : null;
     if(c==="A") return ["cool","La tiene Amazon",
       "Comprobado en la ficha el "+F+": la oferta destacada la tiene Amazon. Si es nuestro propio 1P la venta no se pierde, cambia el margen."+nota];
-    if(c==="T") return ["bad","La tiene "+(quien||"un tercero"),
-      "Comprobado en la ficha el "+F+": la oferta destacada la tiene "+esc(quien||"un tercero")+"."+nota];
+    if(c==="T") return [duele?"bad":"warn", (duele?"Nos la quita ":"La tiene ")+(quien||"un tercero"),
+      "Comprobado en la ficha el "+F+": la oferta destacada la tiene "+esc(quien||"un tercero")+"."+dorm+nota];
     if(c==="X") return ["mute","No disponible",
       "Comprobado en la ficha el "+F+": Amazon da la ficha como no disponible, no se puede comprar."+nota];
-    if(c==="O") return ["warn","Sin botón, sin cartel",
+    if(c==="O") return [duele?"warn":"mute","Sin botón, sin cartel",
       "Comprobado en la ficha el "+F+": no hay botón de compra y tampoco sale el cartel de precio. Hay que mirarla a mano."+nota];
   }
 
