@@ -8915,6 +8915,68 @@ window.VENTAS = {
 };
 </script>
 <script>
+/* Capa de corrección del catálogo. EL EXCEL NO SE TOCA.
+   Paloma, 21/10/2026: «no hagas cambios en el excel» y «siempre impera Amazon».
+   Las dos cosas a la vez se resuelven así: el libro queda intacto y el panel
+   enseña el dato de Amazon, marcado a la vista y con su fuente, en lugar de
+   enseñar el del libro en silencio.
+
+   Fuente de todo lo de aquí: informes nativos de Amazon del 14/10/2026,
+   «Informe de todos los listings» e «Inventario gestionado por Amazon»,
+   que es la misma fecha de corte que el libro, así que son comparables.
+
+   Esto es un parche, no un arreglo: mientras el Excel no incorpore las dos
+   referencias que faltan, esta capa las seguirá añadiendo cada semana. */
+window.CORRECCIONES = {
+  fecha: "14/10/2026",
+  revisado: "21/10/2026",
+  fuente: "Informe de todos los listings + Inventario gestionado por Amazon (Seller Central)",
+
+  /* Referencias que Amazon publica y que el libro no tiene. El informe da 234
+     ofertas activas y el libro 233: la que falta es la primera de estas dos.
+     Columnas, en el orden del libro:
+     0 Categoría · 1 Familia · 2 ASIN · 3 Modelo · 4 Título · 5 Stock Seller ·
+     6 Oferta Seller · 7 Stock Vendor · 8 PVP Seller · 9 PVP Vendor ·
+     10 BuyBox Seller · 11 BuyBox Vendor · 12 Score · 13 Nº reseñas ·
+     14 Fecha del dato · 15 Origen de la familia */
+  faltan: [
+    ["FRIO", "FRIGORIFICO 4 PUERTAS", "B0HM7ZNDLS", "CF4PT4097DX-SF.",
+     "Corbero - Frigorífico 4 puertas | CF4PT4097DX | 394L | 176.5cm | No Frost | Twin Eco Inverter | Tecnología ATT | Control Inteligente de temperatura | Dark Inox",
+     132, "Activa Flex", null, 649, null, null, null, null, null,
+     "14/10/2026", "Inferida - alta"],
+    ["LAVADO", "LAVADORA CARGA FRONTAL", "B0HM7RWBSH", "CLA8J147STH-SF.",
+     "Corberó - Lavadora Carga Frontal 8Kg | CLA8J147STH | 1400RPM | Motor Inverter | Tambor de Abeja | Programa Vapor | A-20% | Dark Grey",
+     0, "Inactiva", null, 379, null, null, null, null, null,
+     "14/10/2026", "Inferida - alta"]
+  ],
+
+  /* Precios de Seller donde el libro y Amazon no coinciden. Se enseña el de
+     Amazon. `porque` explica el desajuste cuando se sabe. */
+  precios: {
+    "B0DDPWMY7D": { modelo: "CF2PH16724W", libro: 369, amazon: 399,
+      porque: "el libro cogió el precio de la oferta FBM, que está CERRADA. La oferta viva es la de Flex, a 399 €. Y es una de las cuatro que nos quita un tercero, así que su precio se estaba mirando mal." },
+    "B0HKS7MFMV": { modelo: "CCIM974EXTRA", libro: 349, amazon: 359,
+      porque: "una sola oferta activa en el informe, a 359 €. El libro se quedó en 349 €." },
+    "B0CP9MT9Z9": { modelo: "VOSTOK760W", libro: 179, amazon: 172,
+      porque: "una sola oferta activa en el informe, a 172 €. El libro se quedó en 179 €." },
+    "B0CP9L1B7H": { modelo: "VOSTOK960X", libro: 189, amazon: 175,
+      porque: "una sola oferta activa en el informe, a 175 €. El libro se quedó en 189 €." }
+  },
+
+  /* Lo que se comprobó y SÍ cuadraba, para que conste que esto no es una lista
+     de sospechas sino el resto de una conciliación completa. */
+  cuadra: [
+    "Stock de las 116 referencias Flex: las 116 exactas, 25.835 unidades, filtrando por unidades vendibles.",
+    "Las 117 ofertas FBM activas: las 117.",
+    "Precio de referencia de Amazon de las 116 referencias con stock FBA: las 116.",
+    "Devoluciones FBM: los 93 pedidos del informe, todos.",
+    "Devoluciones Flex: los 42 del informe de los últimos 14 días, todos.",
+    "La alerta de «agotada con oferta viva» de CCH1824EW es correcta: sus 2 unidades están marcadas como no vendibles.",
+    "Las 24 hojas del libro se publican en el panel fila a fila, sin perder ninguna."
+  ]
+};
+</script>
+<script>
 (function(){
 "use strict";
 var D = window.DATOS || {};
@@ -8934,6 +8996,30 @@ function el(h){ var d=document.createElement("div"); d.innerHTML=h.trim(); retur
 
 /* ---------- índices ---------- */
 var SO = F("STOCK Y OPERATIVA");            // 0cat 1fam 2asin 3sku 4tit 5stkS 6oferta 7stkV 8pvpS 9pvpV 10bbS 11bbV 12score 13res 14fecha 15origen
+
+/* Capa de corrección sobre el catálogo. El Excel no se toca: lo que cambia es
+   lo que el panel enseña, y cada cambio queda marcado en su fila con su motivo.
+   Regla de Paloma del 21/10/2026: «siempre impera Amazon». */
+var CORR = { nuevas: [], precios: [] };
+(function(){
+  var C = window.CORRECCIONES; if(!C) return;
+  var hay = {}; SO.forEach(function(r){ if(r[2]) hay[r[2]] = 1; });
+  (C.faltan||[]).forEach(function(f){
+    if(hay[f[2]]) return;
+    var r = f.slice();
+    r.__nueva = { fuente: C.fuente, fecha: C.fecha };
+    SO.push(r); CORR.nuevas.push(r);
+  });
+  Object.keys(C.precios||{}).forEach(function(a){
+    var p = C.precios[a];
+    SO.forEach(function(r){
+      if(r[2] !== a) return;
+      r.__precio = { libro: r[8], amazon: p.amazon, porque: p.porque, fecha: C.fecha };
+      r[8] = p.amazon;
+      CORR.precios.push(r);
+    });
+  });
+})();
 var P3 = F("VIGILANCIA PRECIO 3P");
 var DV = F("DEVOLUCIONES");
 var DH = F("HISTÓRICO DEVOLUCIONES");
@@ -9305,7 +9391,7 @@ window.verFicha = function(asin){
       ["Oferta en Seller", ofertaB(r[6])+(/^Activa/.test(String(r[6]||""))?' <span style="color:var(--ink-3);font-size:11.5px">'+esc(r[6])+'</span>':'')],
       ["Stock Seller", stockC(r[5],r[6]) + (r[6]&&r[6].indexOf("FBM")>-1?' <span style="color:var(--ink-3);font-size:11px">declarado, techo 100</span>':'')],
       ["Stock Vendor", r[7]==null?"—":'<span class="num">'+fm(r[7])+'</span> <span style="color:var(--ink-3);font-size:11px">foto del 01/10, no del día del corte</span>'],
-      ["PVP Seller", r[8]==null?null:eur(r[8])],
+      ["PVP Seller", r[8]==null?null:(eur(r[8])+(r.__precio?' <span class="b b-warn">según Amazon</span><div style="font-size:11px;color:var(--ink-3);margin-top:3px">El libro dice '+eur(r.__precio.libro)+'. '+esc(r.__precio.porque)+'</div>':''))],
       ["PVP Vendor", r[9]==null?null:eur(r[9])],
       ["BuyBox Seller", bbB(r[10])],
       ["BuyBox Vendor", bbB(r[11])],
@@ -9755,20 +9841,50 @@ function vCatalogo(){
        test:function(r,v){ return r[10]===v; }}
     ],
     cols:[
-      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2])+(r.__nueva?' <span class="b b-warn" title="No está en el Excel. Añadida desde el informe de Amazon.">+</span>':''); }},
       {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
       {t:"Producto",k:4,render:function(r){ return '<div class="ti">'+esc(txt(r[4]))+'</div>'; }},
       {t:"Familia",k:1,render:function(r){ return '<span style="color:var(--ink-3);font-size:11.5px">'+esc(txt(r[1]))+'</span>'; }},
       {t:"Oferta",k:6,render:function(r){ return ofertaB(r[6]); }},
       {t:"Stock S.",k:5,r:1,render:function(r){ return stockC(r[5],r[6]); }},
       {t:"Stock V.",k:7,r:1,render:function(r){ return r[7]==null?'<span style="color:var(--ink-3)">—</span>':'<span class="num">'+fm(r[7])+'</span>'; }},
-      {t:"PVP S.",k:8,r:1,render:function(r){ return '<span class="num">'+(r[8]==null?"—":eur(r[8]))+'</span>'; }},
+      {t:"PVP S.",k:8,r:1,render:function(r){ return '<span class="num">'+(r[8]==null?"—":eur(r[8]))+'</span>'+
+        (r.__precio?' <span class="b b-warn" title="El libro decía '+eur(r.__precio.libro)+'. Se muestra el de Amazon.">Amazon</span>':''); }},
       {t:"BuyBox S.",k:10,render:function(r){ return bbB(r[10]); }},
       {t:"Score",k:12,r:1,render:function(r){ var s=num(r[12]); if(s==null)return '<span style="color:var(--ink-3)">—</span>';
         return '<span class="num" style="'+(s<3.5?'color:var(--bad);font-weight:600':'')+'">'+fm(s,1)+'</span>'; }}
     ],
     note:'El número de <b>FBM</b> es la disponibilidad declarada por el vendedor, con techo en 100 y descontando ventas. El de <b>Flex</b> es el recuento real de Amazon. No son sumables entre sí. Pulsa cualquier ASIN para abrir su ficha completa.'
   }));
+
+  /* Lo que el panel enseña distinto del libro, dicho en voz alta. No se cambia
+     nada en silencio: aquí está la lista entera con su fuente y su motivo. */
+  if(window.CORRECCIONES && (CORR.nuevas.length || CORR.precios.length)){
+    var C = window.CORRECCIONES;
+    var cn = CORR.nuevas.map(function(r){
+      return '<tr><td><span class="b b-warn">añadida</span></td><td>'+asinCell(r[2])+'</td>'+
+        '<td class="sku">'+esc(txt(r[3]))+'</td><td><div class="ti-1">'+esc(txt(r[4]))+'</div></td>'+
+        '<td>'+ofertaB(r[6])+'</td><td class="r num">'+fm(r[5])+'</td><td class="r num">'+eur(r[8],0)+'</td>'+
+        '<td>No está en el Excel y Amazon sí la publica</td></tr>';
+    }).join("");
+    var cp = CORR.precios.map(function(r){
+      return '<tr><td><span class="b b-warn">precio</span></td><td>'+asinCell(r[2])+'</td>'+
+        '<td class="sku">'+esc(txt(r[3]))+'</td><td><div class="ti-1">'+esc(txt(r[4]))+'</div></td>'+
+        '<td>'+ofertaB(r[6])+'</td><td class="r num">'+fm(r[5])+'</td>'+
+        '<td class="r num"><span style="text-decoration:line-through;color:var(--ink-3)">'+eur(r.__precio.libro,0)+'</span> <b>'+eur(r.__precio.amazon,0)+'</b></td>'+
+        '<td>'+esc(r.__precio.porque)+'</td></tr>';
+    }).join("");
+    w.appendChild(el(card("Dónde el panel no dice lo mismo que el Excel",
+      (CORR.nuevas.length+CORR.precios.length)+" correcciones · informe de Amazon del "+C.fecha,
+      '<div class="tw"><table><thead><tr><th>Qué</th><th>ASIN</th><th>Modelo</th><th>Producto</th>'+
+      '<th>Oferta</th><th class="r">Stock</th><th class="r">PVP</th><th>Por qué</th></tr></thead><tbody>'+
+      cn+cp+'</tbody></table></div>',
+      '<b>El Excel no se toca.</b> Lo que cambia es lo que enseña el panel, y queda marcado en cada fila. '+
+      'Fuente: '+esc(C.fuente)+', de la misma fecha de corte que el libro. '+
+      'Mientras el libro no incorpore las referencias que faltan, esta capa las seguirá añadiendo cada semana.<br><br>'+
+      '<b>Y lo que sí cuadraba</b>, para que conste que esto es el resto de una conciliación completa y no una lista de sospechas: '+
+      '<ul style="margin:6px 0 0;padding-left:18px">'+C.cuadra.map(function(t){ return '<li style="margin-bottom:3px">'+esc(t)+'</li>'; }).join('')+'</ul>')));
+  }
   return w;
 }
 
@@ -10042,7 +10158,7 @@ function vDevol(){
     cols:[
       {t:"Fecha",k:0,sortv:function(r){ var d=pdate(r[0]); return d?d.getTime():0; },
        render:function(r){ return '<span class="mono" style="font-size:11.5px">'+esc(dmy(r[0]))+'</span>'; }},
-      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2])+(r.__nueva?' <span class="b b-warn" title="No está en el Excel. Añadida desde el informe de Amazon.">+</span>':''); }},
       {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
       {t:"Tipo",k:5,render:function(r){ return r[5]==="FBM"?'<span class="b b-mute">FBM</span>':'<span class="b b-cool">Flex</span>'; }},
       {t:"Motivo",k:6},
@@ -10063,7 +10179,7 @@ function vDevol(){
     cols:[
       {t:"Fecha",k:0,sortv:function(r){ var d=pdate(r[0]); return d?d.getTime():0; },
        render:function(r){ return '<span class="mono" style="font-size:11.5px">'+esc(dmy(r[0]))+'</span>'; }},
-      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2]); }},
+      {t:"ASIN",k:2,render:function(r){ return asinCell(r[2])+(r.__nueva?' <span class="b b-warn" title="No está en el Excel. Añadida desde el informe de Amazon.">+</span>':''); }},
       {t:"Modelo",k:3,render:function(r){ return '<span class="sku">'+esc(txt(r[3]))+'</span>'; }},
       {t:"Motivo",k:6},
       {t:"Estado",k:9,render:function(r){ var v=String(r[9]||"");
