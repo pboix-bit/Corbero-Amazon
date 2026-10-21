@@ -9433,7 +9433,7 @@ var TABS = [
   {id:"resumen",   t:"Resumen",      n:"",                build:vResumen},
   {id:"catalogo",  t:"Catálogo",     n:SO.length,         build:vCatalogo},
   {id:"hist",      t:"Histórico",    n:SEM.orden.length,  build:vHistorico},
-  {id:"ventas",    t:"Evolución ventas", n:(window.VENTAS?window.VENTAS.ventas.desviaciones.length:0), build:vVentas},
+  {id:"ventas",    t:"Evolución ventas", n:(window.VENTAS&&window.VENTAS.detalle?(window.VENTAS.detalle.seller.length+window.VENTAS.detalle.vendor.length):0), build:vVentas},
   {id:"precio",    t:"Precio y BuyBox", n:P3.length,      build:vPrecio},
   {id:"ads",       t:"Ads Q4",       n:AS.length,         build:vAds},
   {id:"devol",     t:"Devoluciones", n:DV.length,         build:vDevol},
