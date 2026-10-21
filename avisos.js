@@ -28,12 +28,15 @@ window.AVISOS = {
       "No hay cuota de mercado y no se puede calcular con estas fuentes. Lo que sí se mide es la DIRECCIÓN de la cuota: si la categoría crece y nosotros crecemos menos, la perdemos."
     ],
     "ventas": [
-      "Ads y ventas vienen de sitios distintos. El informe de Ads SÍ separa canal por cuenta (CORBERO = Vendor, TUELEKTRO = Seller). La columna de unidades vendidas del histórico NO lo separa.",
-      "Las ventas que atribuye Amazon Ads son las del anuncio, no las totales de la referencia: una referencia puede vender bien sin que su campaña se lleve el mérito.",
-      "El ROAS de la tabla por semana se recalcula como ventas entre inversión del conjunto. Promediar los ROAS de cada campaña da otro número y es incorrecto.",
-      "Las semanas con menos de siete días de datos están marcadas y no deben compararse contra una semana completa.",
-      "Una referencia que cae a cero unidades puede ser falta de demanda, pero también rotura de stock u oferta cerrada: hay que mirar su stock y su oferta en la misma fila.",
-      "Las referencias marcadas Q4 son las de la hoja «Tarifa Q4-26» de la marca, casadas por número de modelo. 276 de las 327 casan con el catálogo."
+      "Seller es SELL-OUT (lo que compra el cliente) y Vendor es SELL-IN (lo que Amazon nos compra). Son magnitudes distintas: no se suman, no se promedian y no se comparan entre sí.",
+      "Una caída del sell-in de Vendor puede ser solo que Amazon tiene almacén lleno. No significa que el producto se venda menos.",
+      "Las ventas que atribuye Amazon Ads son las del anuncio, no las totales del canal. Compararlas con la tabla de ventas por canal da el peso real de la publicidad.",
+      "El ROAS se recalcula como ventas entre inversión del conjunto de la semana. Promediar los ROAS de cada campaña da otro número y es incorrecto.",
+      "El porcentaje de BuyBox es el tiempo que la oferta destacada ha sido nuestra en Seller. Un anuncio de Sponsored Products solo se sirve mientras la tengamos, así que ese porcentaje es el techo de la publicidad.",
+      "Las semanas con menos de siete días están marcadas y no deben compararse contra una completa. Los indicadores de cabecera usan solo semanas completas.",
+      "Una referencia que cae a cero puede ser falta de demanda, rotura de stock u oferta cerrada: hay que mirar su oferta y su stock en la misma fila.",
+      "Las marcadas Q4 son las de la hoja «Tarifa Q4-26» de la marca, casadas por número de modelo: 276 de las 327 encuentran su ASIN.",
+      "Las ventas de Ads salen de la consola de Amazon y las de canal de MerchantSpring. En la inversión de Seller de W41 difieren en unos 8 euros; manda la consola."
     ],
     "hist": [
       "Cada fila es un ASIN en una semana. Las semanas marcadas «sin dato nuevo» no son mediciones: son una copia de la anterior y quedan fuera de la evolución.",
