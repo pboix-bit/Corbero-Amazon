@@ -27,6 +27,14 @@ window.AVISOS = {
       "Las cifras de crecimiento son semestre contra semestre DENTRO del mismo año. En un mercado estacional eso vuelve a medir estacionalidad, no tendencia.",
       "No hay cuota de mercado y no se puede calcular con estas fuentes. Lo que sí se mide es la DIRECCIÓN de la cuota: si la categoría crece y nosotros crecemos menos, la perdemos."
     ],
+    "ventas": [
+      "Ads y ventas vienen de sitios distintos. El informe de Ads SÍ separa canal por cuenta (CORBERO = Vendor, TUELEKTRO = Seller). La columna de unidades vendidas del histórico NO lo separa.",
+      "Las ventas que atribuye Amazon Ads son las del anuncio, no las totales de la referencia: una referencia puede vender bien sin que su campaña se lleve el mérito.",
+      "El ROAS de la tabla por semana se recalcula como ventas entre inversión del conjunto. Promediar los ROAS de cada campaña da otro número y es incorrecto.",
+      "Las semanas con menos de siete días de datos están marcadas y no deben compararse contra una semana completa.",
+      "Una referencia que cae a cero unidades puede ser falta de demanda, pero también rotura de stock u oferta cerrada: hay que mirar su stock y su oferta en la misma fila.",
+      "Las referencias marcadas Q4 son las de la hoja «Tarifa Q4-26» de la marca, casadas por número de modelo. 276 de las 327 casan con el catálogo."
+    ],
     "hist": [
       "Cada fila es un ASIN en una semana. Las semanas marcadas «sin dato nuevo» no son mediciones: son una copia de la anterior y quedan fuera de la evolución.",
       "Las unidades y la facturación de la semana en curso no están hasta que cierra la semana ISO. Un cero ahí es «pendiente de cargar», no una caída."

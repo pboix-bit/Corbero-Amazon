@@ -352,6 +352,14 @@ window.AVISOS = {
       "Las cifras de crecimiento son semestre contra semestre DENTRO del mismo año. En un mercado estacional eso vuelve a medir estacionalidad, no tendencia.",
       "No hay cuota de mercado y no se puede calcular con estas fuentes. Lo que sí se mide es la DIRECCIÓN de la cuota: si la categoría crece y nosotros crecemos menos, la perdemos."
     ],
+    "ventas": [
+      "Ads y ventas vienen de sitios distintos. El informe de Ads SÍ separa canal por cuenta (CORBERO = Vendor, TUELEKTRO = Seller). La columna de unidades vendidas del histórico NO lo separa.",
+      "Las ventas que atribuye Amazon Ads son las del anuncio, no las totales de la referencia: una referencia puede vender bien sin que su campaña se lleve el mérito.",
+      "El ROAS de la tabla por semana se recalcula como ventas entre inversión del conjunto. Promediar los ROAS de cada campaña da otro número y es incorrecto.",
+      "Las semanas con menos de siete días de datos están marcadas y no deben compararse contra una semana completa.",
+      "Una referencia que cae a cero unidades puede ser falta de demanda, pero también rotura de stock u oferta cerrada: hay que mirar su stock y su oferta en la misma fila.",
+      "Las referencias marcadas Q4 son las de la hoja «Tarifa Q4-26» de la marca, casadas por número de modelo. 276 de las 327 casan con el catálogo."
+    ],
     "hist": [
       "Cada fila es un ASIN en una semana. Las semanas marcadas «sin dato nuevo» no son mediciones: son una copia de la anterior y quedan fuera de la evolución.",
       "Las unidades y la facturación de la semana en curso no están hasta que cierra la semana ISO. Un cero ahí es «pendiente de cargar», no una caída."
@@ -360,6 +368,8611 @@ window.AVISOS = {
       "El informe de BuyBox llega con retraso. El 15/10/2026 se contrastaron sus 282 referencias contra la ficha pública y 79 no coincidían, el 28 %."
     ]
   }
+};
+</script>
+<script>
+/* Evolución de ventas y de inversión publicitaria. Generado el 21/10/2026.
+   Ads: informe de Amazon Ads por campaña y día (1-20 oct 2026), cuentas CORBERO
+   (Vendor) y TUELEKTRO (Seller). Ahí el canal sí está separado.
+   Ventas por referencia: columna «Uds vendidas semana» del HISTÓRICO SEMANAL.
+   AVISO: esa columna NO distingue canal — en W41, 606 de 1.577 unidades caen en
+   referencias marcadas solo como Vendor, así que mezcla sell-in y sell-out.
+   Prioritarias: hoja «Tarifa Q4-26», casadas por Modelo. */
+window.VENTAS = {
+ "generado": "21/10/2026",
+ "ads": {
+  "desde": "01/10/2026",
+  "hasta": "20/10/2026",
+  "semanas": [
+   {
+    "sem": "2026-W40",
+    "dias": 4,
+    "completa": false,
+    "canales": [
+     {
+      "canal": "Seller",
+      "imp": 217510,
+      "clics": 1709,
+      "coste": 768,
+      "compras": 24,
+      "ventas": 6023.53,
+      "roas": 7.84
+     },
+     {
+      "canal": "Vendor",
+      "imp": 586647,
+      "clics": 4730,
+      "coste": 2027.94,
+      "compras": 134,
+      "ventas": 21791.81,
+      "roas": 10.75
+     }
+    ]
+   },
+   {
+    "sem": "2026-W41",
+    "dias": 7,
+    "completa": true,
+    "canales": [
+     {
+      "canal": "Vendor",
+      "imp": 1816559,
+      "clics": 10140,
+      "coste": 4387.71,
+      "compras": 292,
+      "ventas": 49813.92,
+      "roas": 11.35
+     },
+     {
+      "canal": "Seller",
+      "imp": 724547,
+      "clics": 6047,
+      "coste": 2481.79,
+      "compras": 136,
+      "ventas": 37883.03,
+      "roas": 15.26
+     }
+    ]
+   },
+   {
+    "sem": "2026-W42",
+    "dias": 7,
+    "completa": true,
+    "canales": [
+     {
+      "canal": "Vendor",
+      "imp": 1449956,
+      "clics": 10053,
+      "coste": 4219.28,
+      "compras": 284,
+      "ventas": 45113.67,
+      "roas": 10.69
+     },
+     {
+      "canal": "Seller",
+      "imp": 449530,
+      "clics": 4002,
+      "coste": 1554.54,
+      "compras": 66,
+      "ventas": 16715.95,
+      "roas": 10.75
+     }
+    ]
+   },
+   {
+    "sem": "2026-W43",
+    "dias": 2,
+    "completa": false,
+    "canales": [
+     {
+      "canal": "Vendor",
+      "imp": 261166,
+      "clics": 1618,
+      "coste": 653.12,
+      "compras": 19,
+      "ventas": 2591.24,
+      "roas": 3.97
+     },
+     {
+      "canal": "Seller",
+      "imp": 115313,
+      "clics": 953,
+      "coste": 389.45,
+      "compras": 7,
+      "ventas": 1704.98,
+      "roas": 4.38
+     }
+    ]
+   }
+  ],
+  "campanas": [
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CF2PV21324W) - Competitor ASINs",
+    "imp": 613,
+    "clics": 4,
+    "coste": 1.71,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling",
+    "imp": 6270,
+    "clics": 28,
+    "coste": 23.13,
+    "compras": 15,
+    "ventas": 5104.18,
+    "roas": 220.67
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Competitor ASINs",
+    "imp": 55,
+    "clics": 5,
+    "coste": 1.15,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto",
+    "imp": 217512,
+    "clics": 2433,
+    "coste": 832.57,
+    "compras": 55,
+    "ventas": 18503.84,
+    "roas": 22.22
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Auto",
+    "imp": 18932,
+    "clics": 94,
+    "coste": 79.53,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 4267,
+    "clics": 51,
+    "coste": 20.74,
+    "compras": 1,
+    "ventas": 199,
+    "roas": 9.59
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Vitrocerámica - Genéricas",
+    "imp": 0,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Frigorífico - Genéricas",
+    "imp": 35640,
+    "clics": 399,
+    "coste": 210.83,
+    "compras": 3,
+    "ventas": 1575.19,
+    "roas": 7.47
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Cross Selling",
+    "imp": 23103,
+    "clics": 78,
+    "coste": 79.6,
+    "compras": 26,
+    "ventas": 3418.29,
+    "roas": 42.94
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placa Gas - Generic KW (SP)",
+    "imp": 27646,
+    "clics": 180,
+    "coste": 72,
+    "compras": 8,
+    "ventas": 642.78,
+    "roas": 8.93
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador - Generic KW",
+    "imp": 4824,
+    "clics": 32,
+    "coste": 15.66,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Gas - Genéricas",
+    "imp": 198686,
+    "clics": 821,
+    "coste": 146.79,
+    "compras": 23,
+    "ventas": 3204.17,
+    "roas": 21.83
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Competitor ASINs",
+    "imp": 35,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Generic KW",
+    "imp": 19909,
+    "clics": 115,
+    "coste": 18.54,
+    "compras": 3,
+    "ventas": 284.97,
+    "roas": 15.37
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Inducción - Cross Selling - CPC",
+    "imp": 8,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina - Auto",
+    "imp": 264,
+    "clics": 7,
+    "coste": 1.45,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Competitor ASINs",
+    "imp": 13561,
+    "clics": 150,
+    "coste": 28.31,
+    "compras": 3,
+    "ventas": 887,
+    "roas": 31.33
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto",
+    "imp": 18777,
+    "clics": 88,
+    "coste": 58.91,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 37299,
+    "clics": 263,
+    "coste": 96.4,
+    "compras": 8,
+    "ventas": 1226,
+    "roas": 12.72
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling - CPC",
+    "imp": 4298,
+    "clics": 27,
+    "coste": 13.79,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Auto (SP)",
+    "imp": 12341,
+    "clics": 127,
+    "coste": 20.17,
+    "compras": 1,
+    "ventas": 114.88,
+    "roas": 5.7
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Auto - Termo",
+    "imp": 39515,
+    "clics": 382,
+    "coste": 94.23,
+    "compras": 5,
+    "ventas": 845,
+    "roas": 8.97
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Remarketing de Vistas",
+    "imp": 156868,
+    "clics": 875,
+    "coste": 551.68,
+    "compras": 36,
+    "ventas": 5525.84,
+    "roas": 10.02
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas + Frigorífico Combi + Microondas (Todos) - KW de Marca",
+    "imp": 197778,
+    "clics": 174,
+    "coste": 78.18,
+    "compras": 5,
+    "ventas": 718.26,
+    "roas": 9.19
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora Blanca - Generic KW",
+    "imp": 11,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - Cross Selling",
+    "imp": 28837,
+    "clics": 763,
+    "coste": 350.87,
+    "compras": 46,
+    "ventas": 5472.06,
+    "roas": 15.6
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Performance",
+    "imp": 5141,
+    "clics": 49,
+    "coste": 8.21,
+    "compras": 1,
+    "ventas": 119.99,
+    "roas": 14.62
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador - Generic KW",
+    "imp": 0,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling",
+    "imp": 4675,
+    "clics": 21,
+    "coste": 17.34,
+    "compras": 10,
+    "ventas": 2909.79,
+    "roas": 167.81
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW (SP)",
+    "imp": 30715,
+    "clics": 149,
+    "coste": 60.42,
+    "compras": 2,
+    "ventas": 470.25,
+    "roas": 7.78
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Generic KW (SP)",
+    "imp": 11014,
+    "clics": 107,
+    "coste": 35.7,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW (SP)",
+    "imp": 10175,
+    "clics": 29,
+    "coste": 11.22,
+    "compras": 1,
+    "ventas": 437.19,
+    "roas": 38.97
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto (SP)",
+    "imp": 47163,
+    "clics": 525,
+    "coste": 199.32,
+    "compras": 21,
+    "ventas": 3667.33,
+    "roas": 18.4
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW (SP)",
+    "imp": 29849,
+    "clics": 356,
+    "coste": 141.1,
+    "compras": 2,
+    "ventas": 882.65,
+    "roas": 6.26
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Performance",
+    "imp": 13226,
+    "clics": 311,
+    "coste": 94.35,
+    "compras": 17,
+    "ventas": 980.2,
+    "roas": 10.39
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - KW de Marca",
+    "imp": 25310,
+    "clics": 119,
+    "coste": 120.05,
+    "compras": 10,
+    "ventas": 1311.82,
+    "roas": 10.93
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Auto (SP)",
+    "imp": 7738,
+    "clics": 89,
+    "coste": 32.29,
+    "compras": 2,
+    "ventas": 370.25,
+    "roas": 11.47
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Auto - Termo",
+    "imp": 40115,
+    "clics": 370,
+    "coste": 86.23,
+    "compras": 13,
+    "ventas": 2256.75,
+    "roas": 26.17
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Generic KW",
+    "imp": 16572,
+    "clics": 219,
+    "coste": 133.64,
+    "compras": 4,
+    "ventas": 985,
+    "roas": 7.37
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Generic KW",
+    "imp": 24035,
+    "clics": 404,
+    "coste": 190.38,
+    "compras": 8,
+    "ventas": 1412.57,
+    "roas": 7.42
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Generic KW (SP)",
+    "imp": 62674,
+    "clics": 670,
+    "coste": 209.89,
+    "compras": 3,
+    "ventas": 973.12,
+    "roas": 4.64
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Generic KW (SP)",
+    "imp": 51909,
+    "clics": 527,
+    "coste": 160.24,
+    "compras": 2,
+    "ventas": 841.3,
+    "roas": 5.25
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW (SP)",
+    "imp": 34311,
+    "clics": 254,
+    "coste": 104.3,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 11347,
+    "clics": 117,
+    "coste": 45.69,
+    "compras": 1,
+    "ventas": 130.28,
+    "roas": 2.85
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Generic KW",
+    "imp": 15760,
+    "clics": 273,
+    "coste": 166.6,
+    "compras": 6,
+    "ventas": 1800.15,
+    "roas": 10.81
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Inducción - Cross Selling - CPC",
+    "imp": 11,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto (SP)",
+    "imp": 134853,
+    "clics": 1817,
+    "coste": 699.84,
+    "compras": 23,
+    "ventas": 5343.26,
+    "roas": 7.63
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Auto (SP)",
+    "imp": 17973,
+    "clics": 151,
+    "coste": 23.39,
+    "compras": 3,
+    "ventas": 239.98,
+    "roas": 10.26
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavavajillas - Genéricas",
+    "imp": 28399,
+    "clics": 240,
+    "coste": 103.78,
+    "compras": 3,
+    "ventas": 767.67,
+    "roas": 7.4
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Competitor ASINs (SP)",
+    "imp": 287,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas + Frigorífico Combi + Microondas (Todos) - KW de Marca",
+    "imp": 33558,
+    "clics": 55,
+    "coste": 21.94,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Generic KW",
+    "imp": 7726,
+    "clics": 86,
+    "coste": 12.4,
+    "compras": 6,
+    "ventas": 1005.46,
+    "roas": 81.09
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Competitor ASINs",
+    "imp": 12839,
+    "clics": 123,
+    "coste": 23.54,
+    "compras": 4,
+    "ventas": 1091.05,
+    "roas": 46.35
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 1158,
+    "clics": 4,
+    "coste": 2.16,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Generic KW (SP)",
+    "imp": 12310,
+    "clics": 58,
+    "coste": 28.88,
+    "compras": 3,
+    "ventas": 539.51,
+    "roas": 18.68
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavadora Secadora - Genéricas",
+    "imp": 19009,
+    "clics": 175,
+    "coste": 84.84,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 662,
+    "clics": 3,
+    "coste": 1.99,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Auto (SP)",
+    "imp": 16006,
+    "clics": 83,
+    "coste": 29.21,
+    "compras": 3,
+    "ventas": 588.82,
+    "roas": 20.16
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Generic KW",
+    "imp": 32058,
+    "clics": 240,
+    "coste": 140.28,
+    "compras": 6,
+    "ventas": 1614,
+    "roas": 11.51
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Generic KW",
+    "imp": 22392,
+    "clics": 140,
+    "coste": 22.59,
+    "compras": 6,
+    "ventas": 688.95,
+    "roas": 30.5
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Auto (SP)",
+    "imp": 26297,
+    "clics": 165,
+    "coste": 57.4,
+    "compras": 2,
+    "ventas": 326.66,
+    "roas": 5.69
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Auto (SP)",
+    "imp": 4211,
+    "clics": 17,
+    "coste": 5.63,
+    "compras": 1,
+    "ventas": 217.31,
+    "roas": 38.6
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW",
+    "imp": 9570,
+    "clics": 85,
+    "coste": 55.28,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 1995,
+    "clics": 12,
+    "coste": 4.92,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Vitrocerámica - Genéricas",
+    "imp": 2401,
+    "clics": 29,
+    "coste": 16.5,
+    "compras": 2,
+    "ventas": 180.16,
+    "roas": 10.92
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto (SP)",
+    "imp": 25404,
+    "clics": 227,
+    "coste": 34.23,
+    "compras": 9,
+    "ventas": 2190.51,
+    "roas": 63.99
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Vitro - Auto",
+    "imp": 9792,
+    "clics": 61,
+    "coste": 17.59,
+    "compras": 2,
+    "ventas": 242.55,
+    "roas": 13.79
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placa Gas - Generic KW (SP)",
+    "imp": 517,
+    "clics": 5,
+    "coste": 2.21,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Competitor ASINs",
+    "imp": 376,
+    "clics": 1,
+    "coste": 0.2,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placa Gas - Generic KW (SP)",
+    "imp": 4445,
+    "clics": 26,
+    "coste": 9.9,
+    "compras": 2,
+    "ventas": 221.44,
+    "roas": 22.37
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Genéricas",
+    "imp": 7673,
+    "clics": 282,
+    "coste": 120.65,
+    "compras": 2,
+    "ventas": 649.58,
+    "roas": 5.38
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Generic KW (SP)",
+    "imp": 4994,
+    "clics": 42,
+    "coste": 16.02,
+    "compras": 4,
+    "ventas": 513.56,
+    "roas": 32.06
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador - Generic KW",
+    "imp": 2599,
+    "clics": 43,
+    "coste": 20.04,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Categoria",
+    "imp": 2853,
+    "clics": 91,
+    "coste": 40.12,
+    "compras": 1,
+    "ventas": 123.14,
+    "roas": 3.07
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Generic KW",
+    "imp": 72727,
+    "clics": 456,
+    "coste": 263.8,
+    "compras": 9,
+    "ventas": 2528.7,
+    "roas": 9.59
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Competitor ASINs",
+    "imp": 26,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Generic KW",
+    "imp": 4235,
+    "clics": 27,
+    "coste": 11.98,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Auto",
+    "imp": 22720,
+    "clics": 113,
+    "coste": 50.05,
+    "compras": 2,
+    "ventas": 277,
+    "roas": 5.53
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto",
+    "imp": 38989,
+    "clics": 91,
+    "coste": 59.78,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Genéricas",
+    "imp": 26637,
+    "clics": 222,
+    "coste": 175.26,
+    "compras": 9,
+    "ventas": 2434.78,
+    "roas": 13.89
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Generic KW",
+    "imp": 5675,
+    "clics": 121,
+    "coste": 80.03,
+    "compras": 3,
+    "ventas": 887,
+    "roas": 11.08
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Inducción - Genéricas",
+    "imp": 33702,
+    "clics": 315,
+    "coste": 100.78,
+    "compras": 4,
+    "ventas": 456.16,
+    "roas": 4.53
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 52717,
+    "clics": 412,
+    "coste": 152.05,
+    "compras": 11,
+    "ventas": 960.93,
+    "roas": 6.32
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Auto",
+    "imp": 8223,
+    "clics": 67,
+    "coste": 20.02,
+    "compras": 1,
+    "ventas": 99.99,
+    "roas": 4.99
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavadora Secadora - Genéricas",
+    "imp": 0,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Inox - Generic KW",
+    "imp": 6597,
+    "clics": 18,
+    "coste": 8.57,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Categoria",
+    "imp": 0,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling - CPC",
+    "imp": 5450,
+    "clics": 33,
+    "coste": 16.61,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placa Gas - Generic KW (SP)",
+    "imp": 35115,
+    "clics": 270,
+    "coste": 106.51,
+    "compras": 7,
+    "ventas": 504.24,
+    "roas": 4.73
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Gas - Genéricas",
+    "imp": 153800,
+    "clics": 783,
+    "coste": 148.32,
+    "compras": 27,
+    "ventas": 2873.97,
+    "roas": 19.38
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - Cross Selling",
+    "imp": 31526,
+    "clics": 682,
+    "coste": 296.4,
+    "compras": 37,
+    "ventas": 4171.23,
+    "roas": 14.07
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto (SP)",
+    "imp": 19235,
+    "clics": 157,
+    "coste": 24.42,
+    "compras": 5,
+    "ventas": 1278.53,
+    "roas": 52.36
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto (SP)",
+    "imp": 11016,
+    "clics": 113,
+    "coste": 17.44,
+    "compras": 3,
+    "ventas": 596.25,
+    "roas": 34.19
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Generic KW",
+    "imp": 4995,
+    "clics": 51,
+    "coste": 16.77,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Inox - Generic KW",
+    "imp": 1937,
+    "clics": 21,
+    "coste": 9.47,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Vitrocerámica - Genéricas",
+    "imp": 1853,
+    "clics": 37,
+    "coste": 20.33,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Mini Nevera - Auto",
+    "imp": 1798,
+    "clics": 30,
+    "coste": 5.02,
+    "compras": 1,
+    "ventas": 106.61,
+    "roas": 21.24
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Horno - Genéricas",
+    "imp": 391454,
+    "clics": 200,
+    "coste": 38.08,
+    "compras": 3,
+    "ventas": 487.07,
+    "roas": 12.79
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling",
+    "imp": 220,
+    "clics": 0,
+    "coste": 0.84,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Remarketing de Vistas",
+    "imp": 208433,
+    "clics": 1205,
+    "coste": 700.31,
+    "compras": 33,
+    "ventas": 3683.16,
+    "roas": 5.26
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Genéricas",
+    "imp": 3345,
+    "clics": 25,
+    "coste": 12.3,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Blanco - Generic KW",
+    "imp": 795,
+    "clics": 10,
+    "coste": 4.22,
+    "compras": 1,
+    "ventas": 279,
+    "roas": 66.11
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Auto",
+    "imp": 10881,
+    "clics": 98,
+    "coste": 63.3,
+    "compras": 1,
+    "ventas": 279,
+    "roas": 4.41
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Generic KW",
+    "imp": 101348,
+    "clics": 310,
+    "coste": 217.33,
+    "compras": 10,
+    "ventas": 4015.5,
+    "roas": 18.48
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Auto",
+    "imp": 5013,
+    "clics": 72,
+    "coste": 8.76,
+    "compras": 2,
+    "ventas": 411.57,
+    "roas": 46.98
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Cross Selling",
+    "imp": 249,
+    "clics": 1,
+    "coste": 0.89,
+    "compras": 1,
+    "ventas": 118,
+    "roas": 132.58
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Generic KW (SP)",
+    "imp": 75429,
+    "clics": 688,
+    "coste": 217.48,
+    "compras": 5,
+    "ventas": 1480.88,
+    "roas": 6.81
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Cross Selling",
+    "imp": 19139,
+    "clics": 85,
+    "coste": 66.26,
+    "compras": 20,
+    "ventas": 2837.59,
+    "roas": 42.83
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - Cross Selling",
+    "imp": 890,
+    "clics": 19,
+    "coste": 10.31,
+    "compras": 1,
+    "ventas": 311.56,
+    "roas": 30.22
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Auto",
+    "imp": 3555,
+    "clics": 22,
+    "coste": 8.58,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Frontal Blanco - Generic KW",
+    "imp": 1691,
+    "clics": 19,
+    "coste": 8.78,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Vitrocerámica - Cross Selling",
+    "imp": 8,
+    "clics": 0,
+    "coste": 0.03,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Competitor ASINs (SP)",
+    "imp": 176,
+    "clics": 2,
+    "coste": 0.26,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora Blanca - Generic KW",
+    "imp": 58,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Automática",
+    "imp": 21244,
+    "clics": 184,
+    "coste": 100.05,
+    "compras": 3,
+    "ventas": 1284.18,
+    "roas": 12.84
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Frigorífico - Genéricas",
+    "imp": 101140,
+    "clics": 417,
+    "coste": 199.6,
+    "compras": 3,
+    "ventas": 1416.91,
+    "roas": 7.1
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Frontal Blanco - Generic KW",
+    "imp": 74,
+    "clics": 3,
+    "coste": 1.38,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Generic KW",
+    "imp": 78,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Auto",
+    "imp": 20551,
+    "clics": 119,
+    "coste": 37.04,
+    "compras": 2,
+    "ventas": 194.98,
+    "roas": 5.26
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Generic KW",
+    "imp": 3129,
+    "clics": 32,
+    "coste": 11.96,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Horno - Genéricas",
+    "imp": 177608,
+    "clics": 202,
+    "coste": 39.65,
+    "compras": 4,
+    "ventas": 721.19,
+    "roas": 18.19
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Lavavajillas - Cross Selling",
+    "imp": 907,
+    "clics": 5,
+    "coste": 4.83,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Genéricas",
+    "imp": 8282,
+    "clics": 255,
+    "coste": 104.32,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavavajillas - Genéricas",
+    "imp": 4858,
+    "clics": 57,
+    "coste": 30.48,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Genéricas",
+    "imp": 2617,
+    "clics": 31,
+    "coste": 20.91,
+    "compras": 3,
+    "ventas": 490.48,
+    "roas": 23.46
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Frontal Blanco - Generic KW",
+    "imp": 1091,
+    "clics": 11,
+    "coste": 4.82,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Inducción - Cross Selling - CPC",
+    "imp": 15,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 21053,
+    "clics": 203,
+    "coste": 80.32,
+    "compras": 5,
+    "ventas": 651.41,
+    "roas": 8.11
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavadora Secadora - Genéricas",
+    "imp": 16185,
+    "clics": 144,
+    "coste": 70.41,
+    "compras": 1,
+    "ventas": 399.5,
+    "roas": 5.67
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Auto",
+    "imp": 4148,
+    "clics": 19,
+    "coste": 7.12,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Generic KW",
+    "imp": 12326,
+    "clics": 259,
+    "coste": 120.46,
+    "compras": 3,
+    "ventas": 658.69,
+    "roas": 5.47
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Auto",
+    "imp": 14938,
+    "clics": 80,
+    "coste": 35.69,
+    "compras": 5,
+    "ventas": 695,
+    "roas": 19.47
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Generic KW (SP)",
+    "imp": 15586,
+    "clics": 73,
+    "coste": 28.36,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Auto",
+    "imp": 10581,
+    "clics": 69,
+    "coste": 20.76,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CCH1824EX) - Competitor ASINs",
+    "imp": 1916,
+    "clics": 11,
+    "coste": 8.5,
+    "compras": 4,
+    "ventas": 1287.6,
+    "roas": 151.48
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Performance",
+    "imp": 2166,
+    "clics": 24,
+    "coste": 4.66,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Automática",
+    "imp": 60189,
+    "clics": 488,
+    "coste": 257.97,
+    "compras": 3,
+    "ventas": 751.85,
+    "roas": 2.91
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Auto (SP)",
+    "imp": 49327,
+    "clics": 463,
+    "coste": 75.78,
+    "compras": 11,
+    "ventas": 765.52,
+    "roas": 10.1
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Cocción - Cross Selling",
+    "imp": 159,
+    "clics": 0,
+    "coste": 0.68,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Mini Nevera - Auto",
+    "imp": 1859,
+    "clics": 20,
+    "coste": 3.5,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - KW de Marca",
+    "imp": 86939,
+    "clics": 443,
+    "coste": 343.96,
+    "compras": 30,
+    "ventas": 4332.9,
+    "roas": 12.6
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Horno - Genéricas",
+    "imp": 55524,
+    "clics": 28,
+    "coste": 3.05,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling - CPC",
+    "imp": 2484,
+    "clics": 13,
+    "coste": 6.69,
+    "compras": 1,
+    "ventas": 292.47,
+    "roas": 43.72
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Automática",
+    "imp": 56253,
+    "clics": 508,
+    "coste": 280.46,
+    "compras": 5,
+    "ventas": 1342.68,
+    "roas": 4.79
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Auto",
+    "imp": 18080,
+    "clics": 165,
+    "coste": 132.51,
+    "compras": 1,
+    "ventas": 419,
+    "roas": 3.16
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Generic KW",
+    "imp": 7759,
+    "clics": 66,
+    "coste": 39.81,
+    "compras": 2,
+    "ventas": 538,
+    "roas": 13.51
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Competitor ASINs (SP)",
+    "imp": 129,
+    "clics": 3,
+    "coste": 0.39,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador Vertical - Auto",
+    "imp": 22124,
+    "clics": 338,
+    "coste": 94.86,
+    "compras": 6,
+    "ventas": 2194.55,
+    "roas": 23.13
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Generic KW",
+    "imp": 34334,
+    "clics": 127,
+    "coste": 87.76,
+    "compras": 1,
+    "ventas": 425,
+    "roas": 4.84
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Mini Nevera - Auto",
+    "imp": 2856,
+    "clics": 26,
+    "coste": 5.16,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Genéricas",
+    "imp": 34144,
+    "clics": 268,
+    "coste": 201.87,
+    "compras": 6,
+    "ventas": 1602.74,
+    "roas": 7.94
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Cocción - Cross Selling",
+    "imp": 102,
+    "clics": 2,
+    "coste": 0.43,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Genéricas",
+    "imp": 26618,
+    "clics": 423,
+    "coste": 167.9,
+    "compras": 3,
+    "ventas": 619.15,
+    "roas": 3.69
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - Cross Selling",
+    "imp": 13275,
+    "clics": 272,
+    "coste": 121.05,
+    "compras": 27,
+    "ventas": 2345.6,
+    "roas": 19.38
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling - CPC",
+    "imp": 1092,
+    "clics": 10,
+    "coste": 4.91,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Generic KW",
+    "imp": 2876,
+    "clics": 36,
+    "coste": 5.47,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 5007,
+    "clics": 68,
+    "coste": 27.13,
+    "compras": 2,
+    "ventas": 348,
+    "roas": 12.83
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Mini - Auto",
+    "imp": 20,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW",
+    "imp": 39886,
+    "clics": 370,
+    "coste": 229.63,
+    "compras": 3,
+    "ventas": 1620.6,
+    "roas": 7.06
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Categoria",
+    "imp": 2729,
+    "clics": 61,
+    "coste": 29.66,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Frigorífico - Genéricas",
+    "imp": 11273,
+    "clics": 115,
+    "coste": 59.32,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavavajillas - Genéricas",
+    "imp": 22797,
+    "clics": 215,
+    "coste": 105.2,
+    "compras": 5,
+    "ventas": 1160.53,
+    "roas": 11.03
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Auto",
+    "imp": 4644,
+    "clics": 33,
+    "coste": 20.49,
+    "compras": 1,
+    "ventas": 289,
+    "roas": 14.1
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CF2PV21324W) - Competitor ASINs",
+    "imp": 83,
+    "clics": 0,
+    "coste": 0.2,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Auto (SP)",
+    "imp": 13453,
+    "clics": 98,
+    "coste": 16.02,
+    "compras": 3,
+    "ventas": 138.57,
+    "roas": 8.65
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Lavavajillas - Cross Selling",
+    "imp": 821,
+    "clics": 4,
+    "coste": 2.82,
+    "compras": 3,
+    "ventas": 800.23,
+    "roas": 283.77
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Auto",
+    "imp": 2555,
+    "clics": 50,
+    "coste": 6.03,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Remarketing de Vistas",
+    "imp": 50183,
+    "clics": 275,
+    "coste": 160.2,
+    "compras": 12,
+    "ventas": 1455.89,
+    "roas": 9.09
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas + Frigorífico Combi + Microondas (Todos) - KW de Marca",
+    "imp": 4266,
+    "clics": 1,
+    "coste": 0.34,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CCH1824EX) - Competitor ASINs",
+    "imp": 105,
+    "clics": 1,
+    "coste": 0.41,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Auto",
+    "imp": 973,
+    "clics": 14,
+    "coste": 1.7,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Auto",
+    "imp": 14981,
+    "clics": 115,
+    "coste": 70.16,
+    "compras": 1,
+    "ventas": 289,
+    "roas": 4.12
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Generic KW",
+    "imp": 4145,
+    "clics": 22,
+    "coste": 10.52,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas + Frigorífico Combi + Microondas (Todos) - KW de Marca",
+    "imp": 119020,
+    "clics": 159,
+    "coste": 69.97,
+    "compras": 5,
+    "ventas": 576.66,
+    "roas": 8.24
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Competitor ASINs",
+    "imp": 20,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 477,
+    "clics": 6,
+    "coste": 2.55,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Lavavajillas - Genéricas",
+    "imp": 22119,
+    "clics": 12,
+    "coste": 2.38,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Mini Nevera - Auto",
+    "imp": 140,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Vitrocerámica - Cross Selling",
+    "imp": 12,
+    "clics": 0,
+    "coste": 0.08,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Combi - Automática",
+    "imp": 14189,
+    "clics": 113,
+    "coste": 63.83,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frío - Cross Selling",
+    "imp": 3400,
+    "clics": 9,
+    "coste": 10.69,
+    "compras": 1,
+    "ventas": 185.75,
+    "roas": 17.38
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Genéricas",
+    "imp": 4057,
+    "clics": 31,
+    "coste": 15.55,
+    "compras": 1,
+    "ventas": 238.84,
+    "roas": 15.36
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Genéricas",
+    "imp": 3683,
+    "clics": 38,
+    "coste": 26.17,
+    "compras": 4,
+    "ventas": 492.89,
+    "roas": 18.83
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Generic KW",
+    "imp": 20671,
+    "clics": 67,
+    "coste": 40.34,
+    "compras": 3,
+    "ventas": 1008.55,
+    "roas": 25
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Generic KW",
+    "imp": 12223,
+    "clics": 54,
+    "coste": 40.29,
+    "compras": 1,
+    "ventas": 425,
+    "roas": 10.55
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Gas - Genéricas",
+    "imp": 69450,
+    "clics": 182,
+    "coste": 33.6,
+    "compras": 2,
+    "ventas": 228.09,
+    "roas": 6.79
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW",
+    "imp": 25065,
+    "clics": 229,
+    "coste": 143.12,
+    "compras": 2,
+    "ventas": 1168,
+    "roas": 8.16
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Inox - Generic KW",
+    "imp": 1125,
+    "clics": 7,
+    "coste": 3.48,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Genéricas",
+    "imp": 2096,
+    "clics": 21,
+    "coste": 14.16,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Remarketing de Vistas",
+    "imp": 6297,
+    "clics": 17,
+    "coste": 21.42,
+    "compras": 1,
+    "ventas": 90.08,
+    "roas": 4.21
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Auto - Termo",
+    "imp": 9618,
+    "clics": 65,
+    "coste": 15.74,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Cocción - Cross Selling",
+    "imp": 11,
+    "clics": 0,
+    "coste": 0.05,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CCH1824EX) - Competitor ASINs",
+    "imp": 653,
+    "clics": 6,
+    "coste": 3.13,
+    "compras": 1,
+    "ventas": 369,
+    "roas": 117.89
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto",
+    "imp": 41243,
+    "clics": 379,
+    "coste": 129.78,
+    "compras": 3,
+    "ventas": 977,
+    "roas": 7.53
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Cocción - Cross Selling",
+    "imp": 50,
+    "clics": 0,
+    "coste": 0.19,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Blanco - Generic KW",
+    "imp": 727,
+    "clics": 14,
+    "coste": 6.11,
+    "compras": 1,
+    "ventas": 279,
+    "roas": 45.66
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Genéricas",
+    "imp": 30363,
+    "clics": 315,
+    "coste": 158.61,
+    "compras": 9,
+    "ventas": 2292.83,
+    "roas": 14.46
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Auto",
+    "imp": 4862,
+    "clics": 72,
+    "coste": 8.79,
+    "compras": 2,
+    "ventas": 383.62,
+    "roas": 43.64
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - KW de Marca",
+    "imp": 1084,
+    "clics": 6,
+    "coste": 4.04,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Auto",
+    "imp": 5566,
+    "clics": 20,
+    "coste": 6.35,
+    "compras": 1,
+    "ventas": 99.99,
+    "roas": 15.75
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Vitro - Genéricas",
+    "imp": 28321,
+    "clics": 37,
+    "coste": 11.83,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Blanco - Generic KW",
+    "imp": 473,
+    "clics": 3,
+    "coste": 1.25,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto (SP)",
+    "imp": 127811,
+    "clics": 1599,
+    "coste": 617.48,
+    "compras": 27,
+    "ventas": 4982.03,
+    "roas": 8.07
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora Blanca - Generic KW",
+    "imp": 21,
+    "clics": 2,
+    "coste": 1.1,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Generic KW",
+    "imp": 2118,
+    "clics": 17,
+    "coste": 8.04,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Gas - Genéricas",
+    "imp": 13165,
+    "clics": 23,
+    "coste": 2.79,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Generic KW",
+    "imp": 8529,
+    "clics": 37,
+    "coste": 25.29,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Genéricas",
+    "imp": 29425,
+    "clics": 215,
+    "coste": 108.53,
+    "compras": 4,
+    "ventas": 999.02,
+    "roas": 9.21
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Lavavajillas - Cross Selling",
+    "imp": 1501,
+    "clics": 10,
+    "coste": 7.7,
+    "compras": 5,
+    "ventas": 1505.63,
+    "roas": 195.54
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Inducción - Genéricas",
+    "imp": 13882,
+    "clics": 98,
+    "coste": 26.27,
+    "compras": 2,
+    "ventas": 318,
+    "roas": 12.11
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 11411,
+    "clics": 111,
+    "coste": 40.27,
+    "compras": 5,
+    "ventas": 503,
+    "roas": 12.49
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Blanco - Generic KW",
+    "imp": 364,
+    "clics": 3,
+    "coste": 1.18,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 1558,
+    "clics": 30,
+    "coste": 11.65,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Arcon - Auto",
+    "imp": 805,
+    "clics": 14,
+    "coste": 5.65,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Todos - KW de Marca",
+    "imp": 70330,
+    "clics": 425,
+    "coste": 360.79,
+    "compras": 28,
+    "ventas": 3527.61,
+    "roas": 9.78
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Horno - Genéricas",
+    "imp": 27427,
+    "clics": 38,
+    "coste": 8.17,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Todos - Cross Selling",
+    "imp": 11278,
+    "clics": 35,
+    "coste": 42.8,
+    "compras": 11,
+    "ventas": 1545.4,
+    "roas": 36.11
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Generic KW",
+    "imp": 3181,
+    "clics": 26,
+    "coste": 4.29,
+    "compras": 1,
+    "ventas": 89.99,
+    "roas": 20.98
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Auto",
+    "imp": 9774,
+    "clics": 88,
+    "coste": 40.42,
+    "compras": 1,
+    "ventas": 139,
+    "roas": 3.44
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador Vertical - Auto",
+    "imp": 15561,
+    "clics": 356,
+    "coste": 100.84,
+    "compras": 3,
+    "ventas": 1227,
+    "roas": 12.17
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Generic KW",
+    "imp": 18795,
+    "clics": 385,
+    "coste": 174.63,
+    "compras": 6,
+    "ventas": 1192.79,
+    "roas": 6.83
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto",
+    "imp": 147777,
+    "clics": 1437,
+    "coste": 508.86,
+    "compras": 19,
+    "ventas": 6112,
+    "roas": 12.01
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Gas - Generic KW",
+    "imp": 6135,
+    "clics": 66,
+    "coste": 11.43,
+    "compras": 1,
+    "ventas": 99.99,
+    "roas": 8.75
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Generic KW",
+    "imp": 1913,
+    "clics": 24,
+    "coste": 3.32,
+    "compras": 1,
+    "ventas": 76,
+    "roas": 22.89
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Competitor ASINs (SP)",
+    "imp": 841,
+    "clics": 21,
+    "coste": 3.06,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Inducción - Genéricas",
+    "imp": 43596,
+    "clics": 357,
+    "coste": 105.16,
+    "compras": 8,
+    "ventas": 893.03,
+    "roas": 8.49
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Genéricas",
+    "imp": 10598,
+    "clics": 62,
+    "coste": 50.23,
+    "compras": 1,
+    "ventas": 329.75,
+    "roas": 6.56
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto (SP)",
+    "imp": 27243,
+    "clics": 326,
+    "coste": 132,
+    "compras": 2,
+    "ventas": 399.08,
+    "roas": 3.02
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 7760,
+    "clics": 49,
+    "coste": 17.3,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Horno - Generic KW (SP)",
+    "imp": 2493,
+    "clics": 10,
+    "coste": 5.69,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora Blanca - Generic KW",
+    "imp": 1,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador Vertical - Auto",
+    "imp": 3394,
+    "clics": 64,
+    "coste": 16.87,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico - Auto",
+    "imp": 55981,
+    "clics": 576,
+    "coste": 200.85,
+    "compras": 6,
+    "ventas": 1854,
+    "roas": 9.23
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Auto",
+    "imp": 4137,
+    "clics": 20,
+    "coste": 7.81,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Vitro - Genéricas",
+    "imp": 31907,
+    "clics": 58,
+    "coste": 13.81,
+    "compras": 2,
+    "ventas": 305.08,
+    "roas": 22.09
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Vitrocerámica - Cross Selling",
+    "imp": 1,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Inducción - Cross Selling - CPC",
+    "imp": 1,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Auto",
+    "imp": 5010,
+    "clics": 34,
+    "coste": 20.59,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W42",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Vitro - Auto",
+    "imp": 2509,
+    "clics": 5,
+    "coste": 1.46,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Genéricas",
+    "imp": 16073,
+    "clics": 144,
+    "coste": 100.81,
+    "compras": 7,
+    "ventas": 1680.17,
+    "roas": 16.67
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Vitro - Genéricas",
+    "imp": 5598,
+    "clics": 4,
+    "coste": 1.76,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Auto (SP)",
+    "imp": 5900,
+    "clics": 14,
+    "coste": 2.83,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Congelador Vertical - Auto",
+    "imp": 12207,
+    "clics": 140,
+    "coste": 39.16,
+    "compras": 1,
+    "ventas": 299,
+    "roas": 7.64
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Generic KW",
+    "imp": 984,
+    "clics": 9,
+    "coste": 3.08,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas Inox - Generic KW",
+    "imp": 4,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Cocina de Gas - Generic KW",
+    "imp": 5379,
+    "clics": 93,
+    "coste": 42.53,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Carga Superior - Generic KW",
+    "imp": 101,
+    "clics": 1,
+    "coste": 0.26,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora Secadora - Generic KW",
+    "imp": 1490,
+    "clics": 10,
+    "coste": 4.77,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Brands",
+    "camp": "SB - Placas Inducción - Genéricas",
+    "imp": 8352,
+    "clics": 83,
+    "coste": 26.37,
+    "compras": 1,
+    "ventas": 90.08,
+    "roas": 3.42
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavavajillas - Generic KW",
+    "imp": 2870,
+    "clics": 45,
+    "coste": 28.09,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W41",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Generic KW",
+    "imp": 0,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Placas de Vitrocerámica - Cross Selling",
+    "imp": 143,
+    "clics": 1,
+    "coste": 0.23,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Frigorífico Combi (CCH1824EX) - Competitor ASINs",
+    "imp": 33,
+    "clics": 2,
+    "coste": 0.16,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Display",
+    "camp": "SD - Lavavajillas - Cross Selling",
+    "imp": 181,
+    "clics": 1,
+    "coste": 1.29,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Campana - Auto",
+    "imp": 727,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Microondas - Performance",
+    "imp": 3982,
+    "clics": 66,
+    "coste": 21.43,
+    "compras": 5,
+    "ventas": 231.53,
+    "roas": 10.8
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Lavadora - Competitor ASINs",
+    "imp": 1744,
+    "clics": 18,
+    "coste": 3.4,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Placas Inducción - Genéricas",
+    "imp": 5,
+    "clics": 0,
+    "coste": 0,
+    "compras": 0,
+    "ventas": 0,
+    "roas": null
+   },
+   {
+    "sem": "2026-W40",
+    "canal": "Seller",
+    "prod": "Sponsored Products",
+    "camp": "SP - Frigorífico Americano - Generic KW",
+    "imp": 14,
+    "clics": 1,
+    "coste": 0.47,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   },
+   {
+    "sem": "2026-W43",
+    "canal": "Vendor",
+    "prod": "Sponsored Products",
+    "camp": "SP - Secadora - Genéricas",
+    "imp": 2853,
+    "clics": 77,
+    "coste": 29.92,
+    "compras": 0,
+    "ventas": 0,
+    "roas": 0
+   }
+  ]
+ },
+ "ventas": {
+  "semanas": [
+   {
+    "sem": "2026-W40",
+    "uds": 1205,
+    "fact": 172765.58,
+    "refs": 144,
+    "medicion": "Medida"
+   },
+   {
+    "sem": "2026-W41",
+    "uds": 1577,
+    "fact": 198067.99,
+    "refs": 142,
+    "medicion": "Medida"
+   },
+   {
+    "sem": "2026-W42",
+    "uds": 0,
+    "fact": 0,
+    "refs": 0,
+    "medicion": "Medida"
+   }
+  ],
+  "comparadas": [
+   "2026-W40",
+   "2026-W41"
+  ],
+  "desviaciones": [
+   {
+    "asin": "B0CKBRK2L4",
+    "modelo": "CCVG3BL573",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 361,
+    "dif": 361,
+    "factA": 0,
+    "factB": 24958.74,
+    "prio": null
+   },
+   {
+    "asin": "B09XDZHW6T",
+    "modelo": "CMICM4020W",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 161,
+    "dif": 161,
+    "factA": 0,
+    "factB": 5152,
+    "prio": null
+   },
+   {
+    "asin": "B0FV92JG1P",
+    "modelo": "CCVG35BF",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 144,
+    "udsB": 0,
+    "dif": -144,
+    "factA": 9936,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0H298K6PD",
+    "modelo": "CMICM250W",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 120,
+    "udsB": 0,
+    "dif": -120,
+    "factA": 3840,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0B1JPGHS3",
+    "modelo": "CCHM15022E",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 80,
+    "dif": 80,
+    "factA": 0,
+    "factB": 8347.11,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKPYYD9",
+    "modelo": "CCIM3720W",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 43,
+    "udsA": 1,
+    "udsB": 64,
+    "dif": 63,
+    "factA": 219,
+    "factB": 5897.99,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPPQJ25",
+    "modelo": "CCVH824W",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 119,
+    "udsA": 61,
+    "udsB": 0,
+    "dif": -61,
+    "factA": 6828.68,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GY9QCK39",
+    "modelo": "CPG406N",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 60,
+    "dif": 57,
+    "factA": 264,
+    "factB": 4100.7,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FC2PJVL3",
+    "modelo": "CFSBSH735NWD",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 57,
+    "udsB": 0,
+    "dif": -57,
+    "factA": 19930.17,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GHNWWZ34",
+    "modelo": "CCIM3662",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 97,
+    "udsA": 41,
+    "udsB": 0,
+    "dif": -41,
+    "factA": 3959.51,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B08C4X8KXQ",
+    "modelo": "CCSF45020BW",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 33,
+    "udsA": 39,
+    "udsB": 0,
+    "dif": -39,
+    "factA": 6045,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GY9HCMFZ",
+    "modelo": "CCH326DW",
+    "fam": "COMBI 185X60",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 32,
+    "dif": 32,
+    "factA": 0,
+    "factB": 9331.74,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPRLM41",
+    "modelo": "CCVH18524NFW",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 32,
+    "dif": 32,
+    "factA": 0,
+    "factB": 10512.31,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DZ2R5LX2",
+    "modelo": "VICTORIA400FNB",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 30,
+    "dif": 30,
+    "factA": 0,
+    "factB": 1627.11,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPXJ2YN",
+    "modelo": "CCH324EX",
+    "fam": "COMBI 185X60",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 593,
+    "udsA": 11,
+    "udsB": 39,
+    "dif": 28,
+    "factA": 3354.55,
+    "factB": 10931.49,
+    "prio": "AMAZON&CONFORAMA"
+   },
+   {
+    "asin": "B0GY9JB3WM",
+    "modelo": "CPG306N",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 97,
+    "udsA": 28,
+    "udsB": 1,
+    "dif": -27,
+    "factA": 2029.3,
+    "factB": 90,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FCYGRCXL",
+    "modelo": "CCIG373FLEX",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 85,
+    "udsA": 27,
+    "udsB": 0,
+    "dif": -27,
+    "factA": 3087.23,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B096BBLQVF",
+    "modelo": "CCH1821EW",
+    "fam": "COMBI 180X55",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 25,
+    "dif": 25,
+    "factA": 0,
+    "factB": 5925,
+    "prio": null
+   },
+   {
+    "asin": "B09BCLWWM3",
+    "modelo": "CF2PH14321X",
+    "fam": "FRIGORIFICO 2 PUERTAS ESTATICO",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 23,
+    "dif": 23,
+    "factA": 0,
+    "factB": 3994.88,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0F9WZVWC1",
+    "modelo": "CTMBA100",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 22,
+    "dif": 22,
+    "factA": 0,
+    "factB": 2825.12,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPWXZ26",
+    "modelo": "CTMVD15CM",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 22,
+    "dif": 22,
+    "factA": 0,
+    "factB": 2024,
+    "prio": null
+   },
+   {
+    "asin": "B0DFMGPKZC",
+    "modelo": "CLH7BL1224",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 22,
+    "dif": 22,
+    "factA": 0,
+    "factB": 4419.71,
+    "prio": null
+   },
+   {
+    "asin": "B0DHVFJZSK",
+    "modelo": "SIROS9100",
+    "fam": "CAMPANA ISLA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 21,
+    "udsB": 1,
+    "dif": -20,
+    "factA": 4524.1,
+    "factB": 329.75,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKV42DZ",
+    "modelo": "NANGA675XB",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 19,
+    "dif": 19,
+    "factA": 0,
+    "factB": 864.31,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08P4YP7SX",
+    "modelo": "CCSF45020BX",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 2,
+    "udsB": 21,
+    "dif": 19,
+    "factA": 477.69,
+    "factB": 3255,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C828CLLC",
+    "modelo": "CCHMP1023N",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 204,
+    "udsA": 20,
+    "udsB": 1,
+    "dif": -19,
+    "factA": 3610,
+    "factB": 160,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPTH6ZP",
+    "modelo": "CCH18024X",
+    "fam": "COMBI 180X55",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 308,
+    "udsA": 19,
+    "udsB": 0,
+    "dif": -19,
+    "factA": 4503,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8Z1GZ6",
+    "modelo": "CCHM1006M",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 379,
+    "udsA": 18,
+    "udsB": 0,
+    "dif": -18,
+    "factA": 2100.83,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B099S59MLV",
+    "modelo": "CF2PH14321W",
+    "fam": "FRIGORIFICO 2 PUERTAS ESTATICO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 2108,
+    "udsA": 18,
+    "udsB": 0,
+    "dif": -18,
+    "factA": 2984.96,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0FD3ZHBYW",
+    "modelo": "CCIG236DI",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 17,
+    "dif": 17,
+    "factA": 0,
+    "factB": 1071,
+    "prio": null
+   },
+   {
+    "asin": "B0F9X21YP3",
+    "modelo": "CTMBA80",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 17,
+    "udsB": 0,
+    "dif": -17,
+    "factA": 1564,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0FV912GV7",
+    "modelo": "CSBCM1050W",
+    "fam": "SECADORA BOMBA DE CALOR",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 17,
+    "udsB": 0,
+    "dif": -17,
+    "factA": 5593,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C7W7FC5H",
+    "modelo": "CCVH17023NFX",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 83,
+    "udsA": 16,
+    "udsB": 0,
+    "dif": -16,
+    "factA": 5408.26,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CGZVX4K8",
+    "modelo": "CFMMB430BLGL",
+    "fam": "MINI BAR",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 16,
+    "dif": 16,
+    "factA": 0,
+    "factB": 1424,
+    "prio": null
+   },
+   {
+    "asin": "B0CP9FPQ35",
+    "modelo": "SELATI640X",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 95,
+    "udsA": 20,
+    "udsB": 5,
+    "dif": -15,
+    "factA": 1094.96,
+    "factB": 280.54,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPY3WBF",
+    "modelo": "CTMA50H",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 15,
+    "udsB": 0,
+    "dif": -15,
+    "factA": 1230,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0FV8ZW5TC",
+    "modelo": "CFHMB41N",
+    "fam": "MINI BAR",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 15,
+    "udsB": 0,
+    "dif": -15,
+    "factA": 1334.75,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPVFM48",
+    "modelo": "CCH1824EX",
+    "fam": "COMBI 180X55",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 14,
+    "dif": 14,
+    "factA": 0,
+    "factB": 3188.02,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GTWTSBMR",
+    "modelo": "CCHM3006M",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 132,
+    "udsA": 14,
+    "udsB": 0,
+    "dif": -14,
+    "factA": 2882.21,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0H2B9MW14",
+    "modelo": "Placa Vitro Excl.2026",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 13,
+    "dif": 13,
+    "factA": 0,
+    "factB": 1101.08,
+    "prio": null
+   },
+   {
+    "asin": "B0GWMKCBLL",
+    "modelo": "VINSON636W",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 14,
+    "udsA": 3,
+    "udsB": 15,
+    "dif": 12,
+    "factA": 195.87,
+    "factB": 816.69,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B07SJ6SMYW",
+    "modelo": "CPGXY6059X",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 12,
+    "dif": 12,
+    "factA": 0,
+    "factB": 775.02,
+    "prio": null
+   },
+   {
+    "asin": "B0FKGN1HC6",
+    "modelo": "CCIG5F800FZ",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 12,
+    "dif": 12,
+    "factA": 0,
+    "factB": 3348,
+    "prio": null
+   },
+   {
+    "asin": "B08H8FSFPV",
+    "modelo": "CSM320W",
+    "fam": "SECADORA EVACUACION",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 200,
+    "udsA": 12,
+    "udsB": 0,
+    "dif": -12,
+    "factA": 2064,
+    "factB": 0,
+    "prio": "AMAZON&CONFORAMA"
+   },
+   {
+    "asin": "B0GZWQCCPZ",
+    "modelo": "IVORI626X",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 98,
+    "udsA": 6,
+    "udsB": 17,
+    "dif": 11,
+    "factA": 297.47,
+    "factB": 761.35,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKV9SCL",
+    "modelo": "VICTORIA960B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 0,
+    "udsB": 11,
+    "dif": 11,
+    "factA": 0,
+    "factB": 1297.93,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FCYLKMPQ",
+    "modelo": "CCIG205D",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 11,
+    "udsB": 0,
+    "dif": -11,
+    "factA": 693,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DFMJNBKH",
+    "modelo": "CCHM418W",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 11,
+    "dif": 11,
+    "factA": 0,
+    "factB": 2475.02,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C89MPNR4",
+    "modelo": "CF4PH5830NFXINV",
+    "fam": "FRIGORIFICO 4 PUERTAS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 11,
+    "dif": 11,
+    "factA": 0,
+    "factB": 4710.88,
+    "prio": null
+   },
+   {
+    "asin": "B0CNT19S5H",
+    "modelo": "CSBCH950W",
+    "fam": "SECADORA BOMBA DE CALOR",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 11,
+    "dif": 11,
+    "factA": 0,
+    "factB": 3673.97,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPWL6TK",
+    "modelo": "CCH324EW",
+    "fam": "COMBI 185X60",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 88,
+    "udsA": 10,
+    "udsB": 0,
+    "dif": -10,
+    "factA": 2884.3,
+    "factB": 0,
+    "prio": "AMAZON&CONFORAMA"
+   },
+   {
+    "asin": "B0DDPWDRN5",
+    "modelo": "CF1PM8024",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 885,
+    "udsA": 10,
+    "udsB": 0,
+    "dif": -10,
+    "factA": 1144.09,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKZRDJH",
+    "modelo": "CLVM4524W",
+    "fam": "LAVAVAJILLAS 45 CM",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 10,
+    "dif": 10,
+    "factA": 0,
+    "factB": 2388.43,
+    "prio": null
+   },
+   {
+    "asin": "B0FJS2266F",
+    "modelo": "CLVM7725W",
+    "fam": "LAVAVAJILLAS 60 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 335,
+    "udsA": 0,
+    "udsB": 10,
+    "dif": 10,
+    "factA": 0,
+    "factB": 2759.75,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9JWV58",
+    "modelo": "KURAMATHI760X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 98,
+    "udsA": 9,
+    "udsB": 0,
+    "dif": -9,
+    "factA": 799.83,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GHZ9565R",
+    "modelo": "TEIDE636N",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 67,
+    "udsA": 9,
+    "udsB": 0,
+    "dif": -9,
+    "factA": 565.29,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C82CWGM7",
+    "modelo": "CCHMD803N",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 9,
+    "dif": 9,
+    "factA": 0,
+    "factB": 1170,
+    "prio": null
+   },
+   {
+    "asin": "B0C86P1J5L",
+    "modelo": "CPGS423X",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 9,
+    "udsB": 0,
+    "dif": -9,
+    "factA": 567,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPWN6WP",
+    "modelo": "CCH1824EW",
+    "fam": "COMBI 180X55",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 0,
+    "udsA": 9,
+    "udsB": 0,
+    "dif": -9,
+    "factA": 2157.02,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0BZWLVH8K",
+    "modelo": "CF1PH8554X",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 227,
+    "udsA": 0,
+    "udsB": 9,
+    "dif": 9,
+    "factA": 0,
+    "factB": 1331.4,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GYZ7K57H",
+    "modelo": "CLVG91536",
+    "fam": "LAVAVAJILLAS 60 CM",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 9,
+    "dif": 9,
+    "factA": 0,
+    "factB": 2078.33,
+    "prio": null
+   },
+   {
+    "asin": "B0CP9Q2ZTY",
+    "modelo": "VICTORIA760B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 10,
+    "udsB": 2,
+    "dif": -8,
+    "factA": 1120.67,
+    "factB": 279.34,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9L5ZBF",
+    "modelo": "VOSTOK760X",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 8,
+    "udsB": 0,
+    "dif": -8,
+    "factA": 756,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KL87X",
+    "modelo": "KURAMATHI660W",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 8,
+    "udsB": 0,
+    "dif": -8,
+    "factA": 600,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09CG942G5",
+    "modelo": "CMICIG220",
+    "fam": "MICROONDAS INTEGRABLE",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 8,
+    "dif": 8,
+    "factA": 0,
+    "factB": 736,
+    "prio": null
+   },
+   {
+    "asin": "B0G614VG17",
+    "modelo": "CTM50ENV",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 9,
+    "udsB": 1,
+    "dif": -8,
+    "factA": 891,
+    "factB": 185.95,
+    "prio": null
+   },
+   {
+    "asin": "B0GSHDKV32",
+    "modelo": "CLH7406ME",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 206,
+    "udsA": 8,
+    "udsB": 0,
+    "dif": -8,
+    "factA": 1576.57,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FD3K3175",
+    "modelo": "CLM1225VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 8,
+    "dif": 8,
+    "factA": 0,
+    "factB": 1878.02,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKYC4JV",
+    "modelo": "CLT604VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 8,
+    "dif": 8,
+    "factA": 0,
+    "factB": 2439.67,
+    "prio": null
+   },
+   {
+    "asin": "B0GXC46Y85",
+    "modelo": "CLVG656X",
+    "fam": "LAVAVAJILLAS 60 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 185,
+    "udsA": 2,
+    "udsB": 10,
+    "dif": 8,
+    "factA": 446.11,
+    "factB": 2129.35,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B00ZCI084I",
+    "modelo": "CSVE710W",
+    "fam": "SECADORA EVACUACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 8,
+    "dif": 8,
+    "factA": 0,
+    "factB": 1376,
+    "prio": null
+   },
+   {
+    "asin": "B0GZWPTN7L",
+    "modelo": "IVORI626W",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 10,
+    "dif": 7,
+    "factA": 138.16,
+    "factB": 478.43,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KLQSH",
+    "modelo": "KURAMATHI760B",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 680.53,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9JLM1F",
+    "modelo": "KURAMATHI960B",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 8,
+    "dif": 7,
+    "factA": 85,
+    "factB": 666.61,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GWMS3K9P",
+    "modelo": "VINSON636X",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 385.5,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C86MZCHQ",
+    "modelo": "CPCGY2313W",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 553,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0HKS7MFMV",
+    "modelo": "CCIM974EXTRA",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 10,
+    "udsB": 3,
+    "dif": -7,
+    "factA": 2290,
+    "factB": 366.94,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FD3X21TS",
+    "modelo": "CCVG205D",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 98,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 404.9,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0G5ZTLXJ5",
+    "modelo": "CTWBMEC30",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 606.08,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0DH8NBLZD",
+    "modelo": "CLVM403W",
+    "fam": "LAVAVAJILLAS 45 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 1335,
+    "udsA": 7,
+    "udsB": 0,
+    "dif": -7,
+    "factA": 1614.05,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9L1KGY",
+    "modelo": "VOSTOK960B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 72,
+    "udsA": 0,
+    "udsB": 6,
+    "dif": 6,
+    "factA": 0,
+    "factB": 567,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GZQDPYPQ",
+    "modelo": "CAMPANA_TELESCOPICA_VINSON",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 6,
+    "dif": 6,
+    "factA": 0,
+    "factB": 540,
+    "prio": null
+   },
+   {
+    "asin": "B07KPJRC1Q",
+    "modelo": "CMICG25DC",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 6,
+    "dif": 6,
+    "factA": 0,
+    "factB": 234,
+    "prio": null
+   },
+   {
+    "asin": "B09XDY8MJ8",
+    "modelo": "CMICM6020GX",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 6,
+    "udsB": 0,
+    "dif": -6,
+    "factA": 300,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09XDY915P",
+    "modelo": "CMICM7020MIR",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 6,
+    "dif": 6,
+    "factA": 0,
+    "factB": 300,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0G5ZV8VM9",
+    "modelo": "CTM100ENV",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 8,
+    "udsB": 2,
+    "dif": -6,
+    "factA": 1032,
+    "factB": 487.6,
+    "prio": null
+   },
+   {
+    "asin": "B0C866SZXZ",
+    "modelo": "CCLH17023W",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 33,
+    "udsA": 6,
+    "udsB": 0,
+    "dif": -6,
+    "factA": 1978.51,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GSW5SJDR",
+    "modelo": "CLH9406ME",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 298,
+    "udsA": 6,
+    "udsB": 0,
+    "dif": -6,
+    "factA": 1434.54,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FHQLSPQ5",
+    "modelo": "CLT120514VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 143,
+    "udsA": 6,
+    "udsB": 0,
+    "dif": -6,
+    "factA": 1829.75,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0DH8LPTK8",
+    "modelo": "CLVM403X",
+    "fam": "LAVAVAJILLAS 45 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 1155,
+    "udsA": 5,
+    "udsB": 11,
+    "dif": 6,
+    "factA": 1194.21,
+    "factB": 2536.36,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKWRRW7",
+    "modelo": "NEMRUT675X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 74,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 532.81,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9H32CB",
+    "modelo": "TEIDE635X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 545,
+    "prio": null
+   },
+   {
+    "asin": "B08DDFX68F",
+    "modelo": "CCSF45020NW",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 183,
+    "udsA": 6,
+    "udsB": 1,
+    "dif": -5,
+    "factA": 1284.3,
+    "factB": 238.84,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DKT8RRLR",
+    "modelo": "14f6c657-039c-4f8b-84cf-004435084769",
+    "fam": "HORNOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 82.64,
+    "prio": null
+   },
+   {
+    "asin": "B0GJT6251L",
+    "modelo": "CMICW8023DF",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 350,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H36JQWZM",
+    "modelo": "Micro Color Series",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 350,
+    "prio": null
+   },
+   {
+    "asin": "B0GZWN1BQ1",
+    "modelo": "CCH185206NFW",
+    "fam": "COMBI 185X60",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 208,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 1591.87,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0DHGSCGT7",
+    "modelo": "CCHM521W",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 44,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 2148.76,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0BG632RXP",
+    "modelo": "CCHSF459W",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 2148.76,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPV716D",
+    "modelo": "CF1PH854W",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 1459,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 739.67,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C86SLDYC",
+    "modelo": "CFSBSH830NFXICE",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 41,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 2376.2,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CKBZQZ1H",
+    "modelo": "CLT8BL1423",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 5,
+    "dif": 5,
+    "factA": 0,
+    "factB": 1230.27,
+    "prio": null
+   },
+   {
+    "asin": "B0C7VMPPKV",
+    "modelo": "CLSH85VIN",
+    "fam": "LAVASECADORA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 31,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 1329.75,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GXC7F75N",
+    "modelo": "CLVG656W",
+    "fam": "LAVAVAJILLAS 60 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 125,
+    "udsA": 5,
+    "udsB": 0,
+    "dif": -5,
+    "factA": 945,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0DHVJHL1T",
+    "modelo": "RODAS12000",
+    "fam": "CAMPANA ISLA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 4,
+    "udsB": 0,
+    "dif": -4,
+    "factA": 1418.18,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DHVFF9FV",
+    "modelo": "RODAS9100",
+    "fam": "CAMPANA ISLA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 5,
+    "dif": 4,
+    "factA": 245,
+    "factB": 1772.73,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKT9YK9",
+    "modelo": "ONEGA975B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 5,
+    "udsB": 1,
+    "dif": -4,
+    "factA": 792.85,
+    "factB": 157.02,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GSFRM7ZQ",
+    "modelo": "CPCGM5F5026N",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 4,
+    "udsB": 0,
+    "dif": -4,
+    "factA": 596,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GGTYCRX7",
+    "modelo": "LENEA BISELADA",
+    "fam": "PLACA INDUCCION",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 1178.51,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPWP2WL",
+    "modelo": "CTM120",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 516,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPXWGSY",
+    "modelo": "CTMA80H",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 96,
+    "udsA": 15,
+    "udsB": 19,
+    "dif": 4,
+    "factA": 1891.86,
+    "factB": 1558,
+    "prio": null
+   },
+   {
+    "asin": "B0G613QCGP",
+    "modelo": "CTWBMEC15",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 356,
+    "prio": null
+   },
+   {
+    "asin": "B0FV91JRQJ",
+    "modelo": "CFHMB41W",
+    "fam": "MINI BAR",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 340,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDQ4H256",
+    "modelo": "CFSBSH634NFX",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 569,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 1396,
+    "prio": "AMAZON&CONFORAMA"
+   },
+   {
+    "asin": "B0C6L6CB72",
+    "modelo": "CLT10VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 4,
+    "dif": 4,
+    "factA": 0,
+    "factB": 1110.45,
+    "prio": null
+   },
+   {
+    "asin": "B0HFK3N8ZZ",
+    "modelo": "CLST106DG",
+    "fam": "LAVASECADORA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 147,
+    "udsA": 4,
+    "udsB": 0,
+    "dif": -4,
+    "factA": 1316,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0CPYDBQQM",
+    "modelo": "VENTOR5260X",
+    "fam": "CAMPANA GRUPO FILTRANTE / INTEGRACION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 72,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 245.45,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GZWL126L",
+    "modelo": "IVORI626B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 148.74,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKV9SCP",
+    "modelo": "ONTARIO635X",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 533.06,
+    "prio": null
+   },
+   {
+    "asin": "B0CP9KH4K3",
+    "modelo": "KURAMATHI960X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 394.21,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CQ2LD42X",
+    "modelo": "ANETO960X",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 6,
+    "udsB": 3,
+    "dif": -3,
+    "factA": 540,
+    "factB": 322.31,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GWN6XR16",
+    "modelo": "VINSON636B",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 147,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0752WF3CY",
+    "modelo": "CC510GB90W",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 187,
+    "udsA": 1,
+    "udsB": 4,
+    "dif": 3,
+    "factA": 412.4,
+    "factB": 196,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B084C4MN1M",
+    "modelo": "CFC1218",
+    "fam": "FILTROS Y ACCESORIOS CAMPANA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 49.59,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GZW1WL54",
+    "modelo": "CCHM706W",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 417,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08Z1MM6KV",
+    "modelo": "CPGS421X",
+    "fam": "PLACA GAS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 264,
+    "prio": null
+   },
+   {
+    "asin": "B0FRG5JJ13",
+    "modelo": "CCIM472",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 366.94,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPWRYJS",
+    "modelo": "CTWDV150VH",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 237,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPTDXQF",
+    "modelo": "CCH18024W",
+    "fam": "COMBI 180X55",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 190,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 794.29,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPW11Z9",
+    "modelo": "CCM1754NFEINTEG",
+    "fam": "COMBI INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 885.45,
+    "prio": null
+   },
+   {
+    "asin": "B0B1JPDCGH",
+    "modelo": "CCHM20022E",
+    "fam": "CONGELADOR ARCON",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 493.39,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPRBPMR",
+    "modelo": "CCVM8554W",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 164,
+    "udsA": 1,
+    "udsB": 4,
+    "dif": 3,
+    "factA": 164.46,
+    "factB": 558.68,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GZWH75Z2",
+    "modelo": "CF2PH146W",
+    "fam": "FRIGORIFICO 2 PUERTAS ESTATICO",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 518.18,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B08HS7D5K1",
+    "modelo": "CF1PG90RR",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 3,
+    "dif": 3,
+    "factA": 0,
+    "factB": 666.94,
+    "prio": null
+   },
+   {
+    "asin": "B0GML473G1",
+    "modelo": "CFSBSM460NFW",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 70,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 1135.19,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FHQPDZLC",
+    "modelo": "CLT100514VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 308,
+    "udsA": 3,
+    "udsB": 0,
+    "dif": -3,
+    "factA": 865.29,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0CP9FYP66",
+    "modelo": "SELATI640W",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 5,
+    "udsB": 7,
+    "dif": 2,
+    "factA": 271.53,
+    "factB": 384.65,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9JNXLW",
+    "modelo": "KURAMATHI760W",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 164,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KFWZQ",
+    "modelo": "KURAMATHI960W",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 87,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 170,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GHZ6FKCR",
+    "modelo": "TEIDE636X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 21,
+    "udsA": 11,
+    "udsB": 13,
+    "dif": 2,
+    "factA": 550,
+    "factB": 675.62,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CQ2KKJ56",
+    "modelo": "MAKALU640X",
+    "fam": "CAMPANA TELESCOPICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 120,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0779JHF5H",
+    "modelo": "CC900X",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 907.44,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H2VWRGD4",
+    "modelo": "CCSF5GB926NR",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 42,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 1036.69,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C8277SB8",
+    "modelo": "CCHMT903N",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 543.8,
+    "prio": null
+   },
+   {
+    "asin": "B00BIHLC60",
+    "modelo": "CMICP100",
+    "fam": "MICROONDAS INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 23,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 390.08,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CLGFWS2N",
+    "modelo": "CMICG270WOODN",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 94,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B07HY8P9W2",
+    "modelo": "CMICG280GX",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 94,
+    "prio": null
+   },
+   {
+    "asin": "B09XDZPRVZ",
+    "modelo": "CMICM9023DCB",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 190,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C86P2QYB",
+    "modelo": "CPCGY2314W",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 48,
+    "udsA": 4,
+    "udsB": 6,
+    "dif": 2,
+    "factA": 360,
+    "factB": 495.14,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09N8P5HD5",
+    "modelo": "CCVG21D",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 115.69,
+    "prio": null
+   },
+   {
+    "asin": "B0HFK6NJDS",
+    "modelo": "CCVM4606",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 195.04,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0GSGFM9XS",
+    "modelo": "CTM1005FL",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 487.6,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B08JWMGK8C",
+    "modelo": "CTM750FL",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 201.85,
+    "prio": null
+   },
+   {
+    "asin": "B0G5ZX3R8V",
+    "modelo": "CTM755FL",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 428.1,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B078Q815WT",
+    "modelo": "CTM80",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 428.1,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPTCBL9",
+    "modelo": "CCT1857024NFXINV",
+    "fam": "COMBI 70 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 33,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 988.02,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPMVK9V",
+    "modelo": "CCVH14324W",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 266,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 494.21,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09B3JGV4V",
+    "modelo": "CCVH143W",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 494.21,
+    "prio": null
+   },
+   {
+    "asin": "B0C864QZPK",
+    "modelo": "CCLH17023X",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 94,
+    "udsA": 1,
+    "udsB": 3,
+    "dif": 2,
+    "factA": 361.98,
+    "factB": 989.26,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPY32KD",
+    "modelo": "CCLH18524NFX",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 58,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 690,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV92DKK4",
+    "modelo": "CF2PG90RR",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 102,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 318,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09NRF8NXR",
+    "modelo": "CFSBSH721NFXINV",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 884.75,
+    "prio": null
+   },
+   {
+    "asin": "B0GWMSQZFW",
+    "modelo": "CLH1126VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 543.79,
+    "prio": null
+   },
+   {
+    "asin": "B0FHQRYDNJ",
+    "modelo": "CLT80514VIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 735,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 509.09,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GYFXPCN7",
+    "modelo": "CLSW805DG",
+    "fam": "LAVASECADORA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 111,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 530,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0GXCGJJTK",
+    "modelo": "CLVG456W",
+    "fam": "LAVAVAJILLAS 45 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 263,
+    "udsA": 2,
+    "udsB": 0,
+    "dif": -2,
+    "factA": 494.21,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GXBXF6YR",
+    "modelo": "CLVG456X",
+    "fam": "LAVAVAJILLAS 45 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 159,
+    "udsA": 3,
+    "udsB": 1,
+    "dif": -2,
+    "factA": 790.91,
+    "factB": 247.11,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FJYLVF9D",
+    "modelo": "Integrable2",
+    "fam": "LAVAVAJILLAS INTEGRABLE 45 CM",
+    "canal": "Seller",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 2,
+    "dif": 2,
+    "factA": 0,
+    "factB": 595.04,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKWXGFX",
+    "modelo": "FUJI975XGLASS",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 120,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DH8MSXZD",
+    "modelo": "NYASA9000B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 230.58,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KRPCN",
+    "modelo": "VOSTOK660X",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 85,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KPK2V",
+    "modelo": "VOSTOK760B",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 85,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KXVJ6",
+    "modelo": "KURAMATHI660B",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 75,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9KB1YN",
+    "modelo": "KURAMATHI660X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 99,
+    "udsA": 1,
+    "udsB": 2,
+    "dif": 1,
+    "factA": 98.35,
+    "factB": 173.35,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKV9HBZ",
+    "modelo": "NEMRUT975X",
+    "fam": "CAMPANA PIRAMIDE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 45,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 109,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B076H9MF4B",
+    "modelo": "CC510GB90X",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 163,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 453.72,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GQJZ3526",
+    "modelo": "CCSF35020BX",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 235,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 247.11,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08J7YW9FD",
+    "modelo": "CCSF45020NX",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 285,
+    "udsA": 5,
+    "udsB": 4,
+    "dif": -1,
+    "factA": 1010.21,
+    "factB": 856.2,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKTP5DM",
+    "modelo": "CCSF503VW",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 247.11,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08JVB1GZN",
+    "modelo": "CCSF60420BW",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 165,
+    "udsA": 2,
+    "udsB": 1,
+    "dif": -1,
+    "factA": 560.33,
+    "factB": 395.87,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08JJ6J3LN",
+    "modelo": "CCSF60420BX",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 348,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 296.69,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H29V3L35",
+    "modelo": "CCSF9026NR",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 296.69,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0BG8MHLCQ",
+    "modelo": "CCSF9422X",
+    "fam": "COCINAS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 0,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 577.69,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B08P4XKMNF",
+    "modelo": "CFC1118",
+    "fam": "FILTROS Y ACCESORIOS CAMPANA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 50,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 16.53,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H6G3VQJN",
+    "modelo": "CCHM726N",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 9,
+    "udsB": 10,
+    "dif": 1,
+    "factA": 1170,
+    "factB": 1390,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FV8YDJ9W",
+    "modelo": "CCHMD805X",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 230.58,
+    "prio": null
+   },
+   {
+    "asin": "B0FD3J4F3M",
+    "modelo": "CCHMT905W",
+    "fam": "HORNOS",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 151,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 239.67,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GZWH38W4",
+    "modelo": "CMICIG126",
+    "fam": "MICROONDAS INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 3,
+    "udsB": 2,
+    "dif": -1,
+    "factA": 276,
+    "factB": 198,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0CLGHTT9S",
+    "modelo": "CMICM20GLWINTEG",
+    "fam": "MICROONDAS INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 180.99,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B07PMLZL2P",
+    "modelo": "CMICPG120",
+    "fam": "MICROONDAS INTEGRABLE",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 180.99,
+    "prio": null
+   },
+   {
+    "asin": "B09CGMGN33",
+    "modelo": "CMICG251GW",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 39,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0CLGHRZHK",
+    "modelo": "CMICG270WOODW",
+    "fam": "MICROONDAS LIBRE INSTALACION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 2,
+    "udsB": 1,
+    "dif": -1,
+    "factA": 94,
+    "factB": 47,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GRJRM6JN",
+    "modelo": "CPCGM3F3126W",
+    "fam": "PLACA GAS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 115,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B07RT6S9FM",
+    "modelo": "CPCGV303WCI",
+    "fam": "PLACA GAS",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 189.26,
+    "prio": null
+   },
+   {
+    "asin": "B0H7JX24BN",
+    "modelo": "CCIG374S",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 3,
+    "udsB": 2,
+    "dif": -1,
+    "factA": 363.45,
+    "factB": 295.87,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H7JWG81N",
+    "modelo": "CCIG48BF",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 93,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0FKGTXRKZ",
+    "modelo": "CCIM374",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 219,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKT4P3N",
+    "modelo": "CCVM4604",
+    "fam": "PLACA VITROCERAMICA",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 1,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 98.35,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FW5658MY",
+    "modelo": "CDG50",
+    "fam": "DESHUMIDIFICADORES",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 52,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 159,
+    "prio": null
+   },
+   {
+    "asin": "B0G613R4JL",
+    "modelo": "CTM505FL",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 185.95,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0GFN32GDB",
+    "modelo": "CTWB300",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 359,
+    "prio": null
+   },
+   {
+    "asin": "B0G5ZYFNDV",
+    "modelo": "CTWBDIG15",
+    "fam": "TERMOS ELECTRICOS",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 67,
+    "factB": 0,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPTSGHC",
+    "modelo": "CCHS18064W",
+    "fam": "COMBI 180X55",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 53,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 328.93,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B099Q1KV3B",
+    "modelo": "CCH18521EWD",
+    "fam": "COMBI 185X60",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 310,
+    "prio": null
+   },
+   {
+    "asin": "B0H2VP64G2",
+    "modelo": "CCH185606NFX",
+    "fam": "COMBI 185X60",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 216,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 412.39,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0GZWJQDHC",
+    "modelo": "CCH200736NFX",
+    "fam": "COMBI 200X60",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 130,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 453.72,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0DDPWSJWQ",
+    "modelo": "CCM200834NFW",
+    "fam": "COMBI 200X60",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 453.72,
+    "prio": null
+   },
+   {
+    "asin": "B0FR45KL7G",
+    "modelo": "COMBI_70CM",
+    "fam": "COMBI 70 CM",
+    "canal": "Seller",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 538.02,
+    "prio": null
+   },
+   {
+    "asin": "B0H2WKZ1XS",
+    "modelo": "CCHGL186NFN",
+    "fam": "COMBI CRISTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 127,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 369,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV92TPXP",
+    "modelo": "CCH177CINTEG",
+    "fam": "COMBI INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 103,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 313.22,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B095Y5LCW6",
+    "modelo": "CCVH821W",
+    "fam": "CONGELADOR VERTICAL",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 400,
+    "prio": null
+   },
+   {
+    "asin": "B0975QXV1V",
+    "modelo": "CCLH143W",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 230.58,
+    "prio": null
+   },
+   {
+    "asin": "B0DDPW2KGK",
+    "modelo": "CCLH18524NFW",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 68,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 345,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CNTHTLYX",
+    "modelo": "CF1PN85INTEG",
+    "fam": "FRIGORIFICO 1 PUERTA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 110,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 136.36,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPWBK4W",
+    "modelo": "CF2PH1664W",
+    "fam": "FRIGORIFICO 2 PUERTAS ESTATICO",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 172.73,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPTJ248",
+    "modelo": "CF2PH14424NFX",
+    "fam": "FRIGORIFICO 2 PUERTAS NO FROST",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 271.9,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDPTDG7Z",
+    "modelo": "CF2PH17024NFW",
+    "fam": "FRIGORIFICO 2 PUERTAS NO FROST",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 0,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 354.55,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8WWW6P",
+    "modelo": "CF1PG90RN",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 75,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 222.31,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8Z6NMH",
+    "modelo": "CF2PG148RN",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 29,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 304.96,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8ZM742",
+    "modelo": "CFGMB45RN",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 2,
+    "udsB": 1,
+    "dif": -1,
+    "factA": 279.34,
+    "factB": 159,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8YHJC8",
+    "modelo": "CMICE12",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 99,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B09CG9JHDR",
+    "modelo": "E-CF1PG90RR",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 103,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 222.31,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8ZMXHR",
+    "modelo": "CFSBSM460NFX",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 43,
+    "udsA": 3,
+    "udsB": 2,
+    "dif": -1,
+    "factA": 1385.95,
+    "factB": 830.66,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B0GQB8P88L",
+    "modelo": "CLAM9046N",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 301,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 245,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0DDKZB81B",
+    "modelo": "CLACSM7524D",
+    "fam": "LAVADORA CARGA SUPERIOR",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 120,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 346.28,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C7VPGBPW",
+    "modelo": "CLACSM8523D",
+    "fam": "LAVADORA CARGA SUPERIOR",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 346.28,
+    "prio": null
+   },
+   {
+    "asin": "B08XY95SK9",
+    "modelo": "E-CLACSM6520",
+    "fam": "LAVADORA CARGA SUPERIOR",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 362.81,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKZ5523",
+    "modelo": "CLAV8424INT",
+    "fam": "LAVADORA INTEGRABLE",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 177,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 362.81,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0GYFRWDRF",
+    "modelo": "CLSH906DG",
+    "fam": "LAVASECADORA",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 199,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 299,
+    "factB": 0,
+    "prio": "AMAZON"
+   },
+   {
+    "asin": "B08WRL1D23",
+    "modelo": "E-CLSV961420T",
+    "fam": "LAVASECADORA",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 329.75,
+    "prio": null
+   },
+   {
+    "asin": "B0FD3NBM6W",
+    "modelo": "CLVM6025X",
+    "fam": "LAVAVAJILLAS 60 CM",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 296.69,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0F54DMTWV",
+    "modelo": "CLVM4824I",
+    "fam": "LAVAVAJILLAS INTEGRABLE 45 CM",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 187,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 297.52,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FW5477GQ",
+    "modelo": "CSBCH830W",
+    "fam": "SECADORA BOMBA DE CALOR",
+    "canal": "Ambos",
+    "oferta": "Inactiva",
+    "stock": 0,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 214.05,
+    "prio": null
+   },
+   {
+    "asin": "B0FV8W2YD1",
+    "modelo": "CSBCH930W",
+    "fam": "SECADORA BOMBA DE CALOR",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 88,
+    "udsA": 1,
+    "udsB": 0,
+    "dif": -1,
+    "factA": 351.24,
+    "factB": 0,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B07Z6GD5BK",
+    "modelo": "CSBCV8020T",
+    "fam": "SECADORA BOMBA DE CALOR",
+    "canal": "Vendor",
+    "oferta": "Sin oferta",
+    "stock": null,
+    "udsA": 0,
+    "udsB": 1,
+    "dif": 1,
+    "factA": 0,
+    "factB": 370,
+    "prio": null
+   },
+   {
+    "asin": "B0DDKVCF9T",
+    "modelo": "ONEGA975W",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 3,
+    "udsB": 3,
+    "dif": 0,
+    "factA": 533.06,
+    "factB": 493.39,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0CP9PL2HR",
+    "modelo": "VICTORIA760W",
+    "fam": "CAMPANA PARED",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 10,
+    "udsB": 10,
+    "dif": 0,
+    "factA": 1150,
+    "factB": 1090,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0H7JWW3WF",
+    "modelo": "CCIG5F1036FZ",
+    "fam": "PLACA INDUCCION",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 1,
+    "udsB": 1,
+    "dif": 0,
+    "factA": 352.89,
+    "factB": 93,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FV8ZSH27",
+    "modelo": "CFGMB45RR",
+    "fam": "FRIGORIFICO MINI / RETRO",
+    "canal": "Ambos",
+    "oferta": "Activa FBM",
+    "stock": 100,
+    "udsA": 2,
+    "udsB": 2,
+    "dif": 0,
+    "factA": 198,
+    "factB": 279.34,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0FBX3KZ7C",
+    "modelo": "CFSBSH735XWD",
+    "fam": "SIDE BY SIDE / AMERICANO",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 34,
+    "udsA": 1,
+    "udsB": 1,
+    "dif": 0,
+    "factA": 390,
+    "factB": 476.03,
+    "prio": "GENERAL"
+   },
+   {
+    "asin": "B0C7V9X9QJ",
+    "modelo": "CLT805XVIN",
+    "fam": "LAVADORA CARGA FRONTAL",
+    "canal": "Ambos",
+    "oferta": "Activa Flex",
+    "stock": 201,
+    "udsA": 1,
+    "udsB": 1,
+    "dif": 0,
+    "factA": 229,
+    "factB": 195,
+    "prio": "GENERAL"
+   }
+  ]
+ },
+ "prioritarias": {
+  "total": 327,
+  "conAsin": 276,
+  "amazonSinAsin": [
+   {
+    "modelo": "CSBCS970W",
+    "canal": "AMAZON&CONFORAMA",
+    "producto": "SECADORA BOMBA CALOR"
+   },
+   {
+    "modelo": "CSBCS870W",
+    "canal": "AMAZON&CONFORAMA",
+    "producto": "SECADORA BOMBA CALOR"
+   },
+   {
+    "modelo": "CF4PT4097DX",
+    "canal": "AMAZON",
+    "producto": "FRIGORIFICO 4 PUERTAS"
+   },
+   {
+    "modelo": "CCIM3BL74FLEX",
+    "canal": "AMAZON&CONFORAMA",
+    "producto": "PLACA INDUCCION ILVA FLEX 3 ZONAS"
+   }
+  ],
+  "ref": {
+   "B0GYFT285S": {
+    "canal": "GENERAL",
+    "pvpr": 499,
+    "neto": 310,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLSH1066VIN"
+   },
+   "B0HFK3N8ZZ": {
+    "canal": "AMAZON",
+    "pvpr": 519,
+    "neto": 329,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLST106DG"
+   },
+   "B0GYFVKKPB": {
+    "canal": "GENERAL",
+    "pvpr": 479,
+    "neto": 299,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLSH966VIN"
+   },
+   "B0GYFRWDRF": {
+    "canal": "AMAZON",
+    "pvpr": 469,
+    "neto": 299,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLSH906DG"
+   },
+   "B0C7VMPPKV": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 265,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLSH85VIN"
+   },
+   "B0GYFXPCN7": {
+    "canal": "AMAZON",
+    "pvpr": 399,
+    "neto": 265,
+    "producto": "LAVADORA SECADORA",
+    "modelo": "CLSW805DG"
+   },
+   "B0FHQLSPQ5": {
+    "canal": "AMAZON",
+    "pvpr": 399,
+    "neto": 259,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLT120514VIN"
+   },
+   "B0GQB1J7XV": {
+    "canal": "GENERAL",
+    "pvpr": 479,
+    "neto": 299,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLAM10850N"
+   },
+   "B0GZVV1RFB": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 269,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLW1006DG"
+   },
+   "B0GSWQ7FZ1": {
+    "canal": "AMAZON",
+    "pvpr": 349,
+    "neto": 219,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLH10406ME"
+   },
+   "B0FHQPDZLC": {
+    "canal": "AMAZON",
+    "pvpr": 349,
+    "neto": 225,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLT100514VIN"
+   },
+   "B0GQB8P88L": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 249,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLAM9046N"
+   },
+   "B0GZVZ77LZ": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 259,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLW9606DG"
+   },
+   "B0FHQPTS8Y": {
+    "canal": "GENERAL",
+    "pvpr": 319,
+    "neto": 215,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLT90514VIN"
+   },
+   "B0GSW5SJDR": {
+    "canal": "AMAZON",
+    "pvpr": 299,
+    "neto": 203,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLH9406ME"
+   },
+   "B0GZW7Y52N": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 229,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLW8606DG"
+   },
+   "B0C7V9X9QJ": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 229,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLT805XVIN"
+   },
+   "B0FHQRYDNJ": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 199,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLT80514VIN"
+   },
+   "B0GSVNPM5X": {
+    "canal": "AMAZON",
+    "pvpr": 299,
+    "neto": 185,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLH8406ME"
+   },
+   "B0GZVXPMS1": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 199,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLW7606DG"
+   },
+   "B0GSHDKV32": {
+    "canal": "AMAZON",
+    "pvpr": 259,
+    "neto": 160,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLH7406ME"
+   },
+   "B0GVPGS9LX": {
+    "canal": "AMAZON",
+    "pvpr": 239,
+    "neto": 155,
+    "producto": "LAVADORA CARGA FRONTAL",
+    "modelo": "CLH6106MN"
+   },
+   "B0DDKZ5523": {
+    "canal": "GENERAL",
+    "pvpr": 449,
+    "neto": 279,
+    "producto": "LAVADORA INTEGRABLE",
+    "modelo": "CLAV8424INT"
+   },
+   "B0DFMJVB24": {
+    "canal": "GENERAL",
+    "pvpr": 439,
+    "neto": 290,
+    "producto": "LAVADORA CARGA SUPERIOR",
+    "modelo": "CLACSM8524D"
+   },
+   "B0DDKZB81B": {
+    "canal": "GENERAL",
+    "pvpr": 419,
+    "neto": 280,
+    "producto": "LAVADORA CARGA SUPERIOR",
+    "modelo": "CLACSM7524D"
+   },
+   "B0F2J532J3": {
+    "canal": "GENERAL",
+    "pvpr": 319,
+    "neto": 215,
+    "producto": "LAVADORA CARGA SUPERIOR",
+    "modelo": "CLACSM6524"
+   },
+   "B0FV912GV7": {
+    "canal": "GENERAL",
+    "pvpr": 519,
+    "neto": 329,
+    "producto": "SECADORA BOMBA CALOR",
+    "modelo": "CSBCM1050W"
+   },
+   "B0FV8W2YD1": {
+    "canal": "GENERAL",
+    "pvpr": 439,
+    "neto": 269,
+    "producto": "SECADORA BOMBA CALOR",
+    "modelo": "CSBCH930W"
+   },
+   "B0FV8XBQQR": {
+    "canal": "GENERAL",
+    "pvpr": 579,
+    "neto": 379,
+    "producto": "SECADORA BOMBA CALOR",
+    "modelo": "CSBCM850N"
+   },
+   "B08H8FSFPV": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 279,
+    "neto": 175,
+    "producto": "SECADORA EVACUACION",
+    "modelo": "CSM320W"
+   },
+   "B0GXC255NW": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 269,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVG91536X"
+   },
+   "B0GXC3ZW9L": {
+    "canal": "GENERAL",
+    "pvpr": 390,
+    "neto": 259,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVG91536W"
+   },
+   "B0FJRVWSN8": {
+    "canal": "GENERAL",
+    "pvpr": 429,
+    "neto": 280,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVM7725X"
+   },
+   "B0FJS2266F": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 270,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVM7725W"
+   },
+   "B0GFDWTZ6G": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 270,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVM7725B"
+   },
+   "B0FD3NBM6W": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": null,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVM6025X"
+   },
+   "B0FD3LZ3G2": {
+    "canal": "GENERAL",
+    "pvpr": 289,
+    "neto": null,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVM6025W"
+   },
+   "B0GXC46Y85": {
+    "canal": "AMAZON",
+    "pvpr": 309,
+    "neto": 205,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVG656X"
+   },
+   "B0GXC7F75N": {
+    "canal": "AMAZON",
+    "pvpr": 289,
+    "neto": 195,
+    "producto": "LAVAVAJILLAS 60 CMS.",
+    "modelo": "CLVG656W"
+   },
+   "B0DH8LPTK8": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 199.99,
+    "producto": "LAVAVAJILLAS 45 CMS",
+    "modelo": "CLVM403X"
+   },
+   "B0DH8NBLZD": {
+    "canal": "GENERAL",
+    "pvpr": 290,
+    "neto": 187,
+    "producto": "LAVAVAJILLAS 45 CMS",
+    "modelo": "CLVM403W"
+   },
+   "B0GXBXF6YR": {
+    "canal": "GENERAL",
+    "pvpr": 339,
+    "neto": 205,
+    "producto": "LAVAVAJILLAS 45 CMS",
+    "modelo": "CLVG456X"
+   },
+   "B0GXCGJJTK": {
+    "canal": "GENERAL",
+    "pvpr": 319,
+    "neto": 190,
+    "producto": "LAVAVAJILLAS 45 CMS",
+    "modelo": "CLVG456W"
+   },
+   "B0GV51H6S2": {
+    "canal": "GENERAL",
+    "pvpr": 419,
+    "neto": 269,
+    "producto": "LAVAVAJILLAS INGTGEGRABLE",
+    "modelo": "CLVG9726I"
+   },
+   "B0GMS4P6QL": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 249,
+    "producto": "LAVAVAJILLAS INGTGEGRABLE",
+    "modelo": "CLVM8626I"
+   },
+   "B0F54DMTWV": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 239,
+    "producto": "LAVAVAJILLAS INGTGEGRABLE",
+    "modelo": "CLVM4824I"
+   },
+   "B0DDL23BWF": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 219,
+    "producto": "LAVAVAJILLAS INGTGEGRABLE",
+    "modelo": "CLVM3624I"
+   },
+   "B0FD3Z275C": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 179,
+    "producto": "LAVAVAJILLAS PORTATIL",
+    "modelo": "CLVP607W"
+   },
+   "B0C8775WLR": {
+    "canal": "GENERAL",
+    "pvpr": 859,
+    "neto": 597,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH930NFXINV"
+   },
+   "B0C86SLDYC": {
+    "canal": "GENERAL",
+    "pvpr": 849,
+    "neto": 579,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH830NFXICE"
+   },
+   "B0FC2PJVL3": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 390,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH735NWD"
+   },
+   "B0FBX3KZ7C": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 390,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH735XWD"
+   },
+   "B0DDQ4H256": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 549,
+    "neto": 379,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH634NFX"
+   },
+   "B0DDQ5XZ5N": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 529,
+    "neto": 349,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSH634NFW"
+   },
+   "B0FV8ZMXHR": {
+    "canal": "AMAZON",
+    "pvpr": 559,
+    "neto": 379,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSM460NFX"
+   },
+   "B0GML473G1": {
+    "canal": "AMAZON",
+    "pvpr": 529,
+    "neto": 349,
+    "producto": "FRIGORIFICO AMERICANO",
+    "modelo": "CFSBSM460NFW"
+   },
+   "B0DDQ3JQL8": {
+    "canal": "GENERAL",
+    "pvpr": 899,
+    "neto": 569,
+    "producto": "FRIGORIFICO 4 PUERTAS",
+    "modelo": "CF4PH7823NFDXMAD"
+   },
+   "B0FC2NXJ67": {
+    "canal": "GENERAL",
+    "pvpr": 699,
+    "neto": 459,
+    "producto": "FRIGORIFICO 4 PUERTAS",
+    "modelo": "CF4PH6835XWD"
+   },
+   "B0DHGTVQ7T": {
+    "canal": "GENERAL",
+    "pvpr": 569,
+    "neto": 379,
+    "producto": "FRIGORIFICO 4 PUERTAS",
+    "modelo": "CF4PH4823NFX"
+   },
+   "B0FD3X4V77": {
+    "canal": "GENERAL",
+    "pvpr": 799,
+    "neto": 499,
+    "producto": "FRIGORÍFICO FRENCH DOOR",
+    "modelo": "CFFDM7535X"
+   },
+   "B0DDPV96DV": {
+    "canal": "GENERAL",
+    "pvpr": 699,
+    "neto": 449,
+    "producto": "FRIGORÍFICO FRENCH DOOR",
+    "modelo": "CFFDM421NFXINV"
+   },
+   "B0FCYKRB1L": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 390,
+    "producto": "COMBI 200 X 60 CRISTAL",
+    "modelo": "CCGLML201725NFN"
+   },
+   "B0FD3LVL31": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 390,
+    "producto": "COMBI 200 X 60 CRISTAL",
+    "modelo": "CCGLML201725NFW"
+   },
+   "B0H2WKZ1XS": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 369,
+    "producto": "COMBI 185 X 60 CRISTAL",
+    "modelo": "CCHGL186NFN"
+   },
+   "B0H2VYZSXF": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 369,
+    "producto": "COMBI 185 X 60 CRISTAL",
+    "modelo": "CCHGL186NFW"
+   },
+   "B0DDPWJZ36": {
+    "canal": "GENERAL",
+    "pvpr": 799,
+    "neto": 515,
+    "producto": "COMBI 200 X  70 CMS",
+    "modelo": "CCHS20074NFXINV"
+   },
+   "B0DDPTCBL9": {
+    "canal": "GENERAL",
+    "pvpr": 659,
+    "neto": 459,
+    "producto": "COMBI 185 X 70 CMS",
+    "modelo": "CCT1857024NFXINV"
+   },
+   "B0GZWJQDHC": {
+    "canal": "AMAZON",
+    "pvpr": 579,
+    "neto": 380,
+    "producto": "COMBI 200 X 60 CMS",
+    "modelo": "CCH200736NFX"
+   },
+   "B0CGXCPY4D": {
+    "canal": "GENERAL",
+    "pvpr": 469,
+    "neto": 310,
+    "producto": "COMBI 200 X 60 CMS",
+    "modelo": "CCH200533NFX"
+   },
+   "B0CGX9NK7Y": {
+    "canal": "GENERAL",
+    "pvpr": 459,
+    "neto": 305,
+    "producto": "COMBI 200 X 60 CMS",
+    "modelo": "CCH200533NFW"
+   },
+   "B09TFMJZ5D": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 419,
+    "neto": 279,
+    "producto": "COMBI 200 X 60 CMS",
+    "modelo": "CCH200322NFX"
+   },
+   "B09TFJM7LB": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 399,
+    "neto": 269,
+    "producto": "COMBI 200 X 60 CMS",
+    "modelo": "CCH200322NFW"
+   },
+   "B0H2VP64G2": {
+    "canal": "AMAZON",
+    "pvpr": 549,
+    "neto": 359,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH185606NFX"
+   },
+   "B0GMKZL93N": {
+    "canal": "GENERAL",
+    "pvpr": 579,
+    "neto": 329,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH185406NFN"
+   },
+   "B0GZWF7H1D": {
+    "canal": "AMAZON",
+    "pvpr": 499,
+    "neto": 319,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH185206NFX"
+   },
+   "B0GZWN1BQ1": {
+    "canal": "AMAZON",
+    "pvpr": 490,
+    "neto": 309,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH185206NFW"
+   },
+   "B0DDPXJ2YN": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 369,
+    "neto": 239,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH324EX"
+   },
+   "B0DDPWL6TK": {
+    "canal": "AMAZON&CONFORAMA",
+    "pvpr": 349,
+    "neto": 229,
+    "producto": "COMBI 185 X 60  CMS",
+    "modelo": "CCH324EW"
+   },
+   "B0DDPXHWBY": {
+    "canal": "GENERAL",
+    "pvpr": 429,
+    "neto": 300,
+    "producto": "COMBI 180 X 60 CMS",
+    "modelo": "CCHS18064X"
+   },
+   "B0DDPTSGHC": {
+    "canal": "GENERAL",
+    "pvpr": 419,
+    "neto": 290,
+    "producto": "COMBI 180 X 60 CMS",
+    "modelo": "CCHS18064W"
+   },
+   "B0DDPTH6ZP": {
+    "canal": "GENERAL",
+    "pvpr": 369,
+    "neto": 237,
+    "producto": "COMBI 180 X 55 CMS",
+    "modelo": "CCH18024X"
+   },
+   "B0DDPTDXQF": {
+    "canal": "GENERAL",
+    "pvpr": 349,
+    "neto": 229,
+    "producto": "COMBI 180 X 55 CMS",
+    "modelo": "CCH18024W"
+   },
+   "B0DDPVFM48": {
+    "canal": "GENERAL",
+    "pvpr": 329,
+    "neto": 199,
+    "producto": "COMBI 180 X 55 CMS",
+    "modelo": "CCH1824EX"
+   },
+   "B0DDPWN6WP": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 189,
+    "producto": "COMBI 180 X 55 CMS",
+    "modelo": "CCH1824EW"
+   },
+   "B0H2WGQZB6": {
+    "canal": "GENERAL",
+    "pvpr": 499,
+    "neto": 325,
+    "producto": "COMBI INTEGRABLE",
+    "modelo": "CCH1756NFINT"
+   },
+   "B0FV92TPXP": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 269,
+    "producto": "COMBI INTEGRABLE",
+    "modelo": "CCH177CINTEG"
+   },
+   "B0BFWS98XJ": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 399,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH178052NFXINV"
+   },
+   "B0DDPSTDP8": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 349,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH178024NFW"
+   },
+   "B0DDPTDG7Z": {
+    "canal": "GENERAL",
+    "pvpr": 429,
+    "neto": 269,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH17024NFW"
+   },
+   "B0DDPWMY7D": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 240,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH16724W"
+   },
+   "B0DDPTJ248": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 227,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH14424NFX"
+   },
+   "B0DDPWC54L": {
+    "canal": "GENERAL",
+    "pvpr": 329,
+    "neto": 209,
+    "producto": "FRIGORÍFICO 2 P NO FROST",
+    "modelo": "CF2PH14424NFW"
+   },
+   "B0DDPXGT9F": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": null,
+    "producto": "FRIGORÍFICO 2 P CICLICO",
+    "modelo": "CF2PH1724W"
+   },
+   "B0DDPWBK4W": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": null,
+    "producto": "FRIGORÍFICO 2 P CICLICO",
+    "modelo": "CF2PH1664W"
+   },
+   "B0DJ8XWQ4L": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 195,
+    "producto": "FRIGORÍFICO 2 P CICLICO",
+    "modelo": "CF2PV24024W"
+   },
+   "B09BCLWWM3": {
+    "canal": "GENERAL",
+    "pvpr": 259,
+    "neto": 165,
+    "producto": "FRIGORÍFICO 2 P CICLICO",
+    "modelo": "CF2PH14321X"
+   },
+   "B0GZWH75Z2": {
+    "canal": "AMAZON",
+    "pvpr": 219,
+    "neto": 139,
+    "producto": "FRIGORÍFICO 2 P CICLICO",
+    "modelo": "CF2PH146W"
+   },
+   "B0DDPY32KD": {
+    "canal": "GENERAL",
+    "pvpr": 569,
+    "neto": 379,
+    "producto": "FRIGORÍFICO 1 P. NO FROST",
+    "modelo": "CCLH18524NFX"
+   },
+   "B0DDPW2KGK": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 369,
+    "producto": "FRIGORÍFICO 1 P. NO FROST",
+    "modelo": "CCLH18524NFW"
+   },
+   "B0C864QZPK": {
+    "canal": "GENERAL",
+    "pvpr": 459,
+    "neto": 289,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CCLH17023X"
+   },
+   "B0C866SZXZ": {
+    "canal": "GENERAL",
+    "pvpr": 439,
+    "neto": 285,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CCLH17023W"
+   },
+   "B0DDPX4JTC": {
+    "canal": "GENERAL",
+    "pvpr": 290,
+    "neto": 179,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CCLH14324W"
+   },
+   "B0BZWLVH8K": {
+    "canal": "GENERAL",
+    "pvpr": 229,
+    "neto": 145,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CF1PH8554X"
+   },
+   "B0DDPV716D": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 118,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CF1PH854W"
+   },
+   "B0DDPWDRN5": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 110,
+    "producto": "FRIGORÍFICO 1 P. CICLICO",
+    "modelo": "CF1PM8024"
+   },
+   "B0CNTHTLYX": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 260,
+    "producto": "FRIGORÍFICO 1 P INTEGRABLE",
+    "modelo": "CF1PN85INTEG"
+   },
+   "B0F54H6RZD": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 260,
+    "producto": "FRIGORÍFICO 1 P INTEGRABLE",
+    "modelo": "E-CF1PN85INTEG"
+   },
+   "B098PDG2CR": {
+    "canal": "GENERAL",
+    "pvpr": 649,
+    "neto": 399,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF2P1821RR"
+   },
+   "B0G7LJW8RD": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 260,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF2PG148RR2"
+   },
+   "B0FV8Z6NMH": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 260,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF2PG148RN"
+   },
+   "B0FV92DKK4": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 159,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF2PG90RR"
+   },
+   "B0FV934PYL": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 159,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF2PG90RN"
+   },
+   "B09CG9JHDR": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 179,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "E-CF1PG90RR"
+   },
+   "B0FV8WWW6P": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 179,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CF1PG90RN"
+   },
+   "B0FV8ZSH27": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CFGMB45RR"
+   },
+   "B0FV8ZM742": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99,
+    "producto": "FRIGORÍFICO ESTETICA RETRO",
+    "modelo": "CFGMB45RN"
+   },
+   "B0FV91JRQJ": {
+    "canal": "GENERAL",
+    "pvpr": 129,
+    "neto": 85,
+    "producto": "FRIGORIFICO MINI BAR",
+    "modelo": "CFHMB41W"
+   },
+   "B0FV8ZW5TC": {
+    "canal": "GENERAL",
+    "pvpr": 139,
+    "neto": 85,
+    "producto": "FRIGORIFICO MINI BAR",
+    "modelo": "CFHMB41N"
+   },
+   "B0FV92S3RN": {
+    "canal": "GENERAL",
+    "pvpr": 139,
+    "neto": 89,
+    "producto": "FRIGORIFICO MINI BAR",
+    "modelo": "CFHMB41X"
+   },
+   "B0DDPP4MMG": {
+    "canal": "GENERAL",
+    "pvpr": 629,
+    "neto": 415,
+    "producto": "CONGELADOR VERTICAL NO FROST",
+    "modelo": "CCVH18524NFX"
+   },
+   "B0DDPRLM41": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 389,
+    "producto": "CONGELADOR VERTICAL NO FROST",
+    "modelo": "CCVH18524NFW"
+   },
+   "B0C7W7FC5H": {
+    "canal": "GENERAL",
+    "pvpr": 419,
+    "neto": 275,
+    "producto": "CONGELADOR VERTICAL NO FROST",
+    "modelo": "CCVH17023NFX"
+   },
+   "B0C7W7D829": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 260,
+    "producto": "CONGELADOR VERTICAL NO FROST",
+    "modelo": "CCVH17023NFW"
+   },
+   "B0DDPMVK9V": {
+    "canal": "GENERAL",
+    "pvpr": 319,
+    "neto": 199,
+    "producto": "CONGELADOR VERTICAL CICLICO",
+    "modelo": "CCVH14324W"
+   },
+   "B0DDPPQJ25": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 110,
+    "producto": "CONGELADOR VERTICAL CICLICO",
+    "modelo": "CCVH824W"
+   },
+   "B0DDPRBPMR": {
+    "canal": "GENERAL",
+    "pvpr": 199,
+    "neto": 135,
+    "producto": "CONGELADOR VERTICAL CICLICO",
+    "modelo": "CCVM8554W"
+   },
+   "B0DHGSCGT7": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 370,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM521W"
+   },
+   "B0DFMJNBKH": {
+    "canal": "GENERAL",
+    "pvpr": 459,
+    "neto": 309,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM418W"
+   },
+   "B0DDPPT9GX": {
+    "canal": "GENERAL",
+    "pvpr": 419,
+    "neto": 269,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHH40024E"
+   },
+   "B0GTWTSBMR": {
+    "canal": "AMAZON",
+    "pvpr": 299,
+    "neto": 199,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM3006M"
+   },
+   "B0FV8Z3HHD": {
+    "canal": "AMAZON",
+    "pvpr": 229,
+    "neto": 149,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM2006M"
+   },
+   "B0GTWTH81Q": {
+    "canal": "AMAZON",
+    "pvpr": 199,
+    "neto": 129,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM1506M"
+   },
+   "B0FV8Z1GZ6": {
+    "canal": "AMAZON",
+    "pvpr": 169,
+    "neto": 109,
+    "producto": "CONGELADOR HORIZONTAL",
+    "modelo": "CCHM1006M"
+   },
+   "B0FV8YHJC8": {
+    "canal": "GENERAL",
+    "pvpr": 99,
+    "neto": 60,
+    "producto": "FABRICADOR DE HIELO",
+    "modelo": "CMICE12"
+   },
+   "B0BG8MHLCQ": {
+    "canal": "GENERAL",
+    "pvpr": 769,
+    "neto": 510,
+    "producto": "COCINA HORNO PANORAMICO",
+    "modelo": "CCSF9422X"
+   },
+   "B0779JHF5H": {
+    "canal": "GENERAL",
+    "pvpr": 769,
+    "neto": 510,
+    "producto": "COCINA HORNO PANORAMICO",
+    "modelo": "CC900X"
+   },
+   "B0H29V3L35": {
+    "canal": "GENERAL",
+    "pvpr": 729,
+    "neto": 479,
+    "producto": "COCINA HORNO PANORAMICO",
+    "modelo": "CCSF9026NR"
+   },
+   "B0B8MXZFQK": {
+    "canal": "GENERAL",
+    "pvpr": 639,
+    "neto": 419,
+    "producto": "COCINA PORTABOMBONA",
+    "modelo": "CCSF5GB922X"
+   },
+   "B0B8MV2B2K": {
+    "canal": "GENERAL",
+    "pvpr": 599,
+    "neto": 390,
+    "producto": "COCINA PORTABOMBONA",
+    "modelo": "CCSF5GB922W"
+   },
+   "B0H2VWRGD4": {
+    "canal": "GENERAL",
+    "pvpr": 769,
+    "neto": 490,
+    "producto": "COCINA PORTABOMBONA",
+    "modelo": "CCSF5GB926NR"
+   },
+   "B076H9MF4B": {
+    "canal": "GENERAL",
+    "pvpr": 549,
+    "neto": 359,
+    "producto": "COCINA PORTABOMBONA",
+    "modelo": "CC510GB90X"
+   },
+   "B0752WF3CY": {
+    "canal": "GENERAL",
+    "pvpr": 499,
+    "neto": 329,
+    "producto": "COCINA PORTABOMBONA",
+    "modelo": "CC510GB90W"
+   },
+   "B0B8MYX75L": {
+    "canal": "GENERAL",
+    "pvpr": 479,
+    "neto": 315,
+    "producto": "COCINA 60 CMS ANCHO",
+    "modelo": "CCSF6022NR"
+   },
+   "B08JJ6J3LN": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 239,
+    "producto": "COCINA 60 CMS ANCHO",
+    "modelo": "CCSF60420BX"
+   },
+   "B08JVB1GZN": {
+    "canal": "GENERAL",
+    "pvpr": 339,
+    "neto": 220,
+    "producto": "COCINA 60 CMS ANCHO",
+    "modelo": "CCSF60420BW"
+   },
+   "B08P4YP7SX": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 195,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF45020BX"
+   },
+   "B08J7YW9FD": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 195,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF45020NX"
+   },
+   "B08C4X8KXQ": {
+    "canal": "GENERAL",
+    "pvpr": 259,
+    "neto": 170,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF45020BW"
+   },
+   "B08DDFX68F": {
+    "canal": "GENERAL",
+    "pvpr": 259,
+    "neto": 170,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF45020NW"
+   },
+   "B0GQJZ3526": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 199,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF35020BX"
+   },
+   "B0GRJYGP3Q": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 179,
+    "producto": "COCINA 50 CMS ANCHO",
+    "modelo": "CCSF35020BW"
+   },
+   "B0DDKTP5DM": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 249,
+    "producto": "COCINA VITROCERAMICA",
+    "modelo": "CCSF503VW"
+   },
+   "B0C829N37F": {
+    "canal": "GENERAL",
+    "pvpr": 329,
+    "neto": 219,
+    "producto": "HORNO PIROLITICO",
+    "modelo": "CCHMP1033W"
+   },
+   "B0C828T2K2": {
+    "canal": "GENERAL",
+    "pvpr": 309,
+    "neto": 210,
+    "producto": "HORNO PIROLITICO",
+    "modelo": "CCHMP1033N"
+   },
+   "B0C828CLLC": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 190,
+    "producto": "HORNO PIROLITICO",
+    "modelo": "CCHMP1023N"
+   },
+   "B0FD3J4F3M": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 199,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHMT905W"
+   },
+   "B0FD3J3H5P": {
+    "canal": "GENERAL",
+    "pvpr": 290,
+    "neto": 190,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHMT905N"
+   },
+   "B0FD3L37T8": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 179,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHMD805W"
+   },
+   "B0FD3J1BG6": {
+    "canal": "GENERAL",
+    "pvpr": 269,
+    "neto": 165,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHMD805N"
+   },
+   "B0H6FZQ4HH": {
+    "canal": "AMAZON",
+    "pvpr": 249,
+    "neto": 160,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHMD826N"
+   },
+   "B0CL7C2PVC": {
+    "canal": "GENERAL",
+    "pvpr": 199,
+    "neto": 139,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHM350MFX"
+   },
+   "B0GZW1WL54": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 139,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHM706W"
+   },
+   "B0H6G3VQJN": {
+    "canal": "AMAZON",
+    "pvpr": 199,
+    "neto": 130,
+    "producto": "HORNO MULTIFUNCION",
+    "modelo": "CCHM726N"
+   },
+   "B0H6FX2DG9": {
+    "canal": "AMAZON",
+    "pvpr": 199,
+    "neto": 129,
+    "producto": "HORNO CONVENCIONAL",
+    "modelo": "CCHM626W"
+   },
+   "B0H29BZL67": {
+    "canal": "AMAZON",
+    "pvpr": 179,
+    "neto": 119,
+    "producto": "HORNO CONVENCIONAL",
+    "modelo": "CCHM626N"
+   },
+   "B0BG8NX9KH": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 189,
+    "producto": "HORNO COMPACTO",
+    "modelo": "CCHCV451021DTG"
+   },
+   "B09Z38TV83": {
+    "canal": "GENERAL",
+    "pvpr": 259,
+    "neto": 165,
+    "producto": "HORNO COMPACTO",
+    "modelo": "CCHCV4521M"
+   },
+   "B0DJNYML5L": {
+    "canal": "GENERAL",
+    "pvpr": 699,
+    "neto": 429,
+    "producto": "PLACA ASPIRANTE INDUCCIÓN FLEX",
+    "modelo": "CCIA7460DF"
+   },
+   "B0H7JWW3WF": {
+    "canal": "GENERAL",
+    "pvpr": 429,
+    "neto": 279,
+    "producto": "PLACA INDUCCION 90 CMS",
+    "modelo": "CCIG5F1036FZ"
+   },
+   "B0FCYGRCXL": {
+    "canal": "GENERAL",
+    "pvpr": 199,
+    "neto": 119,
+    "producto": "PLACA INDUCCION ILVA FLEX 3 ZONAS",
+    "modelo": "CCIG373FLEX"
+   },
+   "B0H7JX24BN": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 109,
+    "producto": "PLACA INDUCCIÓN ILVA  3 ZONAS",
+    "modelo": "CCIG374S"
+   },
+   "B0HKS7MFMV": {
+    "canal": "GENERAL",
+    "pvpr": 359,
+    "neto": 229,
+    "producto": "PLACA INDUCCION ILVA FLEX 7 ZONAS",
+    "modelo": "CCIM974EXTRA"
+   },
+   "B0DDKPYYD9": {
+    "canal": "GENERAL",
+    "pvpr": 349,
+    "neto": 225,
+    "producto": "PLACA INDUCCIÓN 3 ZONAS",
+    "modelo": "CCIM3720W"
+   },
+   "B0FRG5JJ13": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 95,
+    "producto": "PLACA INDUCCIÓN 4 ZONAS",
+    "modelo": "CCIM472"
+   },
+   "B0H7JWG81N": {
+    "canal": "AMAZON",
+    "pvpr": 149,
+    "neto": 93,
+    "producto": "PLACA INDUCCIÓN 4 ZONAS",
+    "modelo": "CCIG48BF"
+   },
+   "B0GHNWWZ34": {
+    "canal": "AMAZON",
+    "pvpr": 139,
+    "neto": 89,
+    "producto": "PLACA INDUCCIÓN 3 ZONAS",
+    "modelo": "CCIM3662"
+   },
+   "B0DDKTJPGM": {
+    "canal": "GENERAL",
+    "pvpr": 119,
+    "neto": 85,
+    "producto": "PLACA VITROCERÁMICA 3 ZONAS",
+    "modelo": "CCVM3574"
+   },
+   "B0FV92JG1P": {
+    "canal": "AMAZON",
+    "pvpr": 109,
+    "neto": 69,
+    "producto": "PLACA VITROCERÁMICA 3 ZONAS",
+    "modelo": "CCVG35BF"
+   },
+   "B0DDKT4P3N": {
+    "canal": "GENERAL",
+    "pvpr": 109,
+    "neto": 80,
+    "producto": "PLACA VITROCERÁMICA 4 ZONAS",
+    "modelo": "CCVM4604"
+   },
+   "B0HFK6NJDS": {
+    "canal": "AMAZON",
+    "pvpr": 109,
+    "neto": 79,
+    "producto": "PLACA VITROCERÁMICA 4 ZONAS",
+    "modelo": "CCVM4606"
+   },
+   "B0FCYLKMPQ": {
+    "canal": "GENERAL",
+    "pvpr": 109,
+    "neto": 63,
+    "producto": "PLACA DOMINO INDUCCIÓN 2 ZONAS",
+    "modelo": "CCIG205D"
+   },
+   "B0G1N882VL": {
+    "canal": "AMAZON",
+    "pvpr": 69.99,
+    "neto": 45,
+    "producto": "PLACA DOMINO VITROCERÁMICA",
+    "modelo": "CCVGD25BF"
+   },
+   "B0GSFRM7ZQ": {
+    "canal": "GENERAL",
+    "pvpr": 229,
+    "neto": 149,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM5F5026N"
+   },
+   "B0GSGPB1N3": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 129,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM4F4126N"
+   },
+   "B0GSH84LW9": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 135,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM4F4126W"
+   },
+   "B0GRJWH1SR": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 110,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM3F3126N"
+   },
+   "B0BG66WWBX": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 109,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM3F3122W"
+   },
+   "B0GRJRM6JN": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 115,
+    "producto": "PLACA CRISTAL GAS LUX",
+    "modelo": "CPCGM3F3126W"
+   },
+   "B0C86P2QYB": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 99,
+    "producto": "PLACA CRISTAL GAS",
+    "modelo": "CPCGY2314W"
+   },
+   "B0GY9QCK39": {
+    "canal": "AMAZON",
+    "pvpr": 139,
+    "neto": 88,
+    "producto": "PLACA CRISTAL GAS",
+    "modelo": "CPG406N"
+   },
+   "B0C86MZCHQ": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 85,
+    "producto": "PLACA CRISTAL GAS",
+    "modelo": "CPCGY2313W"
+   },
+   "B0GY9JB3WM": {
+    "canal": "AMAZON",
+    "pvpr": 99.99,
+    "neto": 65.9,
+    "producto": "PLACA CRISTAL GAS",
+    "modelo": "CPG306N"
+   },
+   "B0C86P1J5L": {
+    "canal": "GENERAL",
+    "pvpr": 89.99,
+    "neto": 65,
+    "producto": "PLACA INOX GAS",
+    "modelo": "CPGS423X"
+   },
+   "B0DHVJHL1T": {
+    "canal": "GENERAL",
+    "pvpr": 429,
+    "neto": 275,
+    "producto": "CAMPANA ISLA, 1200 CM",
+    "modelo": "RODAS12000"
+   },
+   "B0DHVFF9FV": {
+    "canal": "GENERAL",
+    "pvpr": 399,
+    "neto": 255,
+    "producto": "CAMPANA ISLA, 90 CM",
+    "modelo": "RODAS9100"
+   },
+   "B0DHVFJZSK": {
+    "canal": "GENERAL",
+    "pvpr": 379,
+    "neto": 239,
+    "producto": "CAMPANA ISLA, 90 CM",
+    "modelo": "SIROS9100"
+   },
+   "B0DH8MSXZD": {
+    "canal": "GENERAL",
+    "pvpr": 299,
+    "neto": 189,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "NYASA9000B"
+   },
+   "B0DH8N52W6": {
+    "canal": "GENERAL",
+    "pvpr": 319,
+    "neto": 215,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "NYASA9000W"
+   },
+   "B0DH8LGK48": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 169,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "NYASA6000B"
+   },
+   "B0DH8LJ9RH": {
+    "canal": "GENERAL",
+    "pvpr": 290,
+    "neto": 185,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "NYASA6000W"
+   },
+   "B0DDKT9YK9": {
+    "canal": "GENERAL",
+    "pvpr": 229,
+    "neto": 135,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "ONEGA975B"
+   },
+   "B0DDKVCF9T": {
+    "canal": "GENERAL",
+    "pvpr": 239,
+    "neto": 140,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "ONEGA975W"
+   },
+   "B0DDKTMB15": {
+    "canal": "GENERAL",
+    "pvpr": 190,
+    "neto": 119,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "ONEGA675B"
+   },
+   "B0DDKX418P": {
+    "canal": "GENERAL",
+    "pvpr": 190,
+    "neto": 125,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "ONEGA675W"
+   },
+   "B0DDKV9SCL": {
+    "canal": "GENERAL",
+    "pvpr": 209,
+    "neto": 125,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA960B"
+   },
+   "B0DJ91TCSH": {
+    "canal": "GENERAL",
+    "pvpr": 209,
+    "neto": 129,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA960W"
+   },
+   "B0CP9Q2ZTY": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 109,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA760B"
+   },
+   "B0CP9PL2HR": {
+    "canal": "GENERAL",
+    "pvpr": 190,
+    "neto": 120,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA760W"
+   },
+   "B0CP9QFHQ4": {
+    "canal": "GENERAL",
+    "pvpr": 159,
+    "neto": 105,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA660B"
+   },
+   "B0CP9R1WST": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 110,
+    "producto": "CAMPANA DECORATIVA,  CRISTAL",
+    "modelo": "VICTORIA660W"
+   },
+   "B0DHGSR9B8": {
+    "canal": "GENERAL",
+    "pvpr": 249,
+    "neto": 149,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "ATHABASCA9100XB"
+   },
+   "B0DDKX267Q": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 137,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "NANGA975XB"
+   },
+   "B0DDKVXLNF": {
+    "canal": "GENERAL",
+    "pvpr": 229,
+    "neto": 139,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "NANGA975XW"
+   },
+   "B0DDKV42DZ": {
+    "canal": "GENERAL",
+    "pvpr": 209,
+    "neto": 130,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "NANGA675XB"
+   },
+   "B0DDKW4Q9R": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 130,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "NANGA675XW"
+   },
+   "B0CP9L1B7H": {
+    "canal": "GENERAL",
+    "pvpr": 189,
+    "neto": 115,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK960X"
+   },
+   "B0CP9L1KGY": {
+    "canal": "GENERAL",
+    "pvpr": 189,
+    "neto": 115,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK960B"
+   },
+   "B0CP9L7NJL": {
+    "canal": "GENERAL",
+    "pvpr": 189,
+    "neto": 115,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK960W"
+   },
+   "B0CP9L5ZBF": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99.99,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK760X"
+   },
+   "B0CP9KPK2V": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99.99,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK760B"
+   },
+   "B0CP9MT9Z9": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 109,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK760W"
+   },
+   "B0CP9KRPCN": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 90,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK660X"
+   },
+   "B0CP9LM15Q": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 90,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK660B"
+   },
+   "B0CP9M3JPJ": {
+    "canal": "GENERAL",
+    "pvpr": 159,
+    "neto": 99,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "VOSTOK660W"
+   },
+   "B0DDKWXGFX": {
+    "canal": "GENERAL",
+    "pvpr": 209,
+    "neto": 129,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "FUJI975XGLASS"
+   },
+   "B0DDKT6LH5": {
+    "canal": "GENERAL",
+    "pvpr": 190,
+    "neto": 120,
+    "producto": "CAMPANA DECORATIVA HORIZONTAL",
+    "modelo": "FUJI675XGLASS"
+   },
+   "B0CP9KH4K3": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 97,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI960X"
+   },
+   "B0CP9JLM1F": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 97,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI960B"
+   },
+   "B0CP9KFWZQ": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99.99,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI960W"
+   },
+   "B0CP9JWV58": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 85,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI760X"
+   },
+   "B0CP9KLQSH": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 85,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI760B"
+   },
+   "B0CP9JNXLW": {
+    "canal": "GENERAL",
+    "pvpr": 149,
+    "neto": 89,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI760W"
+   },
+   "B0CP9KB1YN": {
+    "canal": "GENERAL",
+    "pvpr": 129,
+    "neto": 80,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI660X"
+   },
+   "B0CP9KXVJ6": {
+    "canal": "GENERAL",
+    "pvpr": 129,
+    "neto": 80,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI660B"
+   },
+   "B0CP9KL87X": {
+    "canal": "GENERAL",
+    "pvpr": 129,
+    "neto": 75,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "KURAMATHI660W"
+   },
+   "B0DDKV9HBZ": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 115,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "NEMRUT975X"
+   },
+   "B0DDKWRRW7": {
+    "canal": "GENERAL",
+    "pvpr": 169,
+    "neto": 99,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "NEMRUT675X"
+   },
+   "B0GHZ6FKCR": {
+    "canal": "GENERAL",
+    "pvpr": 79.99,
+    "neto": 50,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "TEIDE636X"
+   },
+   "B0GHZ9565R": {
+    "canal": "GENERAL",
+    "pvpr": 79.99,
+    "neto": 50,
+    "producto": "CAMPANA DECORATIVA PIRÁMIDE",
+    "modelo": "TEIDE636N"
+   },
+   "B0CQ2LD42X": {
+    "canal": "GENERAL",
+    "pvpr": 149.99,
+    "neto": 90,
+    "producto": "CAMPANA TELESCÓPICA INOX&NEGRO",
+    "modelo": "ANETO960X"
+   },
+   "B0CQ2KBGXC": {
+    "canal": "GENERAL",
+    "pvpr": 129.99,
+    "neto": 83,
+    "producto": "CAMPANA TELESCÓPICA INOX&NEGRO",
+    "modelo": "ANETO660X"
+   },
+   "B0CQ2KKJ56": {
+    "canal": "GENERAL",
+    "pvpr": 99.99,
+    "neto": 63,
+    "producto": "CAMPANA TELESCÓPICA INOX&NEGRO",
+    "modelo": "MAKALU640X"
+   },
+   "B0GWMS3K9P": {
+    "canal": "GENERAL",
+    "pvpr": 84.99,
+    "neto": 53,
+    "producto": "CAMPANA TELESCÓPICA INOX",
+    "modelo": "VINSON636X"
+   },
+   "B0GWN6XR16": {
+    "canal": "GENERAL",
+    "pvpr": 84.99,
+    "neto": 53,
+    "producto": "CAMPANA TELESCÓPICA NEGRO",
+    "modelo": "VINSON636B"
+   },
+   "B0GWMKCBLL": {
+    "canal": "GENERAL",
+    "pvpr": 79.99,
+    "neto": 49,
+    "producto": "CAMPANA TELESCÓPICA BLANCO",
+    "modelo": "VINSON636W"
+   },
+   "B0CP9FPQ35": {
+    "canal": "GENERAL",
+    "pvpr": 74.99,
+    "neto": 49,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "SELATI640X"
+   },
+   "B0CP9FSSQ1": {
+    "canal": "GENERAL",
+    "pvpr": 74.99,
+    "neto": 49,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "SELATI640B"
+   },
+   "B0CP9FYP66": {
+    "canal": "GENERAL",
+    "pvpr": 74.99,
+    "neto": 49,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "SELATI640W"
+   },
+   "B0GZWPTN7L": {
+    "canal": "GENERAL",
+    "pvpr": 59.99,
+    "neto": 39,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "IVORI626W"
+   },
+   "B0GZWQCCPZ": {
+    "canal": "GENERAL",
+    "pvpr": 59.99,
+    "neto": 39,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "IVORI626X"
+   },
+   "B0GZWL126L": {
+    "canal": "GENERAL",
+    "pvpr": 59.99,
+    "neto": 39,
+    "producto": "CAMPANA CONVENCIONAL, 60 CM",
+    "modelo": "IVORI626B"
+   },
+   "B0CPYD4C8S": {
+    "canal": "GENERAL",
+    "pvpr": 270,
+    "neto": 170,
+    "producto": "CAMPANA INTEGRACIÓN, 60CM",
+    "modelo": "MARA6075X"
+   },
+   "B0DHGTGQL8": {
+    "canal": "GENERAL",
+    "pvpr": 279,
+    "neto": 169,
+    "producto": "CAMPANA GRUPO FILTRANTE, 75CM",
+    "modelo": "MAURICIO7575B"
+   },
+   "B0DHGWPXRW": {
+    "canal": "GENERAL",
+    "pvpr": 259,
+    "neto": 149,
+    "producto": "CAMPANA GRUPO FILTRANTE, 75CM",
+    "modelo": "MAURICIO5275B"
+   },
+   "B0CPYF4G38": {
+    "canal": "GENERAL",
+    "pvpr": 109,
+    "neto": 65,
+    "producto": "GRUPO FILTRANTE, 72CM",
+    "modelo": "VENTOR7260X"
+   },
+   "B0CPYDBQQM": {
+    "canal": "GENERAL",
+    "pvpr": 99,
+    "neto": 62,
+    "producto": "GRUPO FILTRANTE, 52CM",
+    "modelo": "VENTOR5260X"
+   },
+   "B08C9KXX33": {
+    "canal": "GENERAL",
+    "pvpr": 15,
+    "neto": 9,
+    "producto": "FILTRO CARBÓN CAMPANA",
+    "modelo": "CFC1018"
+   },
+   "B08P4XKMNF": {
+    "canal": "GENERAL",
+    "pvpr": 20,
+    "neto": 12,
+    "producto": "FILTRO CARBÓN CAMPANA",
+    "modelo": "CFC1118"
+   },
+   "B084C4MN1M": {
+    "canal": "GENERAL",
+    "pvpr": 17,
+    "neto": 10,
+    "producto": "FILTRO CARBÓN CAMPANAS",
+    "modelo": "CFC1218"
+   },
+   "B0DHVM4L6H": {
+    "canal": "GENERAL",
+    "pvpr": 20,
+    "neto": 12,
+    "producto": "FILTRO CARBÓN CAMPANAS",
+    "modelo": "CFC1318"
+   },
+   "B0DHVKXSGQ": {
+    "canal": "GENERAL",
+    "pvpr": 20,
+    "neto": 12,
+    "producto": "FILTRO CARBÓN CAMPANAS",
+    "modelo": "CFC1418"
+   },
+   "B0CLGHTT9S": {
+    "canal": "GENERAL",
+    "pvpr": 249,
+    "neto": 165,
+    "producto": "MICROONDAS ENCASTRE CRISTAL",
+    "modelo": "CMICM20GLWINTEG"
+   },
+   "B0CLGHG3PZ": {
+    "canal": "GENERAL",
+    "pvpr": 229,
+    "neto": 145,
+    "producto": "MICROONDAS ENCASTRE CRISTAL",
+    "modelo": "CMICM20GLNINTEG"
+   },
+   "B0FWCSTWT7": {
+    "canal": "GENERAL",
+    "pvpr": 159,
+    "neto": 109,
+    "producto": "MICROONDAS ENCASTRE CRISTAL",
+    "modelo": "CMICG520GLNI"
+   },
+   "B00UFKKCNA": {
+    "canal": "GENERAL",
+    "pvpr": 219,
+    "neto": 139,
+    "producto": "MICROONDAS ENCASTRE INOX",
+    "modelo": "CMICP125"
+   },
+   "B00BIHLC60": {
+    "canal": "GENERAL",
+    "pvpr": 179,
+    "neto": 120,
+    "producto": "MICROONDAS ENCASTRE INOX",
+    "modelo": "CMICP100"
+   },
+   "B0GZWH38W4": {
+    "canal": "AMAZON",
+    "pvpr": 139,
+    "neto": 92,
+    "producto": "MICROONDAS ENCASTRE INOX",
+    "modelo": "CMICIG126"
+   },
+   "B09XDZPRVZ": {
+    "canal": "GENERAL",
+    "pvpr": 139,
+    "neto": 99,
+    "producto": "MICROONDAS CONVECCION",
+    "modelo": "CMICM9023DCB"
+   },
+   "B0GJT6251L": {
+    "canal": "GENERAL",
+    "pvpr": 119,
+    "neto": 75,
+    "producto": "MICROONDAS BLACK SERIE",
+    "modelo": "CMICW8023DF"
+   },
+   "B0B4B12YHB": {
+    "canal": "GENERAL",
+    "pvpr": 89,
+    "neto": 60,
+    "producto": "MICROONDAS BLACK SERIE",
+    "modelo": "CMICM8020DB"
+   },
+   "B09XDY8MJ8": {
+    "canal": "GENERAL",
+    "pvpr": 79.99,
+    "neto": 50,
+    "producto": "MICROONDAS INOX  SERIE",
+    "modelo": "CMICM6020GX"
+   },
+   "B09XDY915P": {
+    "canal": "GENERAL",
+    "pvpr": 79.99,
+    "neto": 54,
+    "producto": "MICROONDAS MIRROR SERIE",
+    "modelo": "CMICM7020MIR"
+   },
+   "B09CGMGN33": {
+    "canal": "AMAZON",
+    "pvpr": 59.99,
+    "neto": 39,
+    "producto": "MICROONDAS GRILL",
+    "modelo": "CMICG251GW"
+   },
+   "B0H298K6PD": {
+    "canal": "AMAZON",
+    "pvpr": 49.99,
+    "neto": 33,
+    "producto": "MICROONDAS",
+    "modelo": "CMICM250W"
+   },
+   "B0CLGFWS2N": {
+    "canal": "GENERAL",
+    "pvpr": 69.99,
+    "neto": 47,
+    "producto": "MICROONDAS WOOD SERIE",
+    "modelo": "CMICG270WOODN"
+   },
+   "B0CLGHRZHK": {
+    "canal": "GENERAL",
+    "pvpr": 69.99,
+    "neto": 47,
+    "producto": "MICROONDAS WOOD SERIE",
+    "modelo": "CMICG270WOODW"
+   }
+  }
+ }
 };
 </script>
 <script>
@@ -881,6 +9494,7 @@ var TABS = [
   {id:"resumen",   t:"Resumen",      n:"",                build:vResumen},
   {id:"catalogo",  t:"Catálogo",     n:SO.length,         build:vCatalogo},
   {id:"hist",      t:"Histórico",    n:SEM.orden.length,  build:vHistorico},
+  {id:"ventas",    t:"Evolución ventas", n:(window.VENTAS?window.VENTAS.ventas.desviaciones.length:0), build:vVentas},
   {id:"precio",    t:"Precio y BuyBox", n:P3.length,      build:vPrecio},
   {id:"ads",       t:"Ads Q4",       n:AS.length,         build:vAds},
   {id:"devol",     t:"Devoluciones", n:DV.length,         build:vDevol},
@@ -967,6 +9581,181 @@ function vResumen(){
   }
   return w;
 }
+
+/* ======== EVOLUCIÓN DE VENTAS ======== */
+/* Dos series que NO se mezclan nunca:
+   - Ads, del informe de Amazon Ads: ahí el canal sí viene separado por cuenta
+     (CORBERO = Vendor, TUELEKTRO = Seller), así que se puede comparar canal
+     contra canal con honestidad.
+   - Ventas por referencia, del HISTÓRICO SEMANAL: esa columna NO distingue canal,
+     así que se publica como total y se dice. Separarla es la tarea pendiente. */
+function vVentas(){
+  var w = document.createDocumentFragment();
+  var V = window.VENTAS;
+  if(!V){
+    w.appendChild(el(card("Evolución de ventas","",
+      '<div class="empty">Falta <span class="mono">ventas.js</span>: esta pestaña no tiene datos que mostrar.</div>','')));
+    return w;
+  }
+
+  /* --- la última semana completa de ads, contra la anterior --- */
+  var comp = V.ads.semanas.filter(function(s){ return s.completa; });
+  var ult = comp[comp.length-1], pen = comp[comp.length-2];
+  function dePunta(s, canal){
+    if(!s) return null;
+    var c = s.canales.filter(function(x){ return x.canal===canal; })[0];
+    return c || null;
+  }
+  function flecha(ahora, antes, inv){
+    if(ahora==null || antes==null || !antes) return '';
+    var p = Math.round(100*(ahora-antes)/antes);
+    if(p===0) return ' <span style="color:var(--ink-3);font-size:11.5px">=</span>';
+    var bueno = inv ? p<0 : p>0;
+    return ' <span style="font-size:11.5px;color:'+(bueno?'var(--ok)':'var(--bad)')+'">'+(p>0?'+':'')+p+'%</span>';
+  }
+  if(ult){
+    var vV = dePunta(ult,"Vendor"), vS = dePunta(ult,"Seller");
+    var pV = dePunta(pen,"Vendor"), pS = dePunta(pen,"Seller");
+    w.appendChild(el('<div class="kpis n6 sec">'+
+      kpi("Ads Vendor · inversión", eur(vV?vV.coste:null,0), "contra "+(pen?pen.sem:"—")+flecha(vV&&vV.coste,pV&&pV.coste,true), "") +
+      kpi("Ads Vendor · ventas",    eur(vV?vV.ventas:null,0), "atribuidas a los anuncios"+flecha(vV&&vV.ventas,pV&&pV.ventas), "is-cool") +
+      kpi("Ads Vendor · ROAS",      (vV&&vV.roas!=null?fm(vV.roas,2):"—"), "euros por euro invertido"+flecha(vV&&vV.roas,pV&&pV.roas), "") +
+      kpi("Ads Seller · inversión", eur(vS?vS.coste:null,0), "contra "+(pen?pen.sem:"—")+flecha(vS&&vS.coste,pS&&pS.coste,true), "") +
+      kpi("Ads Seller · ventas",    eur(vS?vS.ventas:null,0), "atribuidas a los anuncios"+flecha(vS&&vS.ventas,pS&&pS.ventas), "is-cool") +
+      kpi("Ads Seller · ROAS",      (vS&&vS.roas!=null?fm(vS.roas,2):"—"), "euros por euro invertido"+flecha(vS&&vS.roas,pS&&pS.roas), "") +
+      '</div>'));
+  }
+
+  /* --- inversión y ventas de ads, semana a semana --- */
+  var filasSem = V.ads.semanas.map(function(s){
+    var cs = {}; s.canales.forEach(function(c){ cs[c.canal]=c; });
+    return '<tr><td><b>'+esc(s.sem)+'</b>'+(s.completa?'':' <span class="b b-warn">'+s.dias+' de 7 días</span>')+'</td>'+
+      ['Vendor','Seller'].map(function(k){
+        var c = cs[k];
+        if(!c) return '<td class="r">—</td><td class="r">—</td><td class="r">—</td>';
+        return '<td class="r num">'+eur(c.coste,0)+'</td>'+
+               '<td class="r num">'+eur(c.ventas,0)+'</td>'+
+               '<td class="r num"><b>'+(c.roas!=null?fm(c.roas,2):"—")+'</b></td>';
+      }).join("")+'</tr>';
+  }).join("");
+  w.appendChild(el(card("Inversión publicitaria por canal y semana", V.ads.desde+" a "+V.ads.hasta,
+    '<div class="tw"><table><thead>'+
+    '<tr><th rowspan="2">Semana ISO</th><th colspan="3" style="text-align:center;border-left:1px solid var(--line)">Vendor · cuenta CORBERO</th>'+
+    '<th colspan="3" style="text-align:center;border-left:1px solid var(--line)">Seller · cuenta TUELEKTRO</th></tr>'+
+    '<tr><th class="r">Inversión</th><th class="r">Ventas</th><th class="r">ROAS</th>'+
+    '<th class="r">Inversión</th><th class="r">Ventas</th><th class="r">ROAS</th></tr></thead><tbody>'+
+    filasSem+'</tbody></table></div>',
+    'El ROAS se recalcula aquí como ventas entre inversión del conjunto de la semana. <b>No es la media de los ROAS de cada campaña</b>, que daría otro número y sería incorrecto. Las semanas con menos de siete días están marcadas: no se comparan contra una completa.')));
+
+  /* --- ventas por referencia, semana a semana --- */
+  var sv = V.ventas.semanas.map(function(s){
+    return '<tr><td><b>'+esc(s.sem)+'</b></td><td>'+esc(s.medicion||"")+'</td>'+
+      '<td class="r num">'+(s.refs?fm(s.refs):'<span style="color:var(--ink-3)">—</span>')+'</td>'+
+      '<td class="r num">'+(s.uds?fm(s.uds):'<span style="color:var(--ink-3)">pendiente</span>')+'</td>'+
+      '<td class="r num">'+(s.fact?eur(s.fact,0):'<span style="color:var(--ink-3)">pendiente</span>')+'</td></tr>';
+  }).join("");
+  w.appendChild(el(card("Ventas por referencia, semana a semana", V.ventas.semanas.length+" semanas archivadas",
+    '<div class="tw"><table><thead><tr><th>Semana ISO</th><th>Medición</th><th class="r">Referencias con venta</th>'+
+    '<th class="r">Unidades</th><th class="r">Facturación</th></tr></thead><tbody>'+sv+'</tbody></table></div>',
+    '<b style="color:var(--bad)">Atención:</b> esta cifra <b>no distingue canal</b>. En 2026-W41, 606 de las 1.577 unidades caen en referencias marcadas solo como Vendor, así que mezcla sell-in de Vendor con sell-out de Seller, que no son sumables. Sirve para ver movimiento por referencia, no para medir un canal. Separarla es lo primero que hay que arreglar.')));
+
+  /* --- desviaciones --- */
+  var dv = V.ventas.desviaciones;
+  var sA = V.ventas.comparadas[0], sB = V.ventas.comparadas[1];
+  if(dv && dv.length){
+    var suben = dv.filter(function(d){ return d.dif>0; }).length;
+    var bajan = dv.filter(function(d){ return d.dif<0; }).length;
+    var paran = dv.filter(function(d){ return d.udsA>0 && d.udsB===0; }).length;
+    var arran = dv.filter(function(d){ return d.udsA===0 && d.udsB>0; }).length;
+    w.appendChild(el('<div class="kpis n4 sec">'+
+      kpi("Referencias que suben", fm(suben), "más unidades que en "+esc(sA||""), "is-ok") +
+      kpi("Referencias que bajan", fm(bajan), "menos unidades que en "+esc(sA||""), "is-bad") +
+      kpi("Dejan de vender", fm(paran), "vendían en "+esc(sA||"")+" y ahora cero", paran?"is-bad":"") +
+      kpi("Empiezan a vender", fm(arran), "no vendían y ahora sí", "is-ok") + '</div>'));
+
+    w.appendChild(tabla({
+      id:"desv",
+      title:"Qué se ha movido, referencia a referencia", sub:esc(sA||"")+" → "+esc(sB||""),
+      ph:"ASIN, modelo o familia…",
+      rows:dv, max:400, sort:6, dir:-1,
+      search:function(r){ return ((r.asin||"")+" "+(r.modelo||"")+" "+(r.fam||"")).toLowerCase(); },
+      chips:[{t:"Solo prioritarias Q4",v:"prio",n:dv.filter(function(d){return d.prio;}).length},
+             {t:"Dejan de vender",v:"paran",n:paran},
+             {t:"Empiezan a vender",v:"arran",n:arran}],
+      chipTest:function(r,v){
+        if(v==="prio")  return !!r.prio;
+        if(v==="paran") return r.udsA>0 && r.udsB===0;
+        if(v==="arran") return r.udsA===0 && r.udsB>0;
+        return true;
+      },
+      selects:[{key:"ca",label:"Canal de la ficha",opts:["Ambos","Vendor","Seller"],
+                test:function(r,v){ return r.canal===v; }}],
+      cols:[
+        {t:"ASIN",k:"asin",render:function(r){ return asinCell(r.asin); }},
+        {t:"Modelo",k:"modelo",render:function(r){ return '<span class="sku">'+esc(txt(r.modelo))+'</span>'+
+          (r.prio?' <span class="b b-warn" title="Referencia prioritaria de la Tarifa Q4">Q4</span>':''); }},
+        {t:"Familia",k:"fam",render:function(r){ return '<span style="color:var(--ink-3);font-size:11.5px">'+esc(txt(r.fam))+'</span>'; }},
+        {t:"Canal",k:"canal",render:function(r){ return '<span class="b b-mute">'+esc(txt(r.canal))+'</span>'; }},
+        {t:"Oferta",k:"oferta",render:function(r){ return ofertaB(r.oferta); }},
+        {t:"Uds "+(sA||"antes"),k:"udsA",r:1,render:function(r){ return '<span class="num">'+fm(r.udsA)+'</span>'; }},
+        {t:"Uds "+(sB||"ahora"),k:"udsB",r:1,render:function(r){ return '<span class="num">'+fm(r.udsB)+'</span>'; }},
+        {t:"Diferencia",k:"dif",r:1,sortv:function(r){ return r.dif; },render:function(r){
+          if(!r.dif) return '<span style="color:var(--ink-3)">=</span>';
+          var c = r.dif>0?'var(--ok)':'var(--bad)';
+          return '<b class="num" style="color:'+c+'">'+(r.dif>0?'+':'')+fm(r.dif)+'</b>'; }},
+        {t:"Stock",k:"stock",r:1,render:function(r){ return stockC(r.stock,r.oferta); }}
+      ],
+      note:'Ordenado por el tamaño del movimiento. <b>Una referencia que cae a cero no siempre es un problema de demanda</b>: mira su stock y su oferta en la misma fila antes de concluir. Las marcadas <span class="b b-warn">Q4</span> están en la hoja «Tarifa Q4-26» de la marca.'
+    }));
+  }
+
+  /* --- campañas --- */
+  var camp = V.ads.campanas;
+  w.appendChild(tabla({
+    id:"camp",
+    title:"Campañas de Amazon Ads", sub:camp.length+" filas · campaña por semana",
+    ph:"campaña, tipo o canal…",
+    rows:camp, max:500, sort:6, dir:-1,
+    search:function(r){ return ((r.camp||"")+" "+(r.prod||"")+" "+(r.canal||"")+" "+(r.sem||"")).toLowerCase(); },
+    chips:[{t:"Vendor",v:"Vendor",n:camp.filter(function(c){return c.canal==="Vendor";}).length},
+           {t:"Seller",v:"Seller",n:camp.filter(function(c){return c.canal==="Seller";}).length},
+           {t:"Sin ventas",v:"cero",n:camp.filter(function(c){return c.coste>0 && !c.ventas;}).length}],
+    chipTest:function(r,v){ return v==="cero" ? (r.coste>0 && !r.ventas) : r.canal===v; },
+    selects:[{key:"sem",label:"Semana",opts:V.ads.semanas.map(function(s){return s.sem;}),
+              test:function(r,v){ return r.sem===v; }},
+             {key:"tp",label:"Tipo",opts:["Sponsored Products","Sponsored Brands","Sponsored Display"],
+              test:function(r,v){ return r.prod===v; }}],
+    cols:[
+      {t:"Semana",k:"sem"},
+      {t:"Canal",k:"canal",render:function(r){ return '<span class="b '+(r.canal==="Vendor"?"b-cool":"b-ok")+'">'+esc(r.canal)+'</span>'; }},
+      {t:"Tipo",k:"prod",render:function(r){ return '<span style="color:var(--ink-3);font-size:11.5px">'+esc(String(r.prod).replace("Sponsored ","SP·"))+'</span>'; }},
+      {t:"Campaña",k:"camp",render:function(r){ return '<div class="ti-1">'+esc(txt(r.camp))+'</div>'; }},
+      {t:"Clics",k:"clics",r:1,render:function(r){ return '<span class="num">'+fm(r.clics)+'</span>'; }},
+      {t:"Inversión",k:"coste",r:1,render:function(r){ return '<span class="num">'+eur(r.coste,2)+'</span>'; }},
+      {t:"Ventas",k:"ventas",r:1,render:function(r){ return '<span class="num">'+eur(r.ventas,0)+'</span>'; }},
+      {t:"ROAS",k:"roas",r:1,render:function(r){
+        if(r.roas==null) return '<span style="color:var(--ink-3)">—</span>';
+        var c = r.roas>=5?'var(--ok)':(r.roas>=2?'var(--warn)':'var(--bad)');
+        return '<b class="num" style="color:'+c+'">'+fm(r.roas,2)+'</b>'; }}
+    ],
+    note:'Las ventas son las que Amazon atribuye al anuncio, no las totales de la referencia. Una campaña con inversión y cero ventas no está necesariamente mal si acaba de arrancar; con varias semanas seguidas así, sí.'
+  }));
+
+  /* --- prioritarias que no están en el catálogo --- */
+  var sinAsin = V.prioritarias.amazonSinAsin || [];
+  if(sinAsin.length){
+    w.appendChild(el(card("Prioritarias de Amazon que no están en el seguimiento", sinAsin.length+" referencias",
+      '<div class="tw"><table><thead><tr><th>Modelo</th><th>Producto</th><th>Canal en la tarifa</th></tr></thead><tbody>'+
+      sinAsin.map(function(p){ return '<tr><td class="sku">'+esc(p.modelo)+'</td><td>'+esc(p.producto)+
+        '</td><td><span class="b b-warn">'+esc(p.canal)+'</span></td></tr>'; }).join("")+
+      '</tbody></table></div>',
+      'Están en la hoja «Tarifa Q4-26» con canal Amazon, pero su modelo no aparece en el catálogo de las '+fm(SO.length)+' referencias. O no están dadas de alta, o el modelo se escribe distinto en los dos sitios. <b>CF4PT4097DX sí existe en Amazon</b> (ASIN B0HM7ZNDLS, oferta Flex activa con 132 unidades): esa falta en el seguimiento.')));
+  }
+
+  var _av=avisosDe("ventas"); if(_av) w.appendChild(el(_av));
+  return w;
+}
+
 
 /* ======== CATÁLOGO ======== */
 function vCatalogo(){
