@@ -374,12 +374,12 @@ window.AVISOS = {
 };
 </script>
 <script>
-/* Evolución de ventas de Corberó. Generado el 21/10/2026.
-   LOS DOS CANALES VAN SEPARADOS Y NO SE SUMAN NUNCA:
-   · Seller (TUELEKTRO) es SELL-OUT: lo que compra el cliente final.
-   · Vendor (CORBERÓ ES 1) es SELL-IN: lo que Amazon nos compra a nosotros.
-   Ventas por canal y por producto: MerchantSpring, un informe por canal.
-   Ads: consola de Amazon Ads, que manda sobre cualquier otra fuente. */
+/* Evolución de ventas de Corberó. Generado el 21/10, ajustado el 22/10/2026.
+   · Seller (TUELEKTRO) es SELL-OUT. Se le resta el 30% de margen de TUELEKTRO:
+     lo que queda es lo que factura la marca.
+   · Vendor (CORBERÓ ES 1) es SELL-IN. Lo que factura la marca ahí es el COGS
+     de lo enviado, no el pedido valorado a PVP.
+   Esas dos cifras SÍ son comparables. Las unidades siguen sin serlo. */
 window.VENTAS = {
  "generado": "21/10/2026",
  "canales": {
@@ -409,7 +409,9 @@ window.VENTAS = {
     "ticket": 237.48,
     "buybox": 42.8,
     "sesiones": 37091,
-    "conv": 0.7
+    "conv": 0.7,
+    "sellOutBruto": 62931.61,
+    "sellOutNeto": 44052.13
    },
    "vendor": {
     "sellIn": 67224.75,
@@ -433,7 +435,9 @@ window.VENTAS = {
     "ticket": 253.8,
     "buybox": 53.3,
     "sesiones": 63707,
-    "conv": 0.8
+    "conv": 0.8,
+    "sellOutBruto": 124615.64,
+    "sellOutNeto": 87230.95
    },
    "vendor": {
     "sellIn": 92960.67,
@@ -457,7 +461,9 @@ window.VENTAS = {
     "ticket": 242.31,
     "buybox": 47.8,
     "sesiones": 42604,
-    "conv": 0.7
+    "conv": 0.7,
+    "sellOutBruto": 67120.64,
+    "sellOutNeto": 46984.45
    },
    "vendor": {
     "sellIn": 91185.49,
@@ -481,7 +487,9 @@ window.VENTAS = {
     "ticket": 217.39,
     "buybox": 57.5,
     "sesiones": 6819,
-    "conv": 0.7
+    "conv": 0.7,
+    "sellOutBruto": 11086.85,
+    "sellOutNeto": 7760.8
    },
    "vendor": {
     "sellIn": 17656.78,
@@ -513,7 +521,12 @@ window.VENTAS = {
     "rank": 11,
     "prio": "AMAZON&CONFORAMA",
     "difUds": -24,
-    "difEur": -8339.4
+    "difEur": -8339.4,
+    "ahoraEurBruto": 3321,
+    "antesEurBruto": 11660.4,
+    "ahoraEurNeto": 2324.7,
+    "antesEurNeto": 8162.28,
+    "difEurNeto": -5837.58
    },
    {
     "canal": "Seller",
@@ -531,7 +544,12 @@ window.VENTAS = {
     "rank": 9,
     "prio": "GENERAL",
     "difUds": -23,
-    "difEur": -9038.9
+    "difEur": -9038.9,
+    "ahoraEurBruto": 4499,
+    "antesEurBruto": 13537.9,
+    "ahoraEurNeto": 3149.3,
+    "antesEurNeto": 9476.53,
+    "difEurNeto": -6327.23
    },
    {
     "canal": "Seller",
@@ -549,7 +567,12 @@ window.VENTAS = {
     "rank": 2,
     "prio": "GENERAL",
     "difUds": -15,
-    "difEur": -993.85
+    "difEur": -993.85,
+    "ahoraEurBruto": 489.93,
+    "antesEurBruto": 1483.78,
+    "ahoraEurNeto": 342.95,
+    "antesEurNeto": 1038.65,
+    "difEurNeto": -695.69
    },
    {
     "canal": "Seller",
@@ -567,7 +590,12 @@ window.VENTAS = {
     "rank": 14,
     "prio": "AMAZON&CONFORAMA",
     "difUds": -14,
-    "difEur": -4502.1
+    "difEur": -4502.1,
+    "ahoraEurBruto": 7678,
+    "antesEurBruto": 12180.1,
+    "ahoraEurNeto": 5374.6,
+    "antesEurNeto": 8526.07,
+    "difEurNeto": -3151.47
    },
    {
     "canal": "Seller",
@@ -585,7 +613,12 @@ window.VENTAS = {
     "rank": 71,
     "prio": "GENERAL",
     "difUds": -13,
-    "difEur": -3567.5
+    "difEur": -3567.5,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 3567.5,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 2497.25,
+    "difEurNeto": -2497.25
    },
    {
     "canal": "Seller",
@@ -603,7 +636,12 @@ window.VENTAS = {
     "rank": 41,
     "prio": "GENERAL",
     "difUds": -10,
-    "difEur": -4020.5
+    "difEur": -4020.5,
+    "ahoraEurBruto": 425,
+    "antesEurBruto": 4445.5,
+    "ahoraEurNeto": 297.5,
+    "antesEurNeto": 3111.85,
+    "difEurNeto": -2814.35
    },
    {
     "canal": "Seller",
@@ -621,7 +659,12 @@ window.VENTAS = {
     "rank": 40,
     "prio": "GENERAL",
     "difUds": 10,
-    "difEur": 904.4
+    "difEur": 904.4,
+    "ahoraEurBruto": 989.89,
+    "antesEurBruto": 85.49,
+    "ahoraEurNeto": 692.92,
+    "antesEurNeto": 59.84,
+    "difEurNeto": 633.08
    },
    {
     "canal": "Seller",
@@ -639,7 +682,12 @@ window.VENTAS = {
     "rank": 27,
     "prio": "GENERAL",
     "difUds": -10,
-    "difEur": -578.9
+    "difEur": -578.9,
+    "ahoraEurBruto": 59.99,
+    "antesEurBruto": 638.89,
+    "ahoraEurNeto": 41.99,
+    "antesEurNeto": 447.22,
+    "difEurNeto": -405.23
    },
    {
     "canal": "Seller",
@@ -657,7 +705,12 @@ window.VENTAS = {
     "rank": 11,
     "prio": null,
     "difUds": -9,
-    "difEur": -1351.4
+    "difEur": -1351.4,
+    "ahoraEurBruto": 1590,
+    "antesEurBruto": 2941.4,
+    "ahoraEurNeto": 1113,
+    "antesEurNeto": 2058.98,
+    "difEurNeto": -945.98
    },
    {
     "canal": "Seller",
@@ -675,7 +728,12 @@ window.VENTAS = {
     "rank": 44,
     "prio": "GENERAL",
     "difUds": -9,
-    "difEur": -509.91
+    "difEur": -509.91,
+    "ahoraEurBruto": 299.95,
+    "antesEurBruto": 809.86,
+    "ahoraEurNeto": 209.96,
+    "antesEurNeto": 566.9,
+    "difEurNeto": -356.94
    },
    {
     "canal": "Seller",
@@ -693,7 +751,12 @@ window.VENTAS = {
     "rank": 40,
     "prio": null,
     "difUds": -9,
-    "difEur": -1971
+    "difEur": -1971,
+    "ahoraEurBruto": 1314,
+    "antesEurBruto": 3285,
+    "ahoraEurNeto": 919.8,
+    "antesEurNeto": 2299.5,
+    "difEurNeto": -1379.7
    },
    {
     "canal": "Seller",
@@ -711,7 +774,12 @@ window.VENTAS = {
     "rank": 9,
     "prio": "AMAZON",
     "difUds": -8,
-    "difEur": -774.92
+    "difEur": -774.92,
+    "ahoraEurBruto": 599.94,
+    "antesEurBruto": 1374.86,
+    "ahoraEurNeto": 419.96,
+    "antesEurNeto": 962.4,
+    "difEurNeto": -542.44
    },
    {
     "canal": "Seller",
@@ -729,7 +797,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": -7,
-    "difEur": -1953
+    "difEur": -1953,
+    "ahoraEurBruto": 1116,
+    "antesEurBruto": 3069,
+    "ahoraEurNeto": 781.2,
+    "antesEurNeto": 2148.3,
+    "difEurNeto": -1367.1
    },
    {
     "canal": "Seller",
@@ -747,7 +820,12 @@ window.VENTAS = {
     "rank": 15,
     "prio": "AMAZON",
     "difUds": -7,
-    "difEur": -1973.4
+    "difEur": -1973.4,
+    "ahoraEurBruto": 299,
+    "antesEurBruto": 2272.4,
+    "ahoraEurNeto": 209.3,
+    "antesEurNeto": 1590.68,
+    "difEurNeto": -1381.38
    },
    {
     "canal": "Seller",
@@ -765,7 +843,12 @@ window.VENTAS = {
     "rank": 40,
     "prio": "AMAZON",
     "difUds": -7,
-    "difEur": -2583
+    "difEur": -2583,
+    "ahoraEurBruto": 738,
+    "antesEurBruto": 3321,
+    "ahoraEurNeto": 516.6,
+    "antesEurNeto": 2324.7,
+    "difEurNeto": -1808.1
    },
    {
     "canal": "Seller",
@@ -783,7 +866,12 @@ window.VENTAS = {
     "rank": 26,
     "prio": "GENERAL",
     "difUds": -6,
-    "difEur": -350.94
+    "difEur": -350.94,
+    "ahoraEurBruto": 179.97,
+    "antesEurBruto": 530.91,
+    "ahoraEurNeto": 125.98,
+    "antesEurNeto": 371.64,
+    "difEurNeto": -245.66
    },
    {
     "canal": "Seller",
@@ -801,7 +889,12 @@ window.VENTAS = {
     "rank": 10,
     "prio": "AMAZON",
     "difUds": -6,
-    "difEur": -1689.35
+    "difEur": -1689.35,
+    "ahoraEurBruto": 299,
+    "antesEurBruto": 1988.35,
+    "ahoraEurNeto": 209.3,
+    "antesEurNeto": 1391.84,
+    "difEurNeto": -1182.54
    },
    {
     "canal": "Seller",
@@ -819,7 +912,12 @@ window.VENTAS = {
     "rank": 15,
     "prio": "AMAZON",
     "difUds": -5,
-    "difEur": -595
+    "difEur": -595,
+    "ahoraEurBruto": 1251,
+    "antesEurBruto": 1846,
+    "ahoraEurNeto": 875.7,
+    "antesEurNeto": 1292.2,
+    "difEurNeto": -416.5
    },
    {
     "canal": "Seller",
@@ -837,7 +935,12 @@ window.VENTAS = {
     "rank": 2,
     "prio": "GENERAL",
     "difUds": -5,
-    "difEur": -1445
+    "difEur": -1445,
+    "ahoraEurBruto": 2023,
+    "antesEurBruto": 3468,
+    "ahoraEurNeto": 1416.1,
+    "antesEurNeto": 2427.6,
+    "difEurNeto": -1011.5
    },
    {
     "canal": "Seller",
@@ -855,7 +958,12 @@ window.VENTAS = {
     "rank": 10,
     "prio": "GENERAL",
     "difUds": 5,
-    "difEur": 895
+    "difEur": 895,
+    "ahoraEurBruto": 1074,
+    "antesEurBruto": 179,
+    "ahoraEurNeto": 751.8,
+    "antesEurNeto": 125.3,
+    "difEurNeto": 626.5
    },
    {
     "canal": "Seller",
@@ -873,7 +981,12 @@ window.VENTAS = {
     "rank": 8,
     "prio": "GENERAL",
     "difUds": -4,
-    "difEur": -716
+    "difEur": -716,
+    "ahoraEurBruto": 1253,
+    "antesEurBruto": 1969,
+    "ahoraEurNeto": 877.1,
+    "antesEurNeto": 1378.3,
+    "difEurNeto": -501.2
    },
    {
     "canal": "Seller",
@@ -891,7 +1004,12 @@ window.VENTAS = {
     "rank": 254,
     "prio": "GENERAL",
     "difUds": -4,
-    "difEur": -1426
+    "difEur": -1426,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 1426,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 998.2,
+    "difEurNeto": -998.2
    },
    {
     "canal": "Seller",
@@ -909,7 +1027,12 @@ window.VENTAS = {
     "rank": 4,
     "prio": "AMAZON",
     "difUds": -4,
-    "difEur": -1083.75
+    "difEur": -1083.75,
+    "ahoraEurBruto": 289,
+    "antesEurBruto": 1372.75,
+    "ahoraEurNeto": 202.3,
+    "antesEurNeto": 960.93,
+    "difEurNeto": -758.62
    },
    {
     "canal": "Seller",
@@ -927,7 +1050,12 @@ window.VENTAS = {
     "rank": 40,
     "prio": "AMAZON",
     "difUds": -4,
-    "difEur": -1343.65
+    "difEur": -1343.65,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 1343.65,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 940.56,
+    "difEurNeto": -940.55
    },
    {
     "canal": "Seller",
@@ -945,7 +1073,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": 4,
-    "difEur": 304
+    "difEur": 304,
+    "ahoraEurBruto": 532,
+    "antesEurBruto": 228,
+    "ahoraEurNeto": 372.4,
+    "antesEurNeto": 159.6,
+    "difEurNeto": 212.8
    },
    {
     "canal": "Seller",
@@ -963,7 +1096,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": -4,
-    "difEur": -269.46
+    "difEur": -269.46,
+    "ahoraEurBruto": 139.98,
+    "antesEurBruto": 409.44,
+    "ahoraEurNeto": 97.99,
+    "antesEurNeto": 286.61,
+    "difEurNeto": -188.62
    },
    {
     "canal": "Seller",
@@ -981,7 +1119,12 @@ window.VENTAS = {
     "rank": 34,
     "prio": null,
     "difUds": 3,
-    "difEur": 627
+    "difEur": 627,
+    "ahoraEurBruto": 627,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 438.9,
+    "antesEurNeto": 0,
+    "difEurNeto": 438.9
    },
    {
     "canal": "Seller",
@@ -999,7 +1142,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": 3,
-    "difEur": 387
+    "difEur": 387,
+    "ahoraEurBruto": 387,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 270.9,
+    "antesEurNeto": 0,
+    "difEurNeto": 270.9
    },
    {
     "canal": "Seller",
@@ -1017,7 +1165,12 @@ window.VENTAS = {
     "rank": 82,
     "prio": "GENERAL",
     "difUds": 3,
-    "difEur": 444
+    "difEur": 444,
+    "ahoraEurBruto": 888,
+    "antesEurBruto": 444,
+    "ahoraEurNeto": 621.6,
+    "antesEurNeto": 310.8,
+    "difEurNeto": 310.8
    },
    {
     "canal": "Seller",
@@ -1035,7 +1188,12 @@ window.VENTAS = {
     "rank": 240,
     "prio": "AMAZON",
     "difUds": -3,
-    "difEur": -354
+    "difEur": -354,
+    "ahoraEurBruto": 118,
+    "antesEurBruto": 472,
+    "ahoraEurNeto": 82.6,
+    "antesEurNeto": 330.4,
+    "difEurNeto": -247.8
    },
    {
     "canal": "Seller",
@@ -1053,7 +1211,12 @@ window.VENTAS = {
     "rank": 4,
     "prio": "AMAZON",
     "difUds": -3,
-    "difEur": -837.2
+    "difEur": -837.2,
+    "ahoraEurBruto": 897,
+    "antesEurBruto": 1734.2,
+    "ahoraEurNeto": 627.9,
+    "antesEurNeto": 1213.94,
+    "difEurNeto": -586.04
    },
    {
     "canal": "Seller",
@@ -1071,7 +1234,12 @@ window.VENTAS = {
     "rank": 12,
     "prio": "GENERAL",
     "difUds": 3,
-    "difEur": 597
+    "difEur": 597,
+    "ahoraEurBruto": 597,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 417.9,
+    "antesEurNeto": 0,
+    "difEurNeto": 417.9
    },
    {
     "canal": "Seller",
@@ -1089,7 +1257,12 @@ window.VENTAS = {
     "rank": 5,
     "prio": "GENERAL",
     "difUds": -3,
-    "difEur": -252
+    "difEur": -252,
+    "ahoraEurBruto": 84,
+    "antesEurBruto": 336,
+    "ahoraEurNeto": 58.8,
+    "antesEurNeto": 235.2,
+    "difEurNeto": -176.4
    },
    {
     "canal": "Seller",
@@ -1107,7 +1280,12 @@ window.VENTAS = {
     "rank": 2,
     "prio": "GENERAL",
     "difUds": -3,
-    "difEur": -1287
+    "difEur": -1287,
+    "ahoraEurBruto": 429,
+    "antesEurBruto": 1716,
+    "ahoraEurNeto": 300.3,
+    "antesEurNeto": 1201.2,
+    "difEurNeto": -900.9
    },
    {
     "canal": "Seller",
@@ -1125,7 +1303,12 @@ window.VENTAS = {
     "rank": 48,
     "prio": "GENERAL",
     "difUds": 3,
-    "difEur": 297
+    "difEur": 297,
+    "ahoraEurBruto": 396,
+    "antesEurBruto": 99,
+    "ahoraEurNeto": 277.2,
+    "antesEurNeto": 69.3,
+    "difEurNeto": 207.9
    },
    {
     "canal": "Seller",
@@ -1143,7 +1326,12 @@ window.VENTAS = {
     "rank": 68,
     "prio": null,
     "difUds": 2,
-    "difEur": 450
+    "difEur": 450,
+    "ahoraEurBruto": 450,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 315,
+    "antesEurNeto": 0,
+    "difEurNeto": 315
    },
    {
     "canal": "Seller",
@@ -1161,7 +1349,12 @@ window.VENTAS = {
     "rank": 10,
     "prio": "GENERAL",
     "difUds": 2,
-    "difEur": 458
+    "difEur": 458,
+    "ahoraEurBruto": 458,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 320.6,
+    "antesEurNeto": 0,
+    "difEurNeto": 320.6
    },
    {
     "canal": "Seller",
@@ -1179,7 +1372,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": 2,
-    "difEur": 578
+    "difEur": 578,
+    "ahoraEurBruto": 867,
+    "antesEurBruto": 289,
+    "ahoraEurNeto": 606.9,
+    "antesEurNeto": 202.3,
+    "difEurNeto": 404.6
    },
    {
     "canal": "Seller",
@@ -1197,7 +1395,12 @@ window.VENTAS = {
     "rank": 253,
     "prio": "GENERAL",
     "difUds": -2,
-    "difEur": -358
+    "difEur": -358,
+    "ahoraEurBruto": 179,
+    "antesEurBruto": 537,
+    "ahoraEurNeto": 125.3,
+    "antesEurNeto": 375.9,
+    "difEurNeto": -250.6
    },
    {
     "canal": "Seller",
@@ -1215,7 +1418,12 @@ window.VENTAS = {
     "rank": 15,
     "prio": "AMAZON",
     "difUds": -2,
-    "difEur": -538
+    "difEur": -538,
+    "ahoraEurBruto": 3228,
+    "antesEurBruto": 3766,
+    "ahoraEurNeto": 2259.6,
+    "antesEurNeto": 2636.2,
+    "difEurNeto": -376.6
    },
    {
     "canal": "Seller",
@@ -1233,7 +1441,12 @@ window.VENTAS = {
     "rank": 37,
     "prio": "GENERAL",
     "difUds": -2,
-    "difEur": -910.4
+    "difEur": -910.4,
+    "ahoraEurBruto": 3414,
+    "antesEurBruto": 4324.4,
+    "ahoraEurNeto": 2389.8,
+    "antesEurNeto": 3027.08,
+    "difEurNeto": -637.28
    },
    {
     "canal": "Seller",
@@ -1251,7 +1464,12 @@ window.VENTAS = {
     "rank": 15,
     "prio": "GENERAL",
     "difUds": -2,
-    "difEur": -598
+    "difEur": -598,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 598,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 418.6,
+    "difEurNeto": -418.6
    },
    {
     "canal": "Seller",
@@ -1269,7 +1487,12 @@ window.VENTAS = {
     "rank": 249,
     "prio": "GENERAL",
     "difUds": 2,
-    "difEur": 438
+    "difEur": 438,
+    "ahoraEurBruto": 438,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 306.6,
+    "antesEurNeto": 0,
+    "difEurNeto": 306.6
    },
    {
     "canal": "Seller",
@@ -1287,7 +1510,12 @@ window.VENTAS = {
     "rank": 44,
     "prio": "AMAZON",
     "difUds": -2,
-    "difEur": -1005.1
+    "difEur": -1005.1,
+    "ahoraEurBruto": 529,
+    "antesEurBruto": 1534.1,
+    "ahoraEurNeto": 370.3,
+    "antesEurNeto": 1073.87,
+    "difEurNeto": -703.57
    },
    {
     "canal": "Seller",
@@ -1305,7 +1533,12 @@ window.VENTAS = {
     "rank": 11,
     "prio": "GENERAL",
     "difUds": 2,
-    "difEur": 798
+    "difEur": 798,
+    "ahoraEurBruto": 1995,
+    "antesEurBruto": 1197,
+    "ahoraEurNeto": 1396.5,
+    "antesEurNeto": 837.9,
+    "difEurNeto": 558.6
    },
    {
     "canal": "Seller",
@@ -1323,7 +1556,12 @@ window.VENTAS = {
     "rank": 45,
     "prio": "GENERAL",
     "difUds": -2,
-    "difEur": -1078.2
+    "difEur": -1078.2,
+    "ahoraEurBruto": 1797,
+    "antesEurBruto": 2875.2,
+    "ahoraEurNeto": 1257.9,
+    "antesEurNeto": 2012.64,
+    "difEurNeto": -754.74
    },
    {
     "canal": "Seller",
@@ -1341,7 +1579,12 @@ window.VENTAS = {
     "rank": 37,
     "prio": "GENERAL",
     "difUds": 2,
-    "difEur": 430
+    "difEur": 430,
+    "ahoraEurBruto": 1075,
+    "antesEurBruto": 645,
+    "ahoraEurNeto": 752.5,
+    "antesEurNeto": 451.5,
+    "difEurNeto": 301
    },
    {
     "canal": "Seller",
@@ -1359,7 +1602,12 @@ window.VENTAS = {
     "rank": 505,
     "prio": "GENERAL",
     "difUds": -1,
-    "difEur": -20
+    "difEur": -20,
+    "ahoraEurBruto": 40,
+    "antesEurBruto": 60,
+    "ahoraEurNeto": 28,
+    "antesEurNeto": 42,
+    "difEurNeto": -14
    },
    {
     "canal": "Seller",
@@ -1377,7 +1625,12 @@ window.VENTAS = {
     "rank": 39,
     "prio": null,
     "difUds": 1,
-    "difEur": 105
+    "difEur": 105,
+    "ahoraEurBruto": 105,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 73.5,
+    "antesEurNeto": 0,
+    "difEurNeto": 73.5
    },
    {
     "canal": "Seller",
@@ -1395,7 +1648,12 @@ window.VENTAS = {
     "rank": 208,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 369
+    "difEur": 369,
+    "ahoraEurBruto": 369,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 258.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 258.3
    },
    {
     "canal": "Seller",
@@ -1413,7 +1671,12 @@ window.VENTAS = {
     "rank": 215,
     "prio": "GENERAL",
     "difUds": -1,
-    "difEur": -379
+    "difEur": -379,
+    "ahoraEurBruto": 758,
+    "antesEurBruto": 1137,
+    "ahoraEurNeto": 530.6,
+    "antesEurNeto": 795.9,
+    "difEurNeto": -265.3
    },
    {
     "canal": "Seller",
@@ -1431,7 +1694,12 @@ window.VENTAS = {
     "rank": 8,
     "prio": "GENERAL",
     "difUds": -1,
-    "difEur": -279
+    "difEur": -279,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 279,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 195.3,
+    "difEurNeto": -195.3
    },
    {
     "canal": "Seller",
@@ -1449,7 +1717,12 @@ window.VENTAS = {
     "rank": 31,
     "prio": null,
     "difUds": -1,
-    "difEur": -295
+    "difEur": -295,
+    "ahoraEurBruto": 295,
+    "antesEurBruto": 590,
+    "ahoraEurNeto": 206.5,
+    "antesEurNeto": 413,
+    "difEurNeto": -206.5
    },
    {
     "canal": "Seller",
@@ -1467,7 +1740,12 @@ window.VENTAS = {
     "rank": 49,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 105
+    "difEur": 105,
+    "ahoraEurBruto": 105,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 73.5,
+    "antesEurNeto": 0,
+    "difEurNeto": 73.5
    },
    {
     "canal": "Seller",
@@ -1485,7 +1763,12 @@ window.VENTAS = {
     "rank": 69,
     "prio": "GENERAL",
     "difUds": -1,
-    "difEur": -219
+    "difEur": -219,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 219,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 153.3,
+    "difEurNeto": -153.3
    },
    {
     "canal": "Seller",
@@ -1503,7 +1786,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 319
+    "difEur": 319,
+    "ahoraEurBruto": 319,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 223.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 223.3
    },
    {
     "canal": "Seller",
@@ -1521,7 +1809,12 @@ window.VENTAS = {
     "rank": 9,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 399
+    "difEur": 399,
+    "ahoraEurBruto": 399,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 279.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 279.3
    },
    {
     "canal": "Seller",
@@ -1539,7 +1832,12 @@ window.VENTAS = {
     "rank": 21,
     "prio": "AMAZON",
     "difUds": -1,
-    "difEur": -399
+    "difEur": -399,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 399,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 279.3,
+    "difEurNeto": -279.3
    },
    {
     "canal": "Seller",
@@ -1557,7 +1855,12 @@ window.VENTAS = {
     "rank": 88,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 299
+    "difEur": 299,
+    "ahoraEurBruto": 299,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 209.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 209.3
    },
    {
     "canal": "Seller",
@@ -1575,7 +1878,12 @@ window.VENTAS = {
     "rank": 88,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 290
+    "difEur": 290,
+    "ahoraEurBruto": 290,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 203,
+    "antesEurNeto": 0,
+    "difEurNeto": 203
    },
    {
     "canal": "Seller",
@@ -1593,7 +1901,12 @@ window.VENTAS = {
     "rank": 52,
     "prio": "AMAZON",
     "difUds": 1,
-    "difEur": 559
+    "difEur": 559,
+    "ahoraEurBruto": 559,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 391.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 391.3
    },
    {
     "canal": "Seller",
@@ -1611,7 +1924,12 @@ window.VENTAS = {
     "rank": 5,
     "prio": "GENERAL",
     "difUds": -1,
-    "difEur": -520
+    "difEur": -520,
+    "ahoraEurBruto": 1040,
+    "antesEurBruto": 1560,
+    "ahoraEurNeto": 728,
+    "antesEurNeto": 1092,
+    "difEurNeto": -364
    },
    {
     "canal": "Seller",
@@ -1629,7 +1947,12 @@ window.VENTAS = {
     "rank": 5,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 339
+    "difEur": 339,
+    "ahoraEurBruto": 339,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 237.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 237.3
    },
    {
     "canal": "Seller",
@@ -1647,7 +1970,12 @@ window.VENTAS = {
     "rank": 65,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 130
+    "difEur": 130,
+    "ahoraEurBruto": 520,
+    "antesEurBruto": 390,
+    "ahoraEurNeto": 364,
+    "antesEurNeto": 273,
+    "difEurNeto": 91
    },
    {
     "canal": "Seller",
@@ -1665,7 +1993,12 @@ window.VENTAS = {
     "rank": 27,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 156
+    "difEur": 156,
+    "ahoraEurBruto": 156,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 109.2,
+    "antesEurNeto": 0,
+    "difEurNeto": 109.2
    },
    {
     "canal": "Seller",
@@ -1683,7 +2016,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 129
+    "difEur": 129,
+    "ahoraEurBruto": 258,
+    "antesEurBruto": 129,
+    "ahoraEurNeto": 180.6,
+    "antesEurNeto": 90.3,
+    "difEurNeto": 90.3
    },
    {
     "canal": "Seller",
@@ -1701,7 +2039,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 125
+    "difEur": 125,
+    "ahoraEurBruto": 125,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 87.5,
+    "antesEurNeto": 0,
+    "difEurNeto": 87.5
    },
    {
     "canal": "Seller",
@@ -1719,7 +2062,12 @@ window.VENTAS = {
     "rank": 23,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 119
+    "difEur": 119,
+    "ahoraEurBruto": 119,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 83.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 83.3
    },
    {
     "canal": "Seller",
@@ -1737,7 +2085,12 @@ window.VENTAS = {
     "rank": 25,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 149
+    "difEur": 149,
+    "ahoraEurBruto": 149,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 104.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 104.3
    },
    {
     "canal": "Seller",
@@ -1755,7 +2108,12 @@ window.VENTAS = {
     "rank": 31,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 169
+    "difEur": 169,
+    "ahoraEurBruto": 507,
+    "antesEurBruto": 338,
+    "ahoraEurNeto": 354.9,
+    "antesEurNeto": 236.6,
+    "difEurNeto": 118.3
    },
    {
     "canal": "Seller",
@@ -1773,7 +2131,12 @@ window.VENTAS = {
     "rank": 4,
     "prio": "AMAZON",
     "difUds": -1,
-    "difEur": -199
+    "difEur": -199,
+    "ahoraEurBruto": 398,
+    "antesEurBruto": 597,
+    "ahoraEurNeto": 278.6,
+    "antesEurNeto": 417.9,
+    "difEurNeto": -139.3
    },
    {
     "canal": "Seller",
@@ -1791,7 +2154,12 @@ window.VENTAS = {
     "rank": 6,
     "prio": "AMAZON",
     "difUds": -1,
-    "difEur": -149
+    "difEur": -149,
+    "ahoraEurBruto": 1490,
+    "antesEurBruto": 1639,
+    "ahoraEurNeto": 1043,
+    "antesEurNeto": 1147.3,
+    "difEurNeto": -104.3
    },
    {
     "canal": "Seller",
@@ -1809,7 +2177,12 @@ window.VENTAS = {
     "rank": 21,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 359
+    "difEur": 359,
+    "ahoraEurBruto": 718,
+    "antesEurBruto": 359,
+    "ahoraEurNeto": 502.6,
+    "antesEurNeto": 251.3,
+    "difEurNeto": 251.3
    },
    {
     "canal": "Seller",
@@ -1827,7 +2200,12 @@ window.VENTAS = {
     "rank": 18,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 342
+    "difEur": 342,
+    "ahoraEurBruto": 342,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 239.4,
+    "antesEurNeto": 0,
+    "difEurNeto": 239.4
    },
    {
     "canal": "Seller",
@@ -1845,7 +2223,12 @@ window.VENTAS = {
     "rank": 28,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 499
+    "difEur": 499,
+    "ahoraEurBruto": 499,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 349.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 349.3
    },
    {
     "canal": "Seller",
@@ -1863,7 +2246,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 299
+    "difEur": 299,
+    "ahoraEurBruto": 299,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 209.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 209.3
    },
    {
     "canal": "Seller",
@@ -1881,7 +2269,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 259
+    "difEur": 259,
+    "ahoraEurBruto": 1036,
+    "antesEurBruto": 777,
+    "ahoraEurNeto": 725.2,
+    "antesEurNeto": 543.9,
+    "difEurNeto": 181.3
    },
    {
     "canal": "Seller",
@@ -1899,7 +2292,12 @@ window.VENTAS = {
     "rank": 12,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 169
+    "difEur": 169,
+    "ahoraEurBruto": 169,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 118.3,
+    "antesEurNeto": 0,
+    "difEurNeto": 118.3
    },
    {
     "canal": "Seller",
@@ -1917,7 +2315,12 @@ window.VENTAS = {
     "rank": 361,
     "prio": "GENERAL",
     "difUds": 1,
-    "difEur": 20
+    "difEur": 20,
+    "ahoraEurBruto": 40,
+    "antesEurBruto": 20,
+    "ahoraEurNeto": 28,
+    "antesEurNeto": 14,
+    "difEurNeto": 14
    },
    {
     "canal": "Seller",
@@ -1935,7 +2338,12 @@ window.VENTAS = {
     "rank": 2,
     "prio": "AMAZON",
     "difUds": 0,
-    "difEur": 16.35
+    "difEur": 16.35,
+    "ahoraEurBruto": 327,
+    "antesEurBruto": 310.65,
+    "ahoraEurNeto": 228.9,
+    "antesEurNeto": 217.46,
+    "difEurNeto": 11.45
    },
    {
     "canal": "Seller",
@@ -1953,7 +2361,12 @@ window.VENTAS = {
     "rank": 8,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 165,
+    "antesEurBruto": 165,
+    "ahoraEurNeto": 115.5,
+    "antesEurNeto": 115.5,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -1971,7 +2384,12 @@ window.VENTAS = {
     "rank": 28,
     "prio": null,
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -1989,7 +2407,12 @@ window.VENTAS = {
     "rank": 35,
     "prio": null,
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 139.98,
+    "antesEurBruto": 139.98,
+    "ahoraEurNeto": 97.99,
+    "antesEurNeto": 97.99,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2007,7 +2430,12 @@ window.VENTAS = {
     "rank": 67,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2025,7 +2453,12 @@ window.VENTAS = {
     "rank": 1,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 299,
+    "antesEurBruto": 299,
+    "ahoraEurNeto": 209.3,
+    "antesEurNeto": 209.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2043,7 +2476,12 @@ window.VENTAS = {
     "rank": 91,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 720,
+    "antesEurBruto": 720,
+    "ahoraEurNeto": 504,
+    "antesEurNeto": 504,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2061,7 +2499,12 @@ window.VENTAS = {
     "rank": 13,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 399,
+    "antesEurBruto": 399,
+    "ahoraEurNeto": 279.3,
+    "antesEurNeto": 279.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2079,7 +2522,12 @@ window.VENTAS = {
     "rank": 198,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2097,7 +2545,12 @@ window.VENTAS = {
     "rank": 67,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 419,
+    "antesEurBruto": 419,
+    "ahoraEurNeto": 293.3,
+    "antesEurNeto": 293.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2115,7 +2568,12 @@ window.VENTAS = {
     "rank": 40,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2133,7 +2591,12 @@ window.VENTAS = {
     "rank": 240,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 651,
+    "antesEurBruto": 651,
+    "ahoraEurNeto": 455.7,
+    "antesEurNeto": 455.7,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2151,7 +2614,12 @@ window.VENTAS = {
     "rank": 156,
     "prio": "AMAZON",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 549,
+    "antesEurBruto": 549,
+    "ahoraEurNeto": 384.3,
+    "antesEurNeto": 384.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2169,7 +2637,12 @@ window.VENTAS = {
     "rank": 52,
     "prio": "AMAZON&CONFORAMA",
     "difUds": 0,
-    "difEur": 27.45
+    "difEur": 27.45,
+    "ahoraEurBruto": 1098,
+    "antesEurBruto": 1070.55,
+    "ahoraEurNeto": 768.6,
+    "antesEurNeto": 749.38,
+    "difEurNeto": 19.22
    },
    {
     "canal": "Seller",
@@ -2187,7 +2660,12 @@ window.VENTAS = {
     "rank": 156,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 329,
+    "antesEurBruto": 329,
+    "ahoraEurNeto": 230.3,
+    "antesEurNeto": 230.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2205,7 +2683,12 @@ window.VENTAS = {
     "rank": 164,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2223,7 +2706,12 @@ window.VENTAS = {
     "rank": 426,
     "prio": null,
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2241,7 +2729,12 @@ window.VENTAS = {
     "rank": 13,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 676,
+    "antesEurBruto": 676,
+    "ahoraEurNeto": 473.2,
+    "antesEurNeto": 473.2,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2259,7 +2752,12 @@ window.VENTAS = {
     "rank": 27,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2277,7 +2775,12 @@ window.VENTAS = {
     "rank": 231,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2295,7 +2798,12 @@ window.VENTAS = {
     "rank": 31,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2313,7 +2821,12 @@ window.VENTAS = {
     "rank": 8,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2331,7 +2844,12 @@ window.VENTAS = {
     "rank": 42,
     "prio": "AMAZON&CONFORAMA",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2349,7 +2867,12 @@ window.VENTAS = {
     "rank": 31,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 549,
+    "antesEurBruto": 549,
+    "ahoraEurNeto": 384.3,
+    "antesEurNeto": 384.3,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2367,7 +2890,12 @@ window.VENTAS = {
     "rank": 25,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 0,
+    "antesEurBruto": 0,
+    "ahoraEurNeto": 0,
+    "antesEurNeto": 0,
+    "difEurNeto": 0
    },
    {
     "canal": "Seller",
@@ -2385,7 +2913,12 @@ window.VENTAS = {
     "rank": 250,
     "prio": "GENERAL",
     "difUds": 0,
-    "difEur": 0
+    "difEur": 0,
+    "ahoraEurBruto": 190,
+    "antesEurBruto": 190,
+    "ahoraEurNeto": 133,
+    "antesEurNeto": 133,
+    "difEurNeto": 0
    }
   ],
   "vendor": [
@@ -8911,6 +9444,12 @@ window.VENTAS = {
     "neto": 47
    }
   }
+ },
+ "ajusteSeller": {
+  "factor": 0.7,
+  "resta": "30%",
+  "explica": "Al sell-out de Seller se le resta un 30%, que es el margen de TUELEKTRO (confirmado por Paloma el 22/10/2026). Lo que queda es lo que factura la marca, y por eso es comparable con el COGS enviado de Vendor, que es lo que paga Amazon.",
+  "concepto": "margen de TUELEKTRO"
  }
 };
 </script>
